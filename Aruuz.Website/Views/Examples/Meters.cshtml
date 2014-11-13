@@ -1,0 +1,326 @@
+﻿@model IEnumerable<Aruuz.Models.Poetry>
+@using Aruuz.Models
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "مشہور اردو شعراء کے کلام کی تقطیع";
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+    int rowId = 0;
+
+    List<string> lst = new List<string>();
+    List<string> poets = new List<string>();
+    List<string> types = new List<string>();
+    foreach (var item in Model)
+    {
+        char[] delimiters = new[] { ',', '،' };  // List of delimiters
+        var subStrings = item.meters.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var t in subStrings)
+        {
+            if (lst.Count == 0)
+            {
+                lst.Add(t);
+            }
+            bool flag = true;
+            foreach (var m in lst)
+            {
+                if (m.Equals(t.Trim()))
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                lst.Add(t.Trim());
+            }
+        }
+    }
+
+    string[] meterNames = new string[lst.Count()];
+    for (int i = 0; i < lst.Count; i++)
+    {
+        meterNames[i] = lst[i];
+    }
+
+    List<string> finalList = new List<string>();
+    List<string> finalListConcat = new List<string>();
+    Array.Sort(meterNames);
+
+    foreach (var m in meterNames)
+    {
+        finalList.Add(m);
+    }
+
+    int[] counts = new int[finalList.Count];
+    foreach (var item in Model)
+    {
+        char[] delimiters = new[] { ',', '،' };  // List of delimiters
+        var subStrings = item.meters.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var t in subStrings)
+        {
+            for (int j = 0; j < finalList.Count; j++)
+            {
+                if (finalList[j].Equals(t))
+                {
+                    counts[j] += 1;
+                }
+            }
+        }
+    }
+
+    for (int j = 0; j < finalList.Count; j++)
+    {
+        finalListConcat.Add(finalList[j] + " | " + counts[j]);
+    }
+
+    foreach (var item in Model)
+    {
+        if (poets.Count == 0)
+        {
+            poets.Add(item.poet);
+        }
+        bool flag = true;
+        foreach (var m in poets)
+        {
+            if (m.Equals(item.poet))
+            {
+                flag = false;
+                break;
+            }
+        }
+        if (flag)
+        {
+            poets.Add(item.poet);
+        }
+    }
+
+    string[] poetNames = new string[poets.Count()];
+    List<string> poetNamesConcat = new List<string>();
+
+    for (int i = 0; i < poets.Count; i++)
+    {
+        poetNames[i] = poets[i];
+    }
+
+
+    List<string> finalPoets = new List<string>();
+    Array.Sort(poetNames);
+
+    foreach (var m in poetNames)
+    {
+        finalPoets.Add(m);
+    }
+
+    int[] poetCount = new int[finalPoets.Count];
+    foreach (var item in Model)
+    {
+        for (int j = 0; j < finalPoets.Count; j++)
+        {
+            if (finalPoets[j].Equals(item.poet))
+            {
+                poetCount[j] += 1;
+            }
+        }
+    }
+    for (int j = 0; j < finalPoets.Count; j++)
+    {
+        poetNamesConcat.Add(finalPoets[j] + " | " + poetCount[j]);
+    }
+
+    foreach (var item in Model)
+    {
+        if (types.Count == 0)
+        {
+            types.Add(item.type.Trim());
+        }
+        bool flag = true;
+        foreach (var m in types)
+        {
+            if (m.Equals(item.type.Trim()))
+            {
+                flag = false;
+                break;
+            }
+        }
+        if (flag)
+        {
+            types.Add(item.type);
+        }
+    }
+    List<string> typeConcat = new List<string>();
+    int[] typeCount = new int[types.Count];
+    foreach (var item in Model)
+    {
+        for (int j = 0; j < types.Count; j++)
+        {
+            if (types[j].Equals(item.type))
+            {
+                typeCount[j] += 1;
+            }
+        }
+    }
+    for (int j = 0; j < types.Count; j++)
+    {
+        typeConcat.Add(types[j] + " | " + typeCount[j]);
+    }
+}
+
+<style>
+    .white {
+        color: #00ff21;
+    }
+</style>
+
+@section meta{
+    <meta name="description" content="Free Articles on Poetry">
+    <meta name="description" content="اردو شعرا کلام">
+    <meta name="author" content="Sayed Zeeshan Asghar">
+    <meta property="fb:admins" content="sayedzeeshan.asghar" />
+}
+
+
+
+
+<div class="urdu">
+    <div class="container" dir="rtl">
+        <ol class="breadcrumb urdu">
+            <li><a href="/examples">منتخب کلام</a></li>
+        </ol>
+        <div class="row">
+            <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <img src="~/icons/examples.png" width="50" height="50" class="pull-left">
+                        <h1 class="urdu-large">
+                            بحر <span class="white">@Model.First().meters</span>  میں منتخب کلام
+                        </h1>
+                        <div class="row">
+                            <div class="col col-lg-1 col-md-1 col-sm-2 col-xs-4">
+
+                                <div class="dropdown">
+                                    <button class="btn btn-default  dropdown-toggle urdu" type="button" id="dropdownMenupoets" data-toggle="dropdown">
+                                        شاعر
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenupoets">
+                                        <li role="presentation" class="active list-group-item-heading urdu-naskh-medium" onclick='menuSelectPoets("all")' id="poet_li_all">
+                                            <a role="menuitem" tabindex="-1" href="#">تمام</a>
+
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+
+                                        @for (int k = 0; k < finalPoets.Count; k++)
+                                        {
+                                            string scoreVal = poetNamesConcat[k];
+
+                                            <li class="urdu-naskh-medium" role="presentation" onclick="menuSelectPoets('@finalPoets[k].Replace(" ", "_").Replace("/", "")')" id="poet_li_@finalPoets[k].Replace(" ", "_").Replace("/", "")">
+                                                <a role="menuitem" tabindex="-1" href="#">@scoreVal</a>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <div class="col col-lg-1 col-md-1 col-sm-2 col-xs-4">
+
+                                <div class="dropdown">
+                                    <button class="btn btn-default  dropdown-toggle urdu" type="button" id="dropdownMenuType" data-toggle="dropdown">
+                                        صنف
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenuType">
+                                        <li role="presentation" class="active list-group-item-heading urdu-naskh-medium" onclick='menuSelectTypes("all")' id="type_li_all">
+                                            <a role="menuitem" tabindex="-1" href="#">تمام</a>
+
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+
+                                        @for (int k = 0; k < types.Count; k++)
+                                        {
+                                            string scoreVal = typeConcat[k];
+
+                                            <li role="presentation" onclick="menuSelectTypes('@types[k].Replace(" ","_")')" id="type_li_@types[k].Replace(" ","_")">
+                                                <a  class="urdu-naskh-medium" role="menuitem" tabindex="-1" href="#">@scoreVal</a>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered urdu">
+                            <tr class="success" id="main">
+                                <td> </td>
+
+                                <td>کلام</td>
+
+                                <td>شاعر</td>
+                                <td>قسم</td>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                string id = "";
+                                char[] delimiters = new[] { ',' };  // List of delimiters
+                                var subStrings = item.meters.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (var m in subStrings)
+                                {
+                                    id += "-" + m.Replace(" ", "_").Replace("/", "").Replace(",", "-").Replace("،", "-") + "-";
+                                }
+                                string row = "meter-" + id + "-poet_" + item.poet.Replace(" ", "_") + "_type_" + item.type.Replace(" ", "_") + rowId.ToString();
+                                string url1 = "/taqti/poetry/" + (item.id - 65536).ToString();
+                                string url2 = "/examples/poetry/" + (item.id - 65536).ToString();
+
+
+                                <tr id="@row">
+                                    <td colspan="1">
+
+                                        <a class="btn btn-sm btn-success" href="@url1" data-toggle="popover" data-content="تقطیع کرنے کے لئے یہاں کلک کریں" data-title="ہدایات"><span class="glyphicon glyphicon-transfer"> </span></a>
+                                        <a class="btn btn-sm btn-default" href="@url2" data-toggle="popover" data-content="کلام کا مطالعہ کرنے کے لئے یہاں کلک کریں" data-title="ہدایات"><span class="glyphicon glyphicon-eye-open"> </span></a>
+
+
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink(item.title, "Poetry", "Examples", new { id = item.id - 65536 }, null)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.poet)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.type)
+                                    </td>
+                                </tr>
+                                rowId = rowId + 1;
+                            }
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-46123045-1', 'aruuz.com');
+    ga('send', 'pageview');
+
+</script>

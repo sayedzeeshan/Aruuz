@@ -1,0 +1,154 @@
+﻿@model IEnumerable<Aruuz.Models.Poets>
+@using Aruuz.Models
+@using System.Web.Optimization
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "مشہور اردو شعراء کے کلام کی تقطیع";
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+}
+<script type="text/javascript">
+    var data = @Html.Raw(JsonConvert.SerializeObject(Model));
+    var poet = "";
+    var meter= "";
+    function selectPoets(e) {
+        poet = e;
+        var select = "#" + e;
+        $(select).addClass('active');
+        $('#btn_poet').html(e);
+
+        var t = "<div id='optionalBtn'><div class='btn-group'>\
+                    <button type='button' class='btn btn-default btn-lg'><span class='glyphicon glyphicon-plus'></span></button> \
+                    <button type='button' class='btn btn-default dropdown-toggle btn-lg' data-toggle='dropdown'> \
+                        <span class='caret'></span>\
+                        <span class='sr-only'>Toggle Dropdown</span>\
+                    </button>\
+                    <ul class='dropdown-menu' role='menu' id='optionsmenu'>\
+        <li id='all'><a href='#' onclick='redirect'>تمام بحور</a></li><li class='divider'></li>\
+        <li id='all'><a href='#' onclick='beher()'>بحر کا انتخاب کریں</a></li><li class='divider'></li>\
+        </ul>\
+        </div></div>";
+        $('#optionalBtn').replaceWith(t);
+    }
+
+    function beher()
+    {
+        var s = "";
+        for(var i =0; i< data.length; i++){
+            if(data[i].poet == poet){
+                for(var j =0; j<data[i].meters.length; j++){
+                    s = s + String.format("<li id="+  j.toString() +"><a href='#' onclick='selectbeher('"+ j.toString() + "')'>{0}</a></li>",data[i].meters[j]);
+                    //s = s + "<li><a href='#' onclick='selectbeher('"+data[i].meters[j].replace(/\s/g, '_')+"')'> abc </a></li>";
+                }
+            }
+        }
+        var t = "<div id='optionalBtn'><div class='btn-group'> \
+                    <button type='button' class='btn btn-default btn-xlarge' id='btn_meter'>بحر</button> \
+                    <button type='button' class='btn btn-default dropdown-toggle btn-xlarge' data-toggle='dropdown'> \
+                        <span class='caret'></span>\
+                        <span class='sr-only'>Toggle Dropdown</span>\
+                    </button>\
+                    <ul class='dropdown-menu' role='menu' id='metersDD'>" + s + "</ul>\
+        </div></div>";
+        $('#optionalBtn').replaceWith(t);
+    }
+    function selectbeher(e)
+    {
+        var select = "#"+e;
+        meter = $(select).val();
+        var select = "#" + e;
+        $(select).addClass('active');
+        $('#btn_meter').html(meter);
+    }
+    function redirect(){
+
+    }
+    if (!String.format) {
+        String.format = function(format) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            return format.replace(/{(\d+)}/g, function(match, number) { 
+                return typeof args[number] != 'undefined'
+                  ? args[number] 
+                  : match
+                ;
+            });
+        };
+    }
+    
+</script>
+<style scoped>
+    .white {
+        color: #00ff21;
+    }
+    .btn-xlarge {
+        padding: 18px 28px;
+        font-size: 22px;
+        line-height: normal;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+    }
+</style>
+<div class="urdu">
+    <div class="container" dir="rtl">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col col-lg-3 col-md-3 col-sm-4 col-xs-6">
+               
+                <!-- Split button -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-xlarge" id="btn_poet">شاعر</button>
+                    <button type="button" class="btn btn-default dropdown-toggle btn-xlarge" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" id="poetsDD">
+                        @foreach (var m in Model)
+                        {
+                            <li onclick="selectPoets('@m.poet')"><a href="#" id="@m.poet">@m.poet</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div id="optionalBtn">
+                </div>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col col-lg-10 col-md-10 col-sm-10 col-xs-6">
+                <div id="textOutput" class="urdu-large alert alert-success hidden">
+            </div>
+            </div>
+            <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                <div id="resultBtn">
+                    <a class="btn btn-default hidden" href="#" id="hrefbtn"></a>
+                </div>
+            </div>
+            </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-46123045-1', 'aruuz.com');
+    ga('send', 'pageview');
+
+</script>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>jquery-globalize</id>
+    <version>0.1.3</version>
+    <title>Globalize</title>
+    <authors>The jQuery Project</authors>
+    <owners>The jQuery Project</owners>
+    <licenseUrl>http://jquery.org/license</licenseUrl>
+    <projectUrl>https://github.com/jquery/globalize#readme</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>New age globalization and localization. Formats and parses strings, dates and numbers in over 350 cultures.
+        The most recent package corresponds to v0.1.0-a2. Yes, I screwed up versioning it. I will fix it when the minor package version updates.</description>
+    <summary>A JavaScript library for globalization and localization. Enables complex culture-aware number and date parsing and formatting, including the raw culture information for hundreds of different languages and countries, as well as an extensible system for localization.</summary>
+    <releaseNotes>Updated globalize.js and renamed jquery.globalize directory to just globalize as the project is now only tangentially associated with jquery.</releaseNotes>
+    <tags>utility globalization internationalization multilingualization localization g11n i18n m17n L10n localize format parse translate strings numbers dates times calendars cultures languages locales</tags>
+  </metadata>
+</package>

@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "تبصرے و تجاویز";
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+}
+
+
+<style>
+    .fb-comments, .fb-comments span, .fb-comments.fb_iframe_widget span iframe {
+        width: 100% !important;
+    }
+</style>
+
+@section meta{
+    <meta name="description" content="Free Articles about Urdu Poetry" />
+    <meta name="description" content="اردو شاعری اور علم عروض پر مضامین" />
+    <meta name="author" content="Sayed Zeeshan Asghar" />
+    <meta name="image" content="/images/aruuz3.jpg" />
+    <meta property="fb:admins" content="sayedzeeshan.asghar" />
+    <meta property="fb:app_id" content="202167263310439" />
+    <meta property="og:type" content="aruuztaqti:poetry" />
+    <meta property="og:title" content="@ViewBag.title" />
+    <meta property="og:image" content="/images/aruuz3.jpg" />
+    <meta property="og:description" content="@ViewBag.title" />
+}
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel  panel-primary">
+                <div class="panel-heading urdu">
+                    <p class="urdu-large">تبصرے و تجاویز</p>
+
+                </div>
+               
+                    <div class="panel-body urdu">
+                        <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="disqus_thread"></div>
+                            <script type="text/javascript">
+                                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                                var disqus_shortname = 'aruuz'; // required: replace example with your forum shortname
+
+                                /* * * DON'T EDIT BELOW THIS LINE * * */
+                                (function () {
+                                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                                })();
+                            </script>
+                            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            @*<div class="fb-comments img-responsive urdu" data-href="http://aruuz.com/Comments/" data-width="1024" data-numposts="4" data-colorscheme="light"></div>*@
+                        </div>
+                    </div>
+
+                    <div class="panel-footer urdu">
+                        
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-46123045-1', 'aruuz.com');
+        ga('send', 'pageview');
+
+    </script>

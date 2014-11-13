@@ -1,0 +1,305 @@
+﻿@model Aruuz.Models.Words
+@using Aruuz.Models
+
+@{
+    List<int> idList = new List<int>();
+    List<string> codeList = new List<string>();
+    List<string> links = new List<string>();
+    List<string> afailList = new List<string>();
+    List<string> muarrabList = new List<string>();
+    List<string> langList = new List<string>();
+    string codes = "", muarrabs = "", langs = "", afail = "";
+    string baselnk = "http://www.urduencyclopedia.org/urdudictionary/index.php?title=";
+
+    if(Model.id.Count > 0)
+    {
+        foreach (var t in Model.id)
+        {
+            if (idList.Count == 0)
+            {
+                if(t > 0 )
+                { 
+                idList.Add(t);
+                }
+            }
+            bool flag = true;
+            foreach (var m in idList)
+            {
+                if (m == t)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag && t > 0)
+            {
+                idList.Add(t);
+            }
+        }
+
+        for (int i = 0; i < idList.Count; i++)
+        {
+            string wd = Words.wordLookup(idList[i]);
+            if(!string.IsNullOrEmpty(wd))
+            { 
+            links.Add(wd); 
+            }
+        }
+    }
+    
+    if (Model.code.Count > 0)
+    {
+
+        foreach (var t in Model.code)
+        {
+            if (codeList.Count == 0)
+            {
+                codeList.Add(t);
+            }
+            bool flag = true;
+            foreach (var m in codeList)
+            {
+                if (m.Equals(t.Trim()))
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                codeList.Add(t.Trim());
+            }
+        }
+        
+        //for(int i = 0; i < codeList.Count; i++)
+        //{
+        //    if(i != codeList.Count - 1)
+        //    { 
+        //        codes += codeList[i] + "";
+        //    }
+        //    else
+        //    {
+        //        codes += codeList[i];
+        //    }
+        //}
+    }
+
+     if (Model.taqti.Count > 0)
+    {
+     foreach (var t in Model.taqti)
+        {
+            if (afailList.Count == 0)
+            {
+                afailList.Add(t);
+            }
+            bool flag = true;
+            foreach (var m in afailList)
+            {
+                if (m.Equals(t.Trim()))
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                afailList.Add(t.Trim());
+            }
+        }
+
+     for (int i = 0; i < afailList.Count; i++)
+        {
+            if (i != afailList.Count - 1)
+            {
+                afail += afailList[i] + " ، ";
+            }
+            else
+            {
+                afail += afailList[i];
+            }
+        }
+    }
+    
+
+    if (Model.muarrab.Count > 0)
+    {
+
+        foreach (var t in Model.muarrab)
+        {
+            if (muarrabList.Count == 0)
+            {
+                muarrabList.Add(t);
+            }
+            bool flag = true;
+            foreach (var m in muarrabList)
+            {
+                if (m.Equals(t.Trim()))
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                muarrabList.Add(t.Trim());
+            }
+        }
+
+        for (int i = 0; i < muarrabList.Count; i++)
+        {
+            if (i != muarrabList.Count - 1)
+            {
+                muarrabs += muarrabList[i] + " ، ";
+            }
+            else
+            {
+                muarrabs += muarrabList[i];
+            }
+        }
+    }
+
+
+    if (Model.language.Count > 0)
+    {
+        foreach (var t in Model.language)
+        {
+            if (langList.Count == 0)
+            {
+                langList.Add(t);
+            }
+            bool flag = true;
+            foreach (var m in langList)
+            {
+                if (m.Equals(t.Trim()))
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                langList.Add(t.Trim());
+            }
+        }
+        for (int i = 0; i < langList.Count; i++)
+        {
+            if (i != langList.Count - 1)
+            {
+                langs += langList[i] + " ، ";
+            }
+            else
+            {
+                langs += langList[i];
+            }
+        }
+    }
+
+}
+
+<div class="row urdu-naskh">
+    <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right">
+        @{
+            if (Model.code.Count == 0)
+            {
+                <p> یہ لفظ ہماری لغت میں موجود نہیں </p>
+            }
+            else
+            {
+               <table class="table table-hover table-responsive" align="right">
+                    <tr>
+                        <th class="success">
+                            @Html.Label("لفظ")
+                        </th>
+                        <td class="success">
+                            @Html.DisplayFor(x => Model.word)
+                        </td>
+                    </tr>
+
+                    @if (Model.language.Count > 0 && !Model.modified)
+                    {
+                            <tr>
+                                <th>
+                                    @Html.Label("زبان")
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(x => langs)
+                                </td>
+                            </tr>
+                    }
+
+                    @if (Model.muarrab.Count > 0 && !Model.modified)
+                    {
+                            <tr>
+                                <th>
+                                    @Html.Label("معرب")
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(x => muarrabs)
+                                </td>
+                            </tr>
+                        
+                    }
+                    @if (Model.code.Count > 0)
+                    {
+                          <tr>
+                                <th>
+                                    @Html.Label("کوڈ")
+                                </th>
+                              <td dir="rtl" lang="en">
+                                  @foreach (var code in codeList)
+                                  {
+                                      @Html.DisplayFor(x => code)
+                                      <br>
+                                  }
+                              </td>
+
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.Label("رکن")
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(x => afail)
+                                </td>
+                            </tr>
+                          
+
+                        if (links.Count > 0 && !Model.modified)
+                        {
+                            <tr>
+                                <th>
+                                    @Html.Label("لغت")
+                                </th>
+                                <td>
+                                    @foreach (var l in links)
+                                    {
+                                        string link = baselnk + l;
+                                        <a href="@link" target="_blank"><p>  @Html.DisplayFor(item => l)  </p></a>
+                                    }
+                                </td>
+                            </tr>
+
+                        }
+
+
+
+                    }
+
+                </table>
+            }
+        }
+    </div>
+</div>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-46123045-1', 'aruuz.com');
+    ga('send', 'pageview');
+
+</script>

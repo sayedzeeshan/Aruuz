@@ -1,0 +1,651 @@
+﻿@model IEnumerable<Aruuz.Models.scanOutputFuzzy>
+@using System.Web.Optimization
+@using Aruuz.Models
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        validate();
+        $('[data-toggle="popover"]').popover({
+            trigger: 'hover',
+            'placement': 'top auto',
+            'container': 'body',
+            'template' : '<div class="popover hidden-xs" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+            'delay': { show: 0, hide: 0 },
+        });
+
+        /*     window.setInterval(function () {
+                 $('.breathe').animate({
+                     fontSize: "12px"
+                 }, 200).animate({
+                     fontSize: "14px"
+                 }, 500).delay(300);
+             }, 1);*/
+
+    });
+</script>
+
+
+
+@{
+
+    var identifier = Model.First().identifier;
+    List<string> concatList = new List<string>();
+    List<string> concatListFinal = new List<string>();
+    List<Poetry> pt = new List<Poetry>();
+    List<Publish> mypt = findMeter.returnMyPoetry();
+
+    if (!String.IsNullOrEmpty(Model.First().meterName))
+    {
+        List<string> lst = new List<string>();
+        foreach (var item in Model)
+        {
+            if (lst.Count == 0)
+            {
+                lst.Add(item.meterName);
+            }
+            bool flag = true;
+            foreach (var m in lst)
+            {
+                if (m.Equals(item.meterName))
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                lst.Add(item.meterName);
+            }
+        }
+
+        //average meter score calculation
+        double[] scoreList = new double[lst.Count];
+        int[] itemOrder = new int[lst.Count];
+
+
+        for (int m = 0; m < lst.Count; m++)
+        {
+            double count = 0.0d;
+            foreach (var x in Model)
+            {
+                if (lst[m].Equals(x.meterName))
+                {
+                    count += 1.0d;
+                }
+            }
+            scoreList[m] = count;
+            itemOrder[m] = m;
+        }
+
+        Array.Sort(scoreList, itemOrder);
+        Array.Reverse(itemOrder);
+        Array.Reverse(scoreList);
+
+        List<string> finalList = new List<string>();
+
+        for (int i = 0; i < lst.Count; i++)
+        {
+            finalList.Add(lst[itemOrder[i]]);
+        }
+
+        List<int> idList = new List<int>();
+        for (int i = 0; i < finalList.Count; i++)
+        {
+            foreach (var m in Model)
+            {
+                if (m.meterName.Equals(finalList[i]))
+                {
+                    idList.Add(m.id);
+                    break;
+                }
+            }
+        }
+
+        string meterName = "";
+       meterName = finalList[0];
+        
+        int k = 0;
+        for (int i = 0; i < idList.Count; i++)
+        {
+            string temp = "";
+            string temp2 = "";
+            for (int j = i + 1; j < idList.Count; j++)
+            {
+                if ((idList[i] == idList[j]) && (idList[j] != -1))
+                {
+                    idList[j] = -1;
+                    temp += " || " + finalList[j].ToString() + " | " + scoreList[j].ToString();
+                    temp2 += "|" + finalList[j].ToString();
+                }
+            }
+            if (idList[i] != -1)
+            {
+                concatList.Add(finalList[i].ToString() + " | " + scoreList[i].ToString() + temp);
+                concatListFinal.Add(finalList[i].ToString() + temp2);
+            }
+        }
+        pt = findMeter.returnPoetry(meterName);
+
+
+    }
+}
+
+
+<style>
+    .green {
+        color: #00ff21;
+    }
+</style>
+
+
+
+@*
+    <div class="alert alert-info">
+        <p class="urdu">
+            کیا آپ اصلاح سیکشن میں کی گئی تبدیلیوں اور اصلاح سیکشن کی کارکردگی سے مطمئن ہیں؟ <a class="btn btn-default urdu" href="/Comments">ہمیں آگاہ کریں &raquo;</a>
+        </p>
+
+    </div>
+*@
+
+<div class="container urdu">
+    <ol class="breadcrumb urdu hidden-xs">
+        <li><a href="/create">اصلاح</a></li>
+    </ol>
+    <div class="row">
+        <div class="col col-lg-12 col-sm-12 col-md-12">
+            <div class="alert alert-danger" hidden="hidden">
+                یہ بٹن دبانے سے پہلے مصرعوں میں تبدیلیاں کرنا ضروری ہیں
+            </div>
+            @*<div class="alert alert-warning">
+                <p class="urdu">
+                    اطلاع: اپنی شاعری شائع کرنے یا مستقل لنک بنانے کے لئے تقطیع سیکشن کے نتیجے میں دیئے گئے اس بٹن کو دبائیں:
+                    <div class="btn btn-sm btn-default" id="linkbutton2"><span class="glyphicon glyphicon-link"> </span></div>
+
+                </p>
+
+            </div>*@
+        </div>
+    </div>
+
+    <div class="container-fluid" dir="rtl">
+        <div class="row">
+            <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading hidden-xs">
+                        <div class="row">
+                            <div class="col col-lg-12 col-sm-12 col-md-12 col-xs-12 hidden-xs hidden-sm">
+                                <img src="~/icons/create.png" width="50" height="50" class="pull-left">
+                                <h1 class="urdu-huge">نتیجہ</h1>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+
+                        <div class="row">
+                            <div class="col col-lg-12 col-sm-12 col-md-12">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-md-12">
+                                        <div>
+                                            <table class="table table-hover" align="right" id="outputTable">
+                                                @{if (String.IsNullOrEmpty(Model.First().meterName))
+                                                {
+                                                    <tr>
+                                                        <td colspan="3" class="warning">
+                                                            <p class="urdu"> کوئی مانوس بحر نہیں مل سکی۔@Html.ActionLink("مضامین", "Index", "Resources") پر کلک کریں یا پھر رپورٹ کریں </p>
+                                                            <a href="/resources/article/19">
+                                                                اکثر پوچھے جانے والے سوالات دیکھیں۔
+                                                            </a>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                }
+
+                                                @{
+                                                    var id = 0;
+                                                    foreach (var item in Model)
+                                                    {
+                                                        if (!String.IsNullOrEmpty(item.meterName))
+                                                        {
+                                                            if (!item.hidden)
+                                                            {
+                                                                string sectionID = "-" + item.meterName.Replace(" ", "_").Replace("/", "").Replace("(", "").Replace(")", "").ToString() + "-" + id.ToString() + "_Score_" + item.score.ToString();
+                                                                int[] colspan = new int[item.wordTaqti.Count];
+                                                                int k = 0;
+                                                                for (int i = 0; i < item.wordTaqti.Count; i++)
+                                                                {
+                                                                    colspan[i] = item.wordTaqti[i].Replace("(", "").Replace(")", "").Replace("[", "").Replace("]", "").Length;
+                                                                }
+
+
+                                                                <tbody id="section0_@sectionID">
+                                                                    <tr>
+                                                                        <td colspan="3" class="success urdu-medium">
+                                                                            @if (findMeter.find(item.meterName))
+                                                                            {
+                                                                                <a class="breathe" target="_blank" href="/examples/meters?meter=@item.meterName">  @Html.DisplayFor(metername => item.meterName)  </a>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @Html.DisplayFor(metername => item.meterName)
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td colspan="3" class="success urdu-sp" align="right">
+
+                                                                            @Html.DisplayFor(metername => item.feet)
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tbody id="section1_@sectionID">
+                                                                    <tr id="row0_@sectionID" class="active urdu-medium">
+                                                                        <td colspan="1"> <a href="#" onclick="rowClicked('row0_@sectionID')">تدوین</a></td>
+
+
+
+                                                                        @foreach (var m in item.words)
+                                                                        {
+                                                                            if (m.error)
+                                                                            {
+                                                                                if (m.id[0] != -1 && !m.modified)
+                                                                                {
+                                                                                    <td align="right" onclick="wordClicked('@m.word')" colspan="@colspan[k]">
+                                                                                        <a href="#">
+
+                                                                                            <font color="red">
+                                                                                                <u>
+                                                                                                    @Html.DisplayFor(modelItem => m.word)
+                                                                                                </u>
+                                                                                            </font>
+
+                                                                                        </a>
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if (m.code.Count > 0)
+                                                                                    {
+                                                                                        if (m.code[0].Equals("---"))
+                                                                                        {
+                                                                                            <td align="right" onclick="wordClicked('---')" colspan="@colspan[k]">
+                                                                                                <font color="red">
+                                                                                                    <span style="border-bottom: 1px dotted #ff0000;padding:1px">
+                                                                                                        <span style="border-bottom: 1px dotted #ff0000;">
+                                                                                                            @Html.DisplayFor(modelItem => m.word)
+                                                                                                        </span>
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </td>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <td align="right" colspan="@colspan[k]">
+                                                                                                <font color="red">
+                                                                                                    @Html.DisplayFor(modelItem => m.word)
+                                                                                                </font>
+                                                                                            </td>
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <td align="right" colspan="@colspan[k]">
+                                                                                            <font color="red">
+
+                                                                                                @Html.DisplayFor(modelItem => m.word)
+
+                                                                                            </font>
+
+                                                                                        </td>
+
+
+                                                                                    }
+                                                                                }
+
+
+                                                                            }
+                                                                            else
+                                                                            {
+
+                                                                                if (m.id[0] != -1 && !m.modified)
+                                                                                {
+                                                                                    <td align="right" onclick="wordClicked('@m.word')" colspan="@colspan[k]">
+                                                                                        <a href="#">
+                                                                                            <font color="green">
+
+                                                                                                <u>
+                                                                                                    @Html.DisplayFor(modelItem => m.word)
+                                                                                                </u>
+                                                                                            </font>
+
+                                                                                        </a>
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if (m.code.Count > 0)
+                                                                                    {
+                                                                                        if (m.code[0].Equals("---"))
+                                                                                        {
+                                                                                            <td align="right" onclick="wordClicked('---')" colspan="@colspan[k]">
+                                                                                                <font color="green">
+
+                                                                                                    <span style="border-bottom: 1px dotted #ff0000;padding:1px">
+                                                                                                        <span style="border-bottom: 1px dotted #ff0000;">
+                                                                                                            @Html.DisplayFor(modelItem => m.word)
+                                                                                                        </span>
+                                                                                                    </span>
+                                                                                                </font>
+                                                                                            </td>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <td align="right" colspan="@colspan[k]">
+                                                                                                <font color="green">
+                                                                                                    @Html.DisplayFor(modelItem => m.word)
+                                                                                                </font>
+                                                                                            </td>
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <td align="right" colspan="@colspan[k]">
+
+                                                                                            <font color="green">
+                                                                                                @Html.DisplayFor(modelItem => m.word)
+
+                                                                                            </font>
+                                                                                        </td>
+
+
+                                                                                    }
+                                                                                }
+
+                                                                            }
+
+                                                                            k += 1;
+
+                                                                        }
+                                                                    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                    <tr>
+                                                                        <th align="right" class="urdu-medium"> تقطیع:</th>
+
+
+                                                                        @{ k = 0;}
+                                                                        @foreach (var m in item.orignalTaqti)
+                                                                        {
+                                                                            <td align="right" class="urdu-naskh" colspan="@colspan[k]">
+                                                                                @Html.DisplayFor(modelItem => m)
+                                                                            </td>
+
+                                                                            k += 1;
+
+                                                                        }
+                                                                    </tr>
+                                                                    @{k = 0;}
+                                                                    <tr>
+                                                                        <th align="right" class="urdu-medium"> اصلاح:</th>
+
+
+
+                                                                        @foreach (var m in item.wordTaqti)
+                                                                        {
+                                                                            <td align="right" colspan="@colspan[k]" class="urdu-naskh">
+                                                                                @Html.DisplayFor(modelItem => m)
+                                                                            </td>
+
+                                                                            k += 1;
+
+
+                                                                        }
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tbody id="section2_@sectionID" hidden="hidden">
+                                                                    <tr>
+                                                                        <th align="right" class="urdu-medium"> بحر:</th>
+
+                                                                        @foreach (var m in item.meterSyllables)
+                                                                        {
+
+                                                                            <td align="right" class="urdu-naskh">
+                                                                                @Html.DisplayFor(modelItem => m)
+                                                                            </td>
+
+                                                                        }
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th align="right" class="urdu-medium"> تقطیع:</th>
+                                                                        @foreach (var m in item.codeSyllables)
+                                                                        {
+                                                                            <td align="right" class="urdu-naskh">
+                                                                                @Html.DisplayFor(modelItem => m)
+                                                                            </td>
+                                                                        }
+                                                                    </tr>
+
+
+                                                                </tbody>
+
+                                                                        id++;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-footer">
+
+                        <a href="#" class="urdu pull-left" onclick="reportClicked(@identifier)"> رپورٹ</a>
+                                     </div>
+                </div>
+                    @{
+
+
+    if (pt.Count > 0)
+    {
+        <div class="thumbnail">
+
+            <table class="right-align">
+                <tr>
+                    <td class="urdu-large right-align" colspan="3" style="font-weight:bold">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                        اسی بحر میں کلام
+
+                    </td>
+                </tr>
+                <tr style="height:10px">
+                    <td>
+                        <p>
+
+                        </p>
+                    </td>
+                </tr>
+                @foreach (var poetry in pt)
+                {
+                    string title = poetry.title + " (" + poetry.type + ") - " + poetry.poet;
+                    string link = "/examples/poetry/" + (poetry.id - 65536).ToString();
+
+                    <tr class="urdu">
+                        <td colspan="3">
+                            <a href="@link" target="_blank">
+                                @title
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+    }
+    if (mypt.Count > 0)
+    {
+        <div class="thumbnail">
+
+            <table class="right-align">
+                <tr>
+                    <td class="urdu-large right-align" colspan="3" style="font-weight:bold">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                        میری شاعری (تازہ ترین)
+
+                    </td>
+                </tr>
+                <tr style="height:10px">
+                    <td>
+                        <p>
+
+                        </p>
+                    </td>
+                </tr>
+                @foreach (var poetry in mypt)
+                {
+                    string title = poetry.title + " - " + poetry.name;
+                    string link = "/mypoetry/poetry/" + (poetry.id).ToString();
+
+                    <tr class="urdu">
+                        <td colspan="3">
+                            <a href="@link" target="_blank">
+                                @title
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+    }
+
+}
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<div class="navbar navbar-default navbar-fixed-bottom urdu">
+    <div class=" container">
+        <div class="navbar-header navbar-inverse  ">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsebar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div class="navbar-collapse collapse" id="collapsebar">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <div class="btn-group" data-toggle="buttons" onchange="validate()">
+                        <label class="btn btn-default" data-toggle="popover" data-content="تفصیلات دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <input type="radio" name="options" id="option1">
+
+                        </label>
+
+                        <label class="btn btn-default active" data-toggle="popover" data-content="تفصیلات چھپانے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                            <span class="glyphicon glyphicon-minus"></span>
+                            <input type="radio" name="options" id="option2" checked="checked">
+                        </label>
+                    </div>
+
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <div class="btn btn-default" id="infoBtn" onclick="infoClicked(5)" data-toggle="popover" data-content="نتیجے میں استعمال ہونے والے نشانات  کی تفصیل دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="dropdown" dir="rtl" id="dropdown2">
+                        <div class="btn btn-default " data-toggle="dropdown">
+                            <div data-toggle="popover" data-content="بحور کی فہرست دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                                <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                                <span class="caret"></span>
+                            </div>
+                        </div>
+
+
+                        <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel" dir="rtl">
+                            @if (!String.IsNullOrEmpty(Model.First().meterName))
+                            {
+                                for (int k = 0; k < concatList.Count; k++)
+                                {
+                                    string scoreVal = concatList[k];
+                                    <li role="presentation">
+                                        <a class="urdu-naskh-medium" role="menuitem" tabindex="-1" href="#" onclick='menuSelect("@concatListFinal[k].Replace(" ", "_").Replace("(", "").Replace(")", "").Replace("/","")")' id="@concatListFinal[k].Replace(" ", "_").Replace("(", "").Replace(")", "").Replace("/","")">
+                                            @scoreVal
+                                        </a>
+                                    </li>
+                                }
+                            }
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation">
+                                <a class="urdu-naskh-medium" role="menuitem" tabindex="-1" href="#" onclick='menuSelect("all")'>
+                                    تمام
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="btn btn-default" id="dictionaryBtn" onclick="dictionaryClicked()" data-toggle="popover" data-content="کسی لفظ کی تقطیع معلوم کرنے کے لئے یہاں پر کلک کریں" data-title="ہدایات">
+                        <span class="glyphicon glyphicon-book"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn btn-default" id="saveBtn" onclick="saveClicked()" data-toggle="popover" data-content="تبدیلیاں محفوظ کریں" data-title="ہدایات">
+                        <span class="glyphicon glyphicon-floppy-saved" id="saveicon"></span>
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="btn btn-default" id="abc" onclick="taqtiClicked()">
+                        <div data-toggle="popover" data-content="دوبارہ تقطیع کرنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                            <span class="glyphicon glyphicon-transfer"></span>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

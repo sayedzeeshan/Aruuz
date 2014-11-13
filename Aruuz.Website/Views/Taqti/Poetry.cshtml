@@ -1,0 +1,483 @@
+﻿@model IEnumerable<Aruuz.Models.scanOutput>
+@using System.Web.Optimization
+@using Aruuz.Models
+
+@{    var identifier = Model.First().identifier;
+}
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+
+  
+    ViewBag.Title = Model.First().title;
+   
+
+}
+
+@section meta{
+    <meta name="description" content="Scansion of Urdu Poetry into meters and feet">
+    <meta name="description" content="اردو شاعری کی تقطیع اور بحر اور وزن کی معلومات">
+    <meta name="description" content=Model.First().title>
+    <meta property="og:description" content=" Model.First().title" />
+    <meta name="keywords" content="عروض، اردو شاعری، شاعری، بحور، بحور فہرست، بحر ہزج، بحر رمل، بحر متقارب، میر ہندی بحر، بحر ہندی، بحر رمزمہ، متدارک بحر">
+    <meta name="author" content="Sayed Zeeshan Asghar">
+    <meta property="fb:admins" content="sayedzeeshan.asghar" />
+    <meta property="fb:app_id" content="202167263310439" />
+    <meta property="fb:profile_id" content="sayedzeeshan.asghar" />
+    <meta property="og:type" content="aruuztaqti:poetry" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:image" content="/images/aruuz3.jpg" />
+
+}
+<style>
+    .red {
+        direction: rtl;
+        font-size: larger;
+        color: #f7054c;
+    }
+
+    .green {
+        color: #00ff21;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        outputTaqti();
+    });
+</script>
+
+<div class="container">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            validate();
+            $('[data-toggle="popover"]').popover({
+                trigger: 'hover',
+                'placement': 'top auto',
+                'container': 'body',
+                'class': 'hidden-xs',
+                'delay': { show: 0, hide: 0 },
+            });
+
+            var str = $('[id^=meter_taqti_li_]').filter(':first').attr('id');
+            menuInit(str);
+            //window.setInterval(function () {
+            //    $('.breathe').animate({
+            //        fontSize: "12px"
+            //    }, 200).animate({
+            //        fontSize: "14px"
+            //    }, 500).delay(300);
+            //}, 1);
+        });
+    </script>
+
+    <ol class="breadcrumb urdu hidden-xs">
+        <li><a href="/examples">منتخب کلام</a></li>
+    </ol>
+
+
+    <div class="urdu">
+        <div class="container-fluid" dir="rtl">
+            <div class="row">
+                <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading hidden-xs">
+                            <div class="row">
+                                <div class="col col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                    <h1 class="urdu-huge">کلام کی تقطیع</h1>
+
+                                    <div class="pull-left">
+                                        <div class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="left" title="مطمئن" id="likebutton" onclick="like('taqti/@identifier')"><span class="glyphicon glyphicon-thumbs-up"> </span></div>
+                                        <div class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="left" title="غیر مطمئن" id="dislikebutton" onclick="dislike('taqti/@identifier')"><span class="glyphicon glyphicon-thumbs-down"> </span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col col-lg-12 col-sm-12 col-md-12">
+                                    <div>
+                                        <table class="table table-hover table-responsive" align="right" id="outputTable">
+
+                                            @{if (String.IsNullOrEmpty(Model.First().meterName))
+                                            {
+                                                <tr>
+                                                    <td colspan="3" class="warning">
+                                                        <p class="urdu"> کوئی مانوس بحر نہیں مل سکی۔ <a href="/create">اصلاح</a> سیکشن میں جائیں۔ </p>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            }
+                                            @foreach (var item in Model)
+                                            {
+                                                if (!String.IsNullOrEmpty(item.meterName))
+                                                {
+                                                    int id = 0;
+                                                    string sectionID = id.ToString() + "-" + item.meterName.Replace(" ", "_").Replace("/", "").Replace("(", "").Replace(")", "").ToString() + "-";
+
+                                                    <tbody id="section0_@sectionID">
+                                                        <tr>
+                                                            <td colspan="3" class="success urdu-medium" >
+                                                                @if (findMeter.find(item.meterName))
+                                                                {
+                                                                    <a class="breathe" target="_blank" href="/examples/meters?meter=@item.meterName">  @Html.DisplayFor(metername => item.meterName)</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.DisplayFor(metername => item.meterName)
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="3" class="success urdu-sp" align="right">
+
+                                                                @Html.DisplayFor(metername => item.feet)
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                    <tbody id="section1_@sectionID">
+                                                        <tr class="urdu-medium">
+                                                            @foreach (var m in item.words)
+                                                            {
+                                                                if (m.id[0] != -1 && !m.modified)
+                                                                {
+                                                                    <td class="right-align active" onclick="wordClicked('@m.word')">
+                                                                        <a href="#">
+                                                                            <font color="black">
+                                                                                <u>   @Html.DisplayFor(modelItem => m.word)  </u>
+                                                                            </font>
+
+                                                                        </a>
+                                                                    </td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td class="right-align active">
+                                                                        @Html.DisplayFor(modelItem => m.word)
+                                                                    </td>
+                                                                }
+                                                            }
+                                                        </tr>
+
+
+
+
+
+                                                        <tr>
+                                                            @foreach (var m in item.wordTaqti)
+                                                            {
+                                                                <td class="right-align urdu-naskh">
+
+                                                                    @Html.DisplayFor(modelItem => m, new { @class= "urdu-naskh"})
+
+                                                                </td>
+                                                            }
+
+                                                        </tr>
+                                                    </tbody>
+
+                                                    @*<tbody id="section2_@sectionID">
+                                                        <tr class="info" data-toggle="tooltip" data-placement="left" title="تجرباتی فیچر (اغلاط ممکن ہیں)">
+                                                            @foreach (var m in item.feetList)
+                                                            {
+                                                                <td align="right">
+                                                                    @Html.DisplayFor(modelItem => m.foot)
+                                                                </td>
+                                                            }
+                                                        </tr>
+
+                                                        <tr class="info" data-toggle="tooltip" data-placement="left" title="تجرباتی فیچر (اغلاط ممکن ہیں)">
+                                                            @foreach (var m in item.feetList)
+                                                            {
+
+                                                                <td align="right">
+                                                                    @Html.DisplayFor(modelItem => m.words)
+                                                                </td>
+
+                                                            }
+                                                        </tr>
+
+
+                                                         </tbody>*@
+
+                                                            id++;
+                                                }
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-footer">
+                            <a href="#" class="urdu pull-left" onclick="reportClicked(@identifier)"> رپورٹ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="navbar navbar-default navbar-fixed-bottom urdu">
+        <div class=" container">
+            <div class="navbar-header navbar-inverse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsebar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="navbar-collapse collapse" id="collapsebar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="btn-group" data-toggle="buttons" onchange="validate()">
+                            <label class="btn btn-default" data-toggle="popover" data-content="تفصیلات دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <input type="radio" name="options" id="option1">
+
+                            </label>
+
+                            <label class="btn btn-default active" data-toggle="popover" data-content="تفصیلات چھپانے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <input type="radio" name="options" id="option2" checked="checked">
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="btn btn-default" id="infoBtn" onclick="infoClicked(4)" data-toggle="popover" data-content="نتیجے میں استعمال ہونے والے نشانات  کی تفصیل دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </div>
+                    </li>
+
+                    <li>
+                        @{
+                            if (!String.IsNullOrEmpty(Model.First().meterName))
+                            {
+                                List<string> lst = new List<string>();
+                                foreach (var item in Model)
+                                {
+                                    if (lst.Count == 0)
+                                    {
+                                        lst.Add(item.meterName);
+                                    }
+                                    bool flag = true;
+                                    foreach (var m in lst)
+                                    {
+                                        if (m.Equals(item.meterName))
+                                        {
+                                            flag = false;
+                                            break;
+                                        }
+                                    }
+                                    if (flag)
+                                    {
+                                        lst.Add(item.meterName);
+                                    }
+                                }
+
+                                List<int> meteridList = new List<int>();
+                                foreach (var item in Model)
+                                {
+                                    if (meteridList.Count == 0)
+                                    {
+                                        meteridList.Add(item.id);
+                                    }
+                                    bool flag = true;
+                                    foreach (var m in meteridList)
+                                    {
+                                        if (m == item.id)
+                                        {
+                                            flag = false;
+                                            break;
+                                        }
+                                    }
+                                    if (flag)
+                                    {
+                                        meteridList.Add(item.id);
+                                    }
+                                }
+
+                                //id count calculation
+                                double[] scoreIdList = new double[meteridList.Count];
+                                int[] itemIdOrder = new int[meteridList.Count];
+
+
+                                for (int m = 0; m < meteridList.Count; m++)
+                                {
+                                    double count = 0.0d;
+                                    foreach (var x in Model)
+                                    {
+                                        if (meteridList[m] == x.id)
+                                        {
+                                            count += 1.0d;
+                                        }
+                                    }
+                                    scoreIdList[m] = 100.0 - count;
+                                    itemIdOrder[m] = m;
+                                }
+
+                                Array.Sort(scoreIdList, itemIdOrder);
+
+
+                                //average meter score calculation
+                                double[] scoreList = new double[lst.Count];
+                                int[] itemOrder = new int[lst.Count];
+
+
+                                for (int m = 0; m < lst.Count; m++)
+                                {
+                                    double count = 0.0d;
+                                    foreach (var x in Model)
+                                    {
+                                        if (lst[m].Equals(x.meterName))
+                                        {
+                                            count += 1.0d;
+                                        }
+                                    }
+                                    scoreList[m] = 100.0 - count;
+                                    itemOrder[m] = m;
+                                }
+
+                                Array.Sort(scoreList, itemOrder);
+
+                                List<string> finalList = new List<string>();
+
+                                for (int i = 0; i < lst.Count; i++)
+                                {
+                                    finalList.Add(lst[itemOrder[i]]);
+                                }
+
+                                List<int> idList = new List<int>();
+                                for (int i = 0; i < finalList.Count; i++)
+                                {
+                                    foreach (var m in Model)
+                                    {
+                                        if (m.meterName.Equals(finalList[i]))
+                                        {
+                                            idList.Add(m.id);
+                                            break;
+                                        }
+                                    }
+                                }
+
+
+                                List<string> concatList = new List<string>();
+                                List<string> concatListFinal = new List<string>();
+                                int k = 0;
+                                for (int i = 0; i < itemIdOrder.Length; i++)
+                                {
+                                    string temp = "";
+                                    string temp2 = "";
+                                    int count = 0;
+                                    for (int j = 0; j < idList.Count; j++)
+                                    {
+                                        if ((meteridList[itemIdOrder[i]] == idList[j]) && (idList[j] != -1))
+                                        {
+                                            idList[j] = -1;
+                                            count++;
+                                            if (count == 1)
+                                            {
+                                                temp += finalList[j].ToString() + " | " + (-1.0 * scoreList[j] + 100.0).ToString();
+                                                temp2 += finalList[j].ToString();
+                                            }
+                                            else
+                                            {
+                                                temp += " || " + finalList[j].ToString() + " | " + (-1.0 * scoreList[j] + 100.0).ToString();
+                                                temp2 += "|" + finalList[j].ToString();
+                                            }
+                                        }
+                                    }
+                                    concatList.Add(temp);
+                                    concatListFinal.Add(temp2);
+                                }
+
+                                <div class="dropdown" dir="rtl" id="dropdown2">
+                                    <div class="btn btn-default" data-toggle="dropdown">
+                                        <div data-toggle="popover" data-content="بحور کی فہرست دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                                            <span class="badge">@concatListFinal.Count.ToString()</span>
+                                            <span class="caret"></span>
+                                        </div>
+                                    </div>
+                                    <ul class="dropdown-menu pull-right success" role="menu" aria-labelledby="dLabel" dir="rtl">
+                                        @for (k = 0; k < concatListFinal.Count; k++)
+                                        {
+                                            string scoreVal = concatList[k];
+                                            <li role="presentation" class="success" onclick='menuSelect("@concatListFinal[k].Replace(" ", "_").Replace("(", "").Replace(")", "").Replace("/","")")' id="meter_taqti_li_@concatListFinal[k].Replace(" ", "_").Replace("(", "").Replace(")", "").Replace("/","")">
+                                                <a role="menuitem" tabindex="-1" href="#">
+                                                    @scoreVal
+                                                </a>
+                                            </li>
+                                        }
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation" class="success" onclick='menuSelect("all")' id="meter_taqti_li_all">
+                                            <a role="menuitem" tabindex="-1" href="#">
+                                                تمام
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            }
+                        }
+
+
+                    </li>
+
+
+                    <li>
+                        <div class="btn btn-default" id="dictionaryBtn" onclick="dictionaryClicked()" data-toggle="popover" data-content="کسی لفظ کی تقطیع معلوم کرنے کے لئے یہاں پر کلک کریں" data-title="ہدایات">
+                            <span class="glyphicon glyphicon-book"></span>
+                        </div>
+                    </li>
+
+
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header active">
+                <h4 class="modal-title" id="modalLabel">معلومات</h4>
+            </div>
+            <div class="modal-body">
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" id="modal-button" onclick="modalButtonClicked()">
+                    <p id="button-label">
+                        بند کریں
+                    </p>
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-46123045-1', 'aruuz.com');
+    ga('send', 'pageview');
+
+</script>

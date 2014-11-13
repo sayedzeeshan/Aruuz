@@ -1,0 +1,12 @@
+@using Aruuz.Website.Utility
+@model object
+
+<div class="form-group@(Html.ValidationErrorFor(m => m, " has-error"))">
+    <div class="controls" id="texArea">
+        @Html.TextAreaFor(
+            m => m,
+            10, 8,
+            ViewBag.ClearTextField == true ? new { @class = "form-control input-block-level clear-text-field"} : new { @class = "form-control input-block-level" } )
+        @Html.ValidationMessageFor(m => m, null,  new { @class = "help-block" })
+    </div>
+</div>

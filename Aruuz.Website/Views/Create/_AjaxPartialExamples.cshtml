@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Aruuz.Models.scanOutput>
+@foreach (var item in Model)
+{
+
+    string sectionID =  Model.First().id.ToString();
+    string rowData = "";
+    bool flag = true;
+    int[] colspan = new int[item.wordTaqti.Count];
+    int k = 0;
+    for (int i = 0; i < item.wordTaqti.Count; i++)
+    {
+        colspan[i] = item.wordTaqti[i].Replace("(", "").Replace(")", "").Replace("[", "").Replace("]", "").Length;
+    }
+
+
+    <tbody id="@sectionID " >
+
+        <tr >
+            <td align="center" colspan="4" class="urdu-medium">
+                @Html.DisplayFor(metername => item.meterName)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="urdu-sp" align="center" colspan="4">
+                @Html.DisplayFor(metername => item.feet)
+            </td>
+        </tr>
+
+        <tr id="row0_@sectionID" class="active urdu-medium">
+
+
+            @foreach (var m in item.words)
+{
+    <td align="right" colspan="@colspan[k]">
+        <font color="green">
+            @Html.DisplayFor(itemItem => m.word)
+        </font>
+    </td>
+
+    k += 1;
+}
+        </tr>
+
+        @if (flag == true)
+        {
+            flag = false;
+
+            <tr class="hidden">
+
+                @{
+            foreach (var m in item.words)
+            {
+                rowData += m.word + " ";
+            }
+                }
+                <td class="data">
+
+
+                    @Html.DisplayFor(itemItem => rowData)
+
+
+
+
+
+
+                </td>
+            </tr>
+        }
+
+        <tr>
+            @{k = 0;}
+            @foreach (var m in item.wordTaqti)
+{
+    <td align="right" colspan="@colspan[k]" class="urdu-naskh">
+        @Html.DisplayFor(itemItem => m)
+    </td>
+
+    k += 1;
+}
+        </tr>
+    </tbody>
+
+}

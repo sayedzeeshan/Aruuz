@@ -1,0 +1,246 @@
+﻿@model IEnumerable<Aruuz.Models.scanOutputFuzzy>
+@foreach(var item in Model)
+{ 
+
+    string sectionID = "-" + item.meterName.Replace(" ", "_").Replace("/", "").Replace("(","").Replace(")","").ToString() + "-" + item.id.ToString() + "_Score_" + item.score.ToString();
+    int[] colspan = new int[item.wordTaqti.Count];
+    int k = 0;
+    for (int i = 0; i < item.wordTaqti.Count; i++)
+    {
+        colspan[i] = item.wordTaqti[i].Replace("(", "").Replace(")", "").Replace("[", "").Replace("]", "").Length;
+    }
+
+
+<tbody id="section0_@sectionID">
+
+    <tr>
+        <td colspan="3" class="warning urdu-medium">
+            @Html.DisplayFor(metername => item.meterName)
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3" class="success urdu-sp" align="right">
+            @Html.DisplayFor(metername => item.feet)
+        </td>
+    </tr>
+</tbody>
+<tbody id="section1_@sectionID">
+    @*<tr id="row0_@sectionID" class="warning urdu-medium">
+        <td colspan="1"> <a href="#" onclick="rowClicked('row0_@sectionID')">تدوین</a></td>
+
+
+
+        @foreach (var m in item.words)
+        {
+            if (m.error)
+            {
+                <td align="right" colspan="@colspan[k]">
+                    <font color="red">
+                        @Html.DisplayFor(itemItem => m.word)
+                    </font>
+                </td>
+            }
+            else
+            {
+                <td align="right" colspan="@colspan[k]">
+                    <font color="green">
+                        @Html.DisplayFor(itemItem => m.word)
+                    </font>
+                </td>
+            }
+
+            k += 1;
+
+        }
+    </tr>*@
+
+
+    <tr id="row0_@sectionID" class="warning urdu-medium">
+        <td colspan="1"> <a href="#" onclick="rowClicked('row0_@sectionID')">تدوین</a></td>
+
+
+
+        @foreach (var m in item.words)
+        {
+            if (m.error)
+            {
+                if (m.id[0] != -1 && !m.modified)
+                {
+                    <td align="right" onclick="wordClicked('@m.word')" colspan="@colspan[k]">
+                        <a href="#">
+
+                            <font color="red">
+                                <u>
+                                    @Html.DisplayFor(modelItem => m.word)
+                                </u>
+                            </font>
+
+                        </a>
+                    </td>
+                }
+                else
+                {
+                    if (m.code.Count > 0)
+                    {
+                        if (m.code[0].Equals("---"))
+                        {
+                            <td align="right" onclick="wordClicked('---')" colspan="@colspan[k]">
+                                <font color="red">
+                                    <span style="border-bottom: 1px dotted #ff0000;padding:1px">
+                                        <span style="border-bottom: 1px dotted #ff0000;">
+                                            @Html.DisplayFor(modelItem => m.word)
+                                        </span>
+                                    </span>
+                                </font>
+                            </td>
+                        }
+                        else
+                        {
+                            <td align="right" colspan="@colspan[k]">
+                                <font color="red">
+                                    @Html.DisplayFor(modelItem => m.word)
+                                </font>
+                            </td>
+                        }
+                    }
+                    else
+                    {
+                        <td align="right" colspan="@colspan[k]">
+                            <font color="red">
+
+                                @Html.DisplayFor(modelItem => m.word)
+
+                            </font>
+
+                        </td>
+
+
+                    }
+                }
+
+
+            }
+            else
+            {
+
+                if (m.id[0] != -1 && !m.modified)
+                {
+                    <td align="right" onclick="wordClicked('@m.word')" colspan="@colspan[k]">
+                        <a href="#">
+                            <font color="green">
+
+                                <u>
+                                    @Html.DisplayFor(modelItem => m.word)
+                                </u>
+                            </font>
+
+                        </a>
+                    </td>
+                }
+                else
+                {
+                    if (m.code.Count > 0)
+                    {
+                        if (m.code[0].Equals("---"))
+                        {
+                            <td align="right" onclick="wordClicked('---')" colspan="@colspan[k]">
+                                <font color="green">
+
+                                    <span style="border-bottom: 1px dotted #ff0000;padding:1px">
+                                        <span style="border-bottom: 1px dotted #ff0000;">
+                                            @Html.DisplayFor(modelItem => m.word)
+                                        </span>
+                                    </span>
+                                </font>
+                            </td>
+                        }
+                        else
+                        {
+                            <td align="right" colspan="@colspan[k]">
+                                <font color="green">
+                                    @Html.DisplayFor(modelItem => m.word)
+                                </font>
+                            </td>
+                        }
+                    }
+                    else
+                    {
+                        <td align="right" colspan="@colspan[k]">
+
+                            <font color="green">
+                                @Html.DisplayFor(modelItem => m.word)
+
+                            </font>
+                        </td>
+
+
+                    }
+                }
+
+            }
+
+            k += 1;
+
+        }
+    </tr>
+
+
+    <tr>
+        <th align="right" class="urdu-medium"> تقطیع:</th>
+
+
+        @{ k = 0;}
+        @foreach (var m in item.orignalTaqti)
+        {
+            <td align="right" colspan="@colspan[k]" class="urdu-naskh">
+                @Html.DisplayFor(itemItem => m)
+            </td>
+
+            k += 1;
+
+        }
+    </tr>
+    @{k = 0;}
+    <tr>
+        <th align="right" class="urdu-medium"> اصلاح:</th>
+
+
+
+        @foreach (var m in item.wordTaqti)
+        {
+            <td align="right" colspan="@colspan[k]" class="urdu-naskh">
+                @Html.DisplayFor(itemItem => m)
+            </td>
+
+            k += 1;
+
+
+        }
+    </tr>
+</tbody>
+<tbody id="section2_@sectionID" hidden="hidden">
+    <tr>
+        <th align="right" class="urdu-medium"> بحر:</th>
+
+        @foreach (var m in item.meterSyllables)
+        {
+
+            <td align="right" class="urdu-naskh">
+                @Html.DisplayFor(itemItem => m)
+            </td>
+
+        }
+    </tr>
+    <tr>
+        <th align="right" class="urdu-medium"> تقطیع:</th>
+        @foreach (var m in item.codeSyllables)
+        {
+            <td align="right" class="urdu-naskh">
+                @Html.DisplayFor(itemItem => m)
+            </td>
+        }
+    </tr>
+
+</tbody>
+}

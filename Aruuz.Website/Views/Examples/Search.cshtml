@@ -1,0 +1,237 @@
+﻿@model IEnumerable<Aruuz.Models.Poetry>
+@{
+    ViewBag.Title = "مشہور اردو شعراء کے کلام کی تقطیع";
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+
+    int rowID = 0;
+    
+    List<string> lst = new List<string>();
+    List<string> poets = new List<string>();
+    foreach (var item in Model)
+    {
+        char[] delimiters = new[] { ',', '،' };  // List of delimiters
+        var subStrings = item.meters.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var t in subStrings)
+        {
+            if (lst.Count == 0)
+            {
+                lst.Add(t);
+            }
+            bool flag = true;
+            foreach (var m in lst)
+            {
+                if (m.Equals(t))
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                lst.Add(t);
+            }
+        }
+    }
+
+
+    foreach (var item in Model)
+    {
+        if (poets.Count == 0)
+        {
+            poets.Add(item.poet);
+        }
+        bool flag = true;
+        foreach (var m in poets)
+        {
+            if (m.Equals(item.poet))
+            {
+                flag = false;
+                break;
+            }
+        }
+        if (flag)
+        {
+            poets.Add(item.poet);
+        }
+    }
+}
+
+<style>
+    .white {
+        color: #00ff21;
+    }
+</style>
+
+
+
+
+
+
+
+<div class="urdu">
+    <div class="container" dir="rtl">
+        <ol class="breadcrumb urdu">
+            <li><a href="/examples">منتخب کلام</a></li>
+            <li><a href="#">تلاش</a></li>
+        </ol>
+        <div class="row">
+            <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <img src="~/icons/examples.png" width="50" height="50" class="pull-left">
+                        <h1 class="urdu-large">تلاش کا نتیجہ</h1>
+                        
+                        <div class="row">
+                            <div class="col col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                <div class="dropdown">
+                                    <button class="btn btn-default  dropdown-toggle urdu" type="button" id="dropdownMenuMeters" data-toggle="dropdown">
+                                        بحر
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenuMeters">
+                                        <li role="presentation" class="active list-group-item-heading urdu-naskh-medium" onclick='menuSelectExamples("all")' id="meter_li_all">
+                                            <a role="menuitem" tabindex="-1" href="#">تمام</a>
+
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+
+                                        @for (int k = 0; k < lst.Count; k++)
+                                        {
+                                            string scoreVal = lst[k];
+
+                                            <li role="presentation" onclick="menuSelectExamples('@lst[k].Replace(" ", "_").Replace("/", "")')" id="meter_li_@lst[k].Replace(" ", "_").Replace("/", "")">
+                                                <a class="urdu-naskh-medium" role="menuitem" tabindex="-1" href="#">@scoreVal</a>
+                                            </li>
+
+
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col col-lg-2 col-md-3 col-sm-4 col-xs-6">
+
+                                <div class="dropdown">
+                                    <button class="btn btn-default  dropdown-toggle urdu" type="button" id="dropdownMenuPoets" data-toggle="dropdown">
+                                        شاعر
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenuPoets">
+                                        <li role="presentation" class="active list-group-item-heading urdu-naskh-medium" onclick='menuSelectPoets("all")' id="poet_li_all">
+                                            <a role="menuitem" tabindex="-1" href="#">تمام</a>
+
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+
+                                        @for (int k = 0; k < poets.Count; k++)
+                                        {
+                                            string scoreVal = poets[k];
+
+                                            <li role="presentation" onclick="menuSelectPoets('@poets[k].Replace(" ", "_").Replace("/", "")')" id="poet_li_@poets[k].Replace(" ", "_").Replace("/", "")">
+                                                <a class="urdu-naskh-medium" role="menuitem" tabindex="-1" href="#">@scoreVal</a>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table urdu">
+                            @{
+                                try { 
+                                if(!String.IsNullOrEmpty(Model.First().poet))
+                                { 
+                            <tr class="success" id="main">
+                                <td> </td>
+                                <td>نتیجہ</td>
+                                <td>شاعر</td>
+                                <td>صنف</td>
+                            </tr>
+                            }
+                            else
+                                {
+                                    
+                                    <tr><td>
+                                        آپ کی تلاش کا کوئی نتیجہ برآمد نہیں ہوا۔ کوئی اور لفظ تلاش کریں۔
+                                        </td></tr>
+                                }
+                                }
+                            catch
+                            {
+                            <tr>
+                                <td>
+                                    آپ کی تلاش کا کوئی نتیجہ برآمد نہیں ہوا۔ کوئی اور لفظ تلاش کریں۔
+                                </td>
+                            </tr>
+                            }
+                            }
+                            @foreach (var item in Model)
+                            {
+                                string id = "";
+                                char[] delimiters = new[] { ',' };  // List of delimiters
+                                var subStrings = item.meters.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (var m in subStrings)
+                                {
+                                    id += "-" + m.Replace(" ", "_").Replace("/", "").Replace(",", "-").Replace("،", "-") + "-";
+                                }
+                                string row = "meter-" + id + "-poet_" + item.poet.Replace(" ", "_");
+                                string url1 = "/taqti/poetry/" + (item.id - 65536).ToString();
+                                string url2 = "/examples/poetry/"+ "?id=" + (item.id - 65536).ToString() + "&&searchString=" + Model.First().searchString + rowID.ToString();
+
+
+                                <tr id="@row">
+                                    <td>
+
+                                        <a class="btn btn-sm btn-success pull-right" href="@url1" data-toggle="popover" data-content="تقطیع کرنے کے لئے یہاں کلک کریں" data-title="ہدایات"><span class="glyphicon glyphicon-transfer"> </span></a>
+                                        <a class="btn btn-sm btn-default pull-right" href="@url2"><span class="glyphicon glyphicon-eye-open" data-toggle="popover" data-content="کلام کا مطالعہ کرنے کے لئے یہاں کلک کریں" data-title="ہدایات"> </span></a>
+
+
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink(item.title, "Poetry", "Examples", new { id = item.id - 65536, searchString = @Model.First().searchString }, null)
+
+<br>                                    @Html.Raw(item.text)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.poet)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.type)
+                                    </td>
+                                </tr>
+                                rowID = rowID + 1;
+                                    
+                            }
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-46123045-1', 'aruuz.com');
+    ga('send', 'pageview');
+
+</script>

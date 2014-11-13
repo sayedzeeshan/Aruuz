@@ -1,0 +1,99 @@
+﻿@model int
+@using System.Web.Optimization
+@{
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+    ViewBag.Title = "نتیجہ";
+}
+
+<style>
+    .red {
+        direction: rtl;
+        font-size: larger;
+        color: #f7054c;
+    }
+</style>
+
+
+@section meta{
+    <meta name="description" content="Scansion of Urdu Poetry into meters and feet">
+    <meta name="description" content="اردو شاعری کی اصلاح اور تقطیع اور بحر اور وزن کی معلومات">
+    <meta name="description" content="خودکار تقطیع کار سافٹ ویئر کی اصلاح کا نتیجہ">
+    <meta name="keywords" content="عروض، اردو شاعری، شاعری، بحور، بحور فہرست، بحر ہزج، بحر رمل، بحر متقارب، میر ہندی بحر، بحر ہندی، بحر رمزمہ، متدارک بحر، اصلاح، عروض ڈاٹ کام">
+    <meta name="author" content="Sayed Zeeshan Asghar">
+    <meta property="fb:admins" content="sayedzeeshan.asghar" />
+}
+<script>
+    $(document).ready(function () {
+        outputCreate();
+    });
+</script>
+<label class="hidden" id="inputID2">@Model.ToString()</label>
+<div class="urdu" id="detailsDiv2">
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="urdu-huge">ہدایات</h1>
+                </div>
+                <div class="panel panel-body">
+                    <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-responsive table-striped">
+                                <tr>
+                                    <td align="center">
+                                        <span class="label label-default urdu-large">
+                                            کچھ دیر انتظار فرمائیں۔ اشعار کا وزن نکالا جا رہا ہے۔
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+
+                                        <img src="/icons/ajax-loader-big.gif" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade urdu" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header active">
+                <h4 class="modal-title urdu-large" id="modalLabel">معلومات</h4>
+            </div>
+            <div class="modal-body">
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" id="modal-button" onclick="modalButtonClicked()">
+                    <p id="button-label">
+                        بند کریں
+                    </p>
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-46123045-1', 'aruuz.com');
+    ga('send', 'pageview');
+
+</script>
+

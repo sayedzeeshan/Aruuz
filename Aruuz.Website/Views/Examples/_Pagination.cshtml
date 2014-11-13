@@ -1,0 +1,142 @@
+﻿@model Aruuz.Models.Pagination
+@{
+    if (Model.maxPages <= 5)
+    {
+                <ul class="pagination">
+          
+                @for (int i = Model.maxPages; i > 0; i--)
+                {
+                    if (i == Model.currentPage)
+                    {
+                        <li class="active"><a href="@Model.baseUrl?page=@i.ToString()">@i.ToString()</a></li>
+
+                    }
+                    else
+                    {
+                        <li><a href="@Model.baseUrl?page=@i.ToString()">@i.ToString()</a></li>
+                    }
+                }
+               
+            </ul>
+    }
+    else
+    {
+        if (@Model.currentPage <= 2)
+        {
+            <ul class="pagination">
+                <li><a href="@Model.baseUrl?page=@Model.maxPages.ToString()">&raquo;</a></li>
+                <li><a href="@Model.baseUrl?page=@Model.maxPages.ToString()">@Model.maxPages.ToString()</a></li>
+                <li><a href="#">...</a></li>
+                @for (int i = 3; i > 0; i--)
+                {
+                    if (i == Model.currentPage)
+                    {
+                        <li class="active"><a href="@Model.baseUrl?page=@i.ToString()">@i.ToString()</a></li>
+
+                    }
+                    else
+                    {
+                        <li><a href="@Model.baseUrl?page=@i.ToString()">@i.ToString()</a></li>
+                    }
+                }
+                  @if (Model.currentPage == 1)
+                    {
+                        <li class="disabled"><a href="@Model.baseUrl?page=1">&laquo;</a></li>
+
+                    }
+                    else
+                    {
+                        <li><a href="@Model.baseUrl?page=1">&laquo;</a></li>
+
+                    }
+            </ul>
+        }
+        else if (@Model.currentPage > 2 && @Model.currentPage <= @Model.maxPages - 2)
+        {
+            <ul class="pagination">
+                <li><a href="@Model.baseUrl?page=@Model.maxPages.ToString()">&raquo;</a></li>
+                <li><a href="@Model.baseUrl?page=@Model.maxPages.ToString()">@Model.maxPages.ToString()</a></li>
+                @if (@Model.maxPages - @Model.currentPage == 2)
+                {
+
+                }
+                else
+                {
+                    if (@Model.maxPages - @Model.currentPage  != 3)
+                    {
+                        <li><a href="#">...</a></li>
+                    }
+                    else
+                    {
+
+                    string lnk = (Model.maxPages - 1).ToString();
+                    <li><a href="@Model.baseUrl?page=@lnk">@lnk</a></li>
+
+                    }
+                }
+                @for (int i = @Model.currentPage + 1; i >= @Model.currentPage - 1; i--)
+                {
+                    if (i == Model.currentPage)
+                    {
+                        <li class="active"><a href="@Model.baseUrl?page=@i.ToString()">@i.ToString()</a></li>
+
+                    }
+                    else
+                    {
+                        <li><a href="@Model.baseUrl?page=@i.ToString()">@i.ToString()</a></li>
+                    }
+                }
+                @if (@Model.currentPage == 3)
+                {
+
+                }
+                else
+                {
+                    if (@Model.currentPage != 4)
+                    {
+                        <li><a href="#">...</a></li>
+                    }
+                    else
+                    {
+                       
+                            <li><a href="@Model.baseUrl?page=2">2</a></li>
+                      
+                    }
+                }
+               
+                <li><a href="@Model.baseUrl?page=1">1</a></li>
+                <li><a href="@Model.baseUrl?page=1">&laquo;</a></li>
+            </ul>
+        }
+        else
+        {
+            <ul class="pagination">
+                @if (@Model.currentPage == @Model.maxPages)
+                {
+                    <li class="disabled"><a href="@Model.baseUrl?page=@Model.maxPages.ToString()">&raquo;</a></li>
+                }
+                else
+                {
+                    <li><a href="@Model.baseUrl?page=@Model.maxPages.ToString()">&raquo;</a></li>
+                }
+                @for (int i = @Model.maxPages; i > @Model.maxPages - 3; i--)
+                {
+                    if (i == Model.currentPage)
+                    {
+                        <li class="active"><a href="@Model.baseUrl?page=@i.ToString()">@i.ToString()</a></li>
+
+                    }
+                    else
+                    {
+                        <li><a href="@Model.baseUrl?page=@i.ToString()">@i.ToString()</a></li>
+                    }
+                }
+
+                <li><a href="#">...</a></li>
+                <li><a href="@Model.baseUrl?page=1">1</a></li>
+                <li><a href="@Model.baseUrl?page=1">&laquo;</a></li>
+            </ul>
+        }
+    }
+}
+

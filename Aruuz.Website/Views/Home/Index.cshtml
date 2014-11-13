@@ -1,0 +1,518 @@
+﻿@model Aruuz.Models.Input
+
+@{
+    ViewBag.Title = "عروض ڈاٹ کام- کسی بھی اردو شعر کی تقطیع کیجئے یا وزن معلوم کیجئے";
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+
+
+}
+
+@section meta{
+    <meta name="description" content="Scansion of Urdu Poetry into meters and feet">
+    <meta name="description" content="اردو شاعری کی تقطیع اور بحر اور وزن کی معلومات">
+    <meta name="keywords" content="عروض، اردو شاعری، شاعری، بحور، بحور فہرست، بحر ہزج، بحر رمل، بحر متقارب، میر ہندی بحر، بحر ہندی، بحر رمزمہ، متدارک بحر">
+    <meta name="author" content="Sayed Zeeshan Asghar">
+    <meta property="fb:admins" content="sayedzeeshan.asghar" />
+    <meta property="fb:admins" content="sayedzeeshan.asghar" />
+    <meta property="fb:app_id" content="202167263310439" />
+    <meta property="fb:profile_id" content="sayedzeeshan.asghar" />
+    <meta property="og:type" content="aruuztaqti:poetry" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:image" content="/images/aruuz3.jpg" />
+}
+
+<div id="fb-root"></div>
+<script>(function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+@*
+        <style>
+         .carousel-caption {
+                max-width: 550px;
+                padding: 0 20px;
+                margin: 0 auto;
+                margin-top: 200px;
+                text-align: center;
+            }
+            </style>
+
+
+
+
+
+                <div id="myCarousel" class="carousel slide">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+                        <div class="item">
+                            <img class="img-responsive" src="~/images/banner_poetry4.jpg" alt="blah">
+                            <div class="carousel-caption urdu-huge"><p> مشہور شعرا کا کلام وزن کی معلومات سمیت خوبصورت انداز میں پڑھیں۔  <a class="urdu" href="/Examples/Index">مزید دیکھئے &raquo;</a>
+    </p></div>
+                        </div>
+                        <div class="active item" >
+                            <img class="img-responsive" src="~/images/aruuz2.jpg" alt="blah">
+                            <div class="carousel-caption urdu-huge"><p>اس سائٹ پر موجود ٹولز کی مدد سے علمِ عروض اور اردو شاعری اب آپ کے لئے اور بھی آسان۔ <a class="urdu" href="/Resources/Article/3">یہاں دیکھئے &raquo;</a>
+                                </p></div>
+                        </div>
+
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+
+*@
+<script type="text/javascript">
+    function change() { $('#path1').attr('fill', '#fff'); }
+    function invert() { $('#path1').attr('fill', '#c0c0c0'); }
+    function changecreate() { $('#path_create').attr('fill', '#fff'); }
+    function invertcreate() { $('#path_create').attr('fill', '#c0c0c0'); }
+    function changetaqti() { $('#path_taqti').attr('fill', '#fff'); }
+    function inverttaqti() { $('#path_taqti').attr('fill', '#c0c0c0'); }
+    function changeexamples() { $('#path_examples').attr('fill', '#fff'); }
+    function invertexamples() { $('#path_examples').attr('fill', '#c0c0c0'); }
+    $(document).ready(function () {
+        var heights = $(".content-panel").map(function () {
+            return $(this).height();
+        }).get(),
+
+        maxHeight = Math.max.apply(null, heights);
+
+        $(".content-panel").height(maxHeight);
+    });
+
+</script>
+<style scoped>
+    .table-striped {
+        width: 100%;
+        float: none;
+        display: table;
+        padding-left: 0;
+    }
+
+    .blue {
+        display: block;
+        height: 0px;
+        border: 0px;
+        border-top: 4px solid #0094ff;
+        margin: 1.25em 0em 0em -2.0em;
+        padding: 1px;
+    }
+
+    .carousel-inner > .item > img {
+        margin: 0 auto;
+    }
+
+    .btn-xlarge {
+        padding: 18px 28px;
+        font-size: 22px;
+        line-height: normal;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+    }
+</style>
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body" style="background-color:#b0b8c1; padding-left:0; padding-right:0; padding-bottom:0">
+            <div style="padding-left: 15px; padding-right:15px;">
+                <div class="row" dir="rtl">
+                    <div class="col-md-3 col-lg-3 col-sm-4">
+                        <div class="thumbnail content-panel" style="background-color:#7070b1;">
+                            <a href="~/examples">
+                                <div onmouseover="changeexamples()" onmouseout="invertexamples()">
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                         width="100.000000pt" height="100.000000pt" viewBox="0 0 128.000000 128.000000"
+                                         preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)"
+                                           fill="#c0c0c0" stroke="none" id="path_examples">
+                                            <path d="M493 1265 c-34 -24 -43 -76 -43 -255 0 -170 -11 -342 -31 -512 l-12
+-98 -137 0 c-116 0 -141 -3 -159 -18 -27 -21 -40 -76 -41 -169 0 -88 -11 -120
+-45 -129 -18 -4 -25 -13 -25 -30 l0 -24 351 0 c238 0 357 4 372 11 28 15 56
+50 57 71 0 14 16 17 121 20 l121 3 28 31 c71 80 120 381 120 735 l0 139 55 0
+55 0 0 44 c0 71 -19 148 -42 173 l-21 23 -352 0 c-298 0 -354 -2 -372 -15z
+m630 -202 c-4 -227 -20 -497 -38 -616 -28 -185 -60 -257 -115 -257 -41 0 -60
+32 -60 103 0 48 -4 62 -25 82 -24 25 -25 25 -225 25 l-202 0 6 38 c17 101 26
+221 37 482 7 157 16 291 22 298 7 9 81 12 306 12 l296 0 -2 -167z m-379 -761
+c-2 -26 -5 -78 -8 -115 -7 -113 12 -107 -334 -107 l-294 0 6 22 c4 13 9 68 13
+123 3 55 10 106 15 112 8 10 84 13 308 13 l297 0 -3 -48z" />
+                                            <path d="M672 908 c3 -23 5 -23 168 -23 163 0 165 0 168 23 l3 22 -171 0 -171
+0 3 -22z" />
+                                            <path d="M603 823 c-18 -7 -16 -40 3 -47 9 -3 93 -6 189 -6 141 0 175 3 185
+15 10 12 10 18 0 30 -10 12 -44 15 -189 14 -97 0 -182 -3 -188 -6z" />
+                                            <path d="M597 714 c-4 -4 -7 -16 -7 -26 0 -17 13 -18 211 -18 l210 0 -3 23
+c-3 22 -4 22 -204 25 -110 1 -203 -1 -207 -4z" />
+                                            <path d="M592 588 c3 -23 3 -23 183 -23 173 0 180 1 180 20 0 19 -8 20 -183
+23 l-183 2 3 -22z" />
+                                            <path d="M570 495 c-10 -12 -10 -18 0 -30 10 -12 46 -15 205 -15 159 0 195 3
+205 15 10 12 10 18 0 30 -10 12 -46 15 -205 15 -159 0 -195 -3 -205 -15z" />
+                                        </g>
+                                    </svg>
+                                </div>
+                            </a>
+                            <div class="caption">
+                                <p class="urdu-huge main" style="color:#fff">منتخب</p>
+                                <p class="main urdu" style="color:#fff">اردو کے مشہور شعراء کا منتخب کلام یہاں دیکھیں۔ ان میں مرزا غالبؔ، میر تقی میرؔ، علامہ اقبالؔ، فیض احمد فیضؔ اور دیگر شعراء کا کلام شامل ہے</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-lg-3 col-sm-4">
+                        <div class="thumbnail content-panel" style="background-color:#7070b1">
+                            <a href="~/mypoetry">
+                                <div onmouseover="change()" onmouseout="invert()">
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                         width="100.000000pt" height="100.000000pt" viewBox="0 0 128.000000 128.000000"
+                                         preserveAspectRatio="xMidYMid meet">
+                                        <rect id="rect2" x="0" y="0" width="128" height="128" fill="none" />
+                                        <g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)"
+                                           fill="#c0c0c0" stroke="none">
+                                            <path id="path1" d="M962 1269 c-40 -8 -38 -7 -224 -192 -142 -142 -174 -187 -131 -187
+10 0 92 74 183 165 145 144 170 165 198 165 18 0 32 -3 32 -6 0 -3 -173 -179
+-385 -391 -233 -233 -385 -393 -385 -404 0 -11 -7 -19 -17 -19 -45 -1 -103
+-40 -136 -92 -47 -73 -86 -240 -64 -275 13 -21 161 5 244 44 63 29 100 70 115
+129 9 31 17 44 29 44 20 0 859 835 859 854 0 15 -162 176 -176 176 -7 0 -17
+-7 -24 -15 -7 -8 -16 -12 -21 -9 -23 14 -67 20 -97 13z m198 -111 c27 -28 50
+-54 50 -57 0 -4 -58 -64 -128 -134 l-129 -128 -57 57 -57 57 128 129 c70 70
+131 128 135 128 4 0 30 -23 58 -52z m-300 -303 l55 -55 -245 -245 -245 -245
+-57 57 -58 58 242 242 c134 134 245 243 248 243 3 0 30 -25 60 -55z m-534
+-563 c47 -69 -3 -147 -119 -186 -80 -27 -85 -21 -29 36 54 54 63 74 36 85 -10
+4 -34 -12 -70 -48 l-55 -54 7 40 c25 160 158 233 230 127z" />
+                                            x
+                                        </g>
+
+
+                                    </svg>
+                                </div>
+                            </a>
+                            <div class="caption">
+                                <p class="urdu-huge main" style="color:#fff">میری شاعری</p>
+
+                                <p class="main urdu" style="color:#fff">اپنی شاعری یہاں شائع کریں اور دوستوں سے شیئر کریں۔ صارفین کی شائع کردہ شاعری بھی خوبصورت انداز میں یہاں پڑھیں</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-3 col-lg-3 col-sm-4">
+                        <div class="thumbnail content-panel" style="background-color:#7070b1">
+                            <a href="~/create">
+                                <div onmouseover="changecreate()" onmouseout="invertcreate()">
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                         width="100.000000pt" height="100.000000pt" viewBox="0 0 128.000000 128.000000"
+                                         preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)"
+                                           fill="#c0c0c0" stroke="none" id="path_create">
+                                            <path d="M935 1243 c-215 -112 -399 -375 -368 -525 9 -46 8 -48 -24 -80 -35
+-34 -43 -65 -17 -75 9 -3 28 7 49 27 33 32 37 33 122 34 98 2 145 20 251 98
+80 59 71 72 -56 78 l-104 5 24 22 c21 20 35 23 153 25 l130 3 0 25 c0 25 -1
+25 -98 30 l-99 5 24 22 c21 20 36 23 138 25 l115 3 28 56 c37 73 45 152 20
+199 -28 54 -47 50 -119 -21 l-63 -62 -3 64 c-3 60 -5 64 -28 66 -14 2 -47 -9
+-75 -24z m55 -101 l0 -57 -185 -185 -185 -185 0 49 c0 109 134 297 282 396 82
+54 88 53 88 -18z m190 -29 c-6 -25 -18 -59 -26 -75 -14 -27 -17 -28 -87 -28
+l-72 0 90 90 c72 73 91 87 98 74 5 -9 4 -34 -3 -61z" />
+                                            <path d="M280 430 c0 -79 0 -80 25 -80 18 0 25 -5 25 -20 0 -14 -7 -20 -23
+-20 -39 0 -144 -59 -177 -98 -31 -38 -55 -99 -66 -169 l-7 -43 377 0 376 0 0
+40 c0 57 -35 142 -77 185 -39 40 -123 85 -160 85 -16 0 -23 6 -23 20 0 15 7
+20 25 20 25 0 25 1 25 80 l0 80 -160 0 -160 0 0 -80z m270 -5 c0 -21 -5 -25
+-30 -25 l-30 0 0 -64 0 -64 43 -7 c54 -9 125 -40 156 -68 28 -26 60 -92 61
+-124 l0 -23 -316 0 -316 0 7 32 c21 96 103 164 223 183 l42 7 0 64 0 64 -30 0
+c-25 0 -30 4 -30 25 l0 25 110 0 110 0 0 -25z" />
+                                        </g>
+                                    </svg>
+                                </div>
+
+                            </a>
+                            <div class="caption">
+                                <p class="urdu-huge main" style="color:#fff">اصلاح</p>
+
+
+                                <p class="main urdu" style="color:#fff"> اپنے اشعار کی قریب ترین بحر اور اوزان و بحور سے متعلق اصلاح کے مشورے یہاں خود کار طریقے سے چند ہی لمحوں میں حاصل کریں</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3 col-lg-3 col-sm-4">
+                        <div class="thumbnail content-panel" style="background-color:#7070b1">
+                            <a href="~/taqti">
+                                <div onmouseover="changetaqti()" onmouseout="inverttaqti()">
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                         width="100.000000pt" height="100.000000pt" viewBox="0 0 128.000000 128.000000"
+                                         preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)"
+                                           fill="#c0c0c0" stroke="none" id="path_taqti">
+                                            <path d="M427 1253 c3 -16 18 -75 33 -133 23 -91 29 -105 48 -108 17 -3 22
+-10 22 -36 0 -27 -5 -34 -33 -44 -91 -33 -163 -138 -174 -254 -11 -118 28
+-227 176 -500 l96 -178 45 0 45 0 96 178 c148 273 187 382 176 500 -9 90 -46
+163 -109 213 -27 21 -61 42 -74 45 -19 5 -24 13 -24 39 0 27 4 34 22 37 19 3
+25 17 48 108 15 58 30 117 33 133 l7 27 -220 0 -220 0 7 -27z m363 -30 c0 -5
+-9 -39 -18 -78 l-18 -70 -114 0 -114 0 -18 70 c-9 39 -18 73 -18 78 0 4 68 7
+150 7 83 0 150 -3 150 -7z m-30 -339 c41 -18 96 -67 116 -107 44 -83 38 -186
+-18 -327 -27 -70 -175 -350 -184 -350 -2 0 -4 87 -4 193 l0 194 26 11 c37 17
+58 74 44 118 -33 99 -167 99 -200 0 -14 -44 7 -101 44 -118 l26 -11 0 -194 c0
+-106 -2 -193 -4 -193 -8 0 -154 274 -180 338 -73 174 -67 303 17 390 39 41 75
+60 130 72 52 11 140 3 187 -16z" />
+                                        </g>
+                                    </svg>
+                                </div>
+
+                            </a>
+                            <div class="caption">
+                                <p class="urdu-huge main" style="color:#fff">تقطیع</p>
+
+                                <p class="main urdu" style="color:#fff">
+                                    کسی بھی اردو نظم، غزل، رباعی، آزاد نظم اور دیگر اصنافِ سخن کے اوزان، بحور و تقطیع خودکار طریقے سے چند ہی لمحوں میں معلوم کریں
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    <div class="row urdu" dir="rtl">
+                        <fieldset>
+                            <div class="jumbotron" style="background-color:#d8d8d8; padding-left:10px; padding-right:4px;">
+
+                                <div class="row ">
+                                    <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                        <div class="urdu col col-lg-1 col-md-2 col-sm-2 col-md-push-0 col-sm-push-0 col-lg-push-0 col-xs-4">
+                                            <input type="submit" class="btn btn-danger btn-xlarge" value="تقطیع" tabindex="2" />
+                                        </div>
+                                        <div class="urdu-small col col-lg-11 col-md-10 col-sm-10 col-md-push-0 col-sm-push-0 col-lg-push-0 col-xs-8">
+                                            @Html.TextAreaFor(Model => Model.text, 2, 12, new { @class = "form-control input-block-level", @placeholder = "فوری تقطیع کے لئے اشعار یہاں داخل کریں", @tabindex = "1" })
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </fieldset>
+                    </div>
+                }
+
+            </div>
+
+            <div class="row">
+                <ul class="nav nav-tabs urdu-large" role="tablist">
+                    <li class="active"><a href="#latest" role="tab" data-toggle="tab">تازہ ترین</a></li>
+                    <li><a href="#poetry" role="tab" data-toggle="tab">فیس بک صفحہ</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="latest">
+
+                    <table class="table table-striped right-align table-bordered">
+
+                        <tr>
+                            <td style="background-color:#d8d8d8">
+                                <div class="col col-lg-4 col-md-4 col-sm-4 col-sm-push-1 col-md-push-1 col-lg-push-1">
+                                    <div class="row">
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">    <h1 class="urdu-large" style="font-weight:bolder">مکمل دیوانِ غالب</h1> </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">
+                                            <p class="urdu">
+                                                دیوانِ غالب مکمل شکل میں اب اس سائٹ پر موجود ہے۔ عروضی طور پر بھی ہر ایک غزل، نظم، قطعہ اور رباعی کی مکمل معلومات فراہم کی گئی ہیں۔
+                                                <a class="btn btn-sm urdu" href="http://aruuz.com/examples/poets?poet=%D9%85%D8%B1%D8%B2%D8%A7%20%D8%A7%D8%B3%D8%AF%20%D8%A7%D9%84%D9%84%DB%81%20%D8%AE%D8%A7%D9%86%20%D8%BA%D8%A7%D9%84%D8%A8">یہاں دیکھیئے &raquo;</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-2 col-md-2 col-sm-2">
+                                    <img src="~/icons/info_icon.png" alt="معلومات" width="64" height="64" />
+                                </div>
+
+
+                                <div class="col col-lg-4 col-md-4 col-sm-4 col-sm-push-1 col-md-push-1 col-lg-push-1">
+                                    <div class="row">
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">    <h1 class="urdu-large" style="font-weight:bolder">بحور کی فہرست</h1> </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">
+                                            <p class="urdu">
+                                                عروض سائٹ پر شامل منتخب کلام کی تمام بحور کی فہرست اب آپ <a href="/resources/meterslist">یہاں</a> دیکھ سکتے ہیں۔ فہرست میں کسی بھی بحر پر کلک کرنے سے اس بحر میں اس سائٹ پر موجود تمام کلام دکھایا جائے گا۔
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-2 col-md-2 col-sm-2">
+                                    <a href="#"> <img src="~/icons/new_icon.png" alt="نیا" width="64" height="64" /> </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #d8d8d8">
+
+                                <div class="col col-lg-4 col-md-4 col-sm-4 col-sm-push-1 col-md-push-1 col-lg-push-1">
+                                    <div class="row">
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">    <h1 class="urdu-large" style="font-weight:bolder">الفاظ کی تقطیع</h1> </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">
+                                            <p class="urdu">
+                                                مفرد الفاظ کی تقطیع معلوم کرنے کے لئے ڈکشنری کے آئکن پر کلک کریں۔
+
+                                                <a class="btn btn-sm urdu" href="#" onclick="dictionaryClicked()"> کلک کریں &raquo;</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-2 col-md-2 col-sm-2">
+                                    <a href="#" onclick="dictionaryClicked()"> <img src="~/icons/application_icon.png" alt="مفرد الفاظ کی تقطیع" width="64" height="64" /> </a>
+                                </div>
+
+                                <div class="col col-lg-4 col-md-4 col-sm-4 col-sm-push-1 col-md-push-1 col-lg-push-1">
+                                    <div class="row">
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">    <h1 class="urdu-large" style="font-weight:bolder">نیا کیا ہے؟</h1> </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">
+                                            <p class="urdu">
+                                                پچھلے ورژن کی نسبت اس ورژن میں خاطر خواہ تبدیلیاں کی گئی ہیں۔ ویبسائٹ کے ڈئزائن کو مکمل طور پر تبدیل کر دیا گیا ہے۔ نیا ڈیزائن مختلف ڈیوائسز پر بہتر طور پر کام کرے گا۔عروض کے انجن میں بھی بہتری لائی گئی ہے اور پہلے سے تیز رفتار کر دیا گیا ہے۔
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-2 col-md-2 col-sm-2">
+                                    <img src="~/icons/new_icon.png" alt="نیا" width="64" height="64" />
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="background-color:#d8d8d8">
+                                <div class="col col-lg-4 col-md-4 col-sm-4 col-sm-push-1 col-md-push-1 col-lg-push-1">
+                                    <div class="row">
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">    <h1 class="urdu-large" style="font-weight:bolder">ہماری سائٹ کے مقاصد</h1> </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">
+                                            <p class="urdu">
+                                                اردو شاعری میں وزن کی ایک بنیادی حیثیت ہے۔ اردو شاعری میں کسی بھی کلام (نثری نظم کی استثنا کے ساتھ) میں وزن کی پابندی ضروری ہے۔ وزن سے خارج کلام کو عموماً ناقدین معیوب سمجھتے ہیں وزن کو جانچنے اور پرکھنے کے لئے قدماء نے ایک نظام وضع کیا جسے ”عروض“ کہا جاتا ہے۔ اس علم کی بنیاد عرب میں رکھی گئی۔ بعد میں یہ علم فارسی شاعری اور اردو شاعری میں منتقل ہوا۔ اس کو اشعار میں پائے جانے والے۔۔۔
+
+                                                <a class="btn btn-sm urdu" href="/resources/article/16">مزید دیکھیئے &raquo;</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-2 col-md-2 col-sm-2">
+                                    <img src="~/icons/new_icon.png" alt="نیا" width="64" height="64" />
+                                </div>
+
+                                <div class="col col-lg-4 col-md-4 col-sm-4 col-sm-push-1 col-md-push-1 col-lg-push-1">
+                                    <div class="row">
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">    <h1 class="urdu-large" style="font-weight:bolder">شعرا کے کلام کی تعداد میں اضافہ</h1> </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col col-lg-12 col-md-12 col-sm-12">
+                                            <p class="urdu">
+
+                                                نامور شعرا کے منتخب کلام کی تعداد میں روز بروز اضافہ ہوتا جا رہا ہے۔ اب تک 100 سے زائد غزلیں، نظمیں اور رباعیات شامل کی گئی ہیں۔ یہ سب 30 کے قریب بحور میں ہیں۔ شاعروں میں مرزا غالب، جوش ملیح آبادی، میر تقی میر، علامہ اقبال، فیض احمد فیض، ابن انشاء، مصطفیٰ زیدی، پروین شاکر، جرات، مصحفی،ذوق، وغیرہ شامل ہیں۔
+                                                <a class="btn btn-sm urdu" href="/examples">یہاں دیکھیئے &raquo;</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-2 col-md-2 col-sm-2">
+                                    <img src="~/icons/info_icon.png" alt="معلومات" width="64" height="64" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div class="tab-pane" id="poetry">
+                    <div id="poetryDiv" class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="fb-like-box embed-responsive-item embed-responsive-4by3" data-href="https://www.facebook.com/UrduAruuz" data-width="1100" data-height="600" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="true" data-show-border="true"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade urdu" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header active">
+                <h4 class="modal-title urdu-large" id="modalLabel">معلومات</h4>
+            </div>
+            <div class="modal-body">
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" id="modal-button" onclick="modalButtonClicked()">
+                    <p id="button-label">
+                        بند کریں
+                    </p>
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-46123045-1', 'aruuz.com');
+    ga('send', 'pageview');
+
+</script>
+

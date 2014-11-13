@@ -1,0 +1,51 @@
+﻿@model IEnumerable<string>
+@using Aruuz.Models
+
+@{    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+      }
+<div class="urdu">
+    <div class="container" dir="rtl">
+        <div class="row">
+            <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table table-striped table-bordered urdu">
+                    <tr class="success" id="main">
+                        <td> </td>
+                        <td>بحر</td>
+                        <td>بنیادی وزن</td>
+                        <td>تعداد کلام</td>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                       string url1 = "/Meters/meter=?" + item.ToString();
+                        List<int> lst = Meters.meterIndex(item.Trim());
+                        string Afail="";
+                        if (lst.Count > 0)
+                          Afail = "jj";//Meters.Afail(Meters.meters[lst.First()]);
+                       else
+                            Afail = "";
+
+                        <tr>
+                            <td colspan="1">
+                              <a class="btn btn-sm btn-success" href="@url1" data-toggle="popover" data-content="اس بحر میں کلام دکھائیں" data-title="ہدایات"><span class="glyphicon glyphicon-eye-open"> </span></a>
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item)
+                            </td>
+
+                            <td>
+
+                       @*         @Html.DisplayFor(modelItem => Afail)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item)
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+﻿<configuration>
+    <appSettings>
+		  <add key="TimeZoneId" value="Pacific Standard Time" />
+    </appSettings>
+  <system.web>
+    <globalization culture="en-US" uiCulture="en-US" enableClientBasedCulture="false" requestEncoding="utf-8" responseEncoding="utf-8" />
+  </system.web>
+</configuration>

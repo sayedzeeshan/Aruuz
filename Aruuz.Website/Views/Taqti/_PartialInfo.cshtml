@@ -1,0 +1,13 @@
+﻿@model Aruuz.Models.Info
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title urdu-huge" id="myModalLabel">@Model.title</h4>
+    </div>
+    <div class="modal-body">
+        @Html.Raw(Model.body)
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default urdu" data-dismiss="modal">بند کریں</button>
+    </div>
+</div><!-- /.modal-content -->

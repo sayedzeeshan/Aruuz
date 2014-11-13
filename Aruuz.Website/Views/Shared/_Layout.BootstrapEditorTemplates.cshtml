@@ -1,0 +1,204 @@
+﻿@using Aruuz.Website.Utility
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title - عروض</title>
+    @RenderSection("meta", required: false)
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msvalidate.01" content="A73CB53E55599E38F6638B4E665BB4A3" />
+
+
+    @Html.Partial("_html5shiv")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/bootstrap")
+    @Scripts.Render("~/Content/keyboard")
+    @Scripts.Render("~/Content/create")
+    @RenderSection("scripts", required: false)
+    @Styles.Render("~/Content/css_custom")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Fav and touch icons -->
+   @* <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Content/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/Content/ico/apple-touch-icon-57-precomposed.png">
+    <link href="~/Content/ico/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+   *@
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=202167263310439";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <meta property="fb:admins" content="202167263310439" />
+
+</head>
+
+
+<body>
+    <style scoped>
+      
+        .navbar .navbar-nav{
+            padding-left: 20px;
+        }
+
+        .navbar {
+            padding-top: 12px;
+        }
+
+        .green1 {
+            color: #000000;
+        }
+
+        .navigation-bar {
+            background-color: lightgray;
+        }
+
+        body {
+            padding-top: 75px;
+        }
+
+        .divider-left {
+            position: absolute;
+            left: 50%;
+            top: 10%;
+            bottom: 10%;
+            border-left: 1px solid white;
+        }
+
+        .divider-right {
+            position: absolute;
+            right: 33%;
+            top: 10%;
+            bottom: 10%;
+            border-left: 1px solid white;
+        }
+
+        /*.navbar .navbar-nav {
+            float: none;
+            margin: 0 auto;
+            display:  table;
+            table-layout: fixed;
+            
+           
+        }
+
+         .navbar-center {
+            // position: absolute;
+            // width: 100%;
+            //left: 33%;
+            text-align: center;
+            margin: 0 auto;
+            display: inline-block;
+            float: none;
+        }
+          */
+    </style>
+
+    @Html.Partial("/Views/Shared/_NavBar.BootstrapEditorTemplates.cshtml")
+
+    @RenderSection("featured", required: false)
+
+
+    <form id="__AjaxAntiForgeryForm" action="#" method="post" hidden="hidden"> @Html.AntiForgeryToken()</form>
+
+    @RenderBody()
+
+    <div class="container">
+        <nav class="navbar navbar-default urdu">
+            <ul class="nav navbar-nav hidden-sm hidden-xs navbar-left">
+                <li>
+                    <p class="right-align">
+                        <img src="/images/logo.png" style="max-width:100px; margin-top: -7px;" alt="عروض سائٹ کا لوگو" />
+                        @*<span class="label label-default">Aruuz v1.0.4 &copy; @DateTime.Now.Year.ToString() </span>*@
+                        <br>
+                        از
+                        <a href="https://twitter.com/sayed_asghar">سید ذیشان اصغر</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-left visible-sm visible-xs">
+                <li>
+                    <p class="right-align">
+                        <img src="/images/logo.png" style="max-width:100px; margin-top: -7px;" alt="عروض سائٹ کا لوگو" />
+                        @*<span class="label label-default">Aruuz v1.0.4 &copy; @DateTime.Now.Year.ToString() </span>*@
+                        <br>
+                        از
+                        <a href="https://twitter.com/sayed_asghar">سید ذیشان اصغر</a>
+                </li>
+            </ul>
+            <div class="divider-left hidden-xs hidden-sm"></div>
+            <ul class="nav navbar-nav hidden-xs hidden-sm navbar-right ">
+                <li class="fb-like" data-href="https://www.facebook.com/UrduAruuz" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false" data-size="standard"></li>
+                <li><div class="g-plusone" data-size="tall"></div></li>
+                <li><a href="https://twitter.com/share" data-count="vertical" data-size="tall" data-url="http://www.aruuz.com" data-via="sayed_asghar" data-text="اس سائٹ کے ذریعے اپنے اشعار کا وزن معلوم کریں اور اصلاح حاصل کریں" class="twitter-share-button" data-lang="en">ٹویٹ</a> </li>
+            </ul>
+            
+         
+            <ul class="nav navbar-nav">
+                <li class="urdu"><a href="http://www.urduweb.org/">اردو ویب</a></li>
+                <li class="urdu">@Html.ActionLink("رابطہ", "Contact", "Home")</li>
+                <li class="urdu">@Html.ActionLink("تبصرے", "Index", "Comments")</li>
+                <li class="urdu">@Html.ActionLink("اے پی آئی", "API", "Home")</li>
+
+            </ul>
+</nav>
+    </div>
+    <br>
+    <br>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('.search').UrduEditor();
+            $('.search').css("font-size","x-small");
+
+        });
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+    @*@Styles.Render("~/Content/css_custom")*@
+
+
+
+    
+</body>
+
+
+
+</html>
+
+
+

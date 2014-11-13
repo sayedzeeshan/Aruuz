@@ -1,0 +1,278 @@
+﻿
+    @font-face {
+        font-family: nafees-naskh-regular;
+        src: url('../fonts/nafees-web-naskh-regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    
+.urdu-naskh {
+    direction: rtl;
+    font-size: larger;
+    font-family: 'nafees-naskh-regular';
+}
+.urdu-naskh-medium {
+    direction: rtl;
+    font-size: medium;
+    font-family: 'nafees-naskh-regular';
+}
+
+.urdu {
+    -webkit-font-feature-settings: "ccmp" 0;
+    -moz-font-feature-settings: "ccmp" 0;
+    font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
+    direction: rtl;
+    font-size: larger;
+    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+}
+
+.urdu-sp {
+    -webkit-font-feature-settings: "ccmp" 0;
+    -moz-font-feature-settings: "ccmp" 0;
+    font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
+    direction: rtl;
+    font-size: x-large;
+    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+}
+
+.urdu-medium {
+    -webkit-font-feature-settings: "ccmp" 0;
+    -moz-font-feature-settings: "ccmp" 0;
+    font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
+     direction: rtl;
+    font-size: large;
+    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+}
+
+.urdu-huge {
+    -webkit-font-feature-settings: "ccmp" 0;
+    -moz-font-feature-settings: "ccmp" 0;
+     font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
+     direction: rtl;
+    font-size: xx-large;
+    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+}
+
+.urdu-large {
+    -webkit-font-feature-settings: "ccmp" 0;
+    -moz-font-feature-settings: "ccmp" 0;
+    font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
+    direction: rtl;
+    font-size: x-large;
+    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+}
+
+.urdu-small {
+    -webkit-font-feature-settings: "ccmp" 0;
+    -moz-font-feature-settings: "ccmp" 0;
+    font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
+    direction: rtl;
+    font-size: medium;
+    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+}
+
+.sidebar-nav-fixed {
+    position: fixed;
+    top: 60px;
+    width: 21.97%;
+}
+
+@media (max-width: 767px) {
+    .sidebar-nav-fixed {
+        width: auto;
+    }
+}
+
+@media (max-width: 979px) {
+    .sidebar-nav-fixed {
+        position: static;
+        width: auto;
+    }
+}
+
+p.main {
+    text-align: center;
+}
+
+table.right-align {
+    text-align: right;
+}
+
+table.center-align {
+    text-align: center;
+}
+
+td.right-align {
+    text-align: right;
+}
+
+td.center-align {
+    text-align: center;
+}
+/* Side notes for calling out things
+-------------------------------------------------- */
+
+/* Base styles (regardless of theme) */
+.bs-callout {
+margin: 20px 0;
+padding: 15px 30px 15px 15px;
+border-left: 5px solid #eee;
+}
+
+.bs-callout h1,
+.bs-callout h2,
+.bs-callout h3,
+.bs-callout h4,
+.bs-callout h5,
+.bs-callout h6 {
+margin-top: 0;
+}
+
+.bs-callout-danger h1,
+.bs-callout-danger h2,
+.bs-callout-danger h3,
+.bs-callout-danger h4,
+.bs-callout-danger h5,
+.bs-callout-danger h6 {
+color: #B94A48;
+}
+
+.bs-callout-warning h1,
+.bs-callout-warning h2,
+.bs-callout-warning h3,
+.bs-callout-warning h4,
+.bs-callout-warning h5,
+.bs-callout-warning h6 {
+color: #C09853;
+}
+
+.bs-callout-info h1,
+.bs-callout-info h2,
+.bs-callout-info h3,
+.bs-callout-info h4,
+.bs-callout-info h5,
+.bs-callout-info h6 {
+color: #3A87AD;
+}
+
+.bs-callout-success h1,
+.bs-callout-success h2,
+.bs-callout-success h3,
+.bs-callout-success h4,
+.bs-callout-success h5,
+.bs-callout-success h6 {
+color: #3C763D;
+}
+
+.bs-callout p:last-child {
+margin-bottom: 0;
+}
+
+.bs-callout code,
+.bs-callout .highlight {
+background-color: #fff;
+}
+
+/* Themes for different contexts */
+.bs-callout-danger {
+background-color: #fcf2f2;
+border-color: #dFb5b4;
+}
+.bs-callout-warning {
+background-color: #fefbed;
+border-color: #f1e7bc;
+}
+.bs-callout-info {
+background-color: #f0f7fd;
+border-color: #d0e3f0;
+}
+.bs-callout-primary {
+background-color: #fcf2f2;
+border-color: #7070b1;
+}
+.bs-callout-success {
+background-color: #f1f1f1;
+border-color: #d6e9c6;
+}
+
+.bs-callout-urdu {
+margin: 20px;
+padding: 15px 30px 15px 15px;
+border-right: 5px solid #eee;
+}
+.bs-callout-urdu h1,
+.bs-callout-urdu h2,
+.bs-callout-urdu h3,
+.bs-callout-urdu h4,
+.bs-callout-urdu h5,
+.bs-callout-urdu h6 {
+margin-top: 0;
+}
+
+.bs-callout-urdu-danger h1,
+.bs-callout-urdu-danger h2,
+.bs-callout-urdu-danger h3,
+.bs-callout-urdu-danger h4,
+.bs-callout-urdu-danger h5,
+.bs-callout-urdu-danger h6 {
+color: #B94A48;
+}
+
+.bs-callout-urdu-warning h1,
+.bs-callout-urdu-warning h2,
+.bs-callout-urdu-warning h3,
+.bs-callout-urdu-warning h4,
+.bs-callout-urdu-warning h5,
+.bs-callout-urdu-warning h6 {
+color: #C09853;
+}
+
+.bs-callout-urdu-info h1,
+.bs-callout-urdu-info h2,
+.bs-callout-urdu-info h3,
+.bs-callout-urdu-info h4,
+.bs-callout-urdu-info h5,
+.bs-callout-urdu-info h6 {
+color: #3A87AD;
+}
+
+.bs-callout-urdu-success h1,
+.bs-callout-urdu-success h2,
+.bs-callout-urdu-success h3,
+.bs-callout-urdu-success h4,
+.bs-callout-urdu-success h5,
+.bs-callout-urdu-success h6 {
+color: #3C763D;
+}
+
+.bs-callout-urdu p:last-child {
+margin-bottom: 0;
+}
+
+.bs-callout-urdu code,
+.bs-callout-urdu .highlight {
+background-color: #fff;
+}
+
+/* Themes for different contexts */
+.bs-callout-urdu-danger {
+background-color: #fcf2f2;
+border-color: #dFb5b4;
+}
+.bs-callout-urdu-warning {
+background-color: #fefbed;
+border-color: #f1e7bc;
+}
+.bs-callout-urdu-info {
+background-color: #f0f7fd;
+border-color: #d0e3f0;
+}
+.bs-callout-urdu-primary {
+background-color: #fcf2f2;
+border-color: #7070b1;
+}
+.bs-callout-urdu-success {
+background-color: #f1f1f1;
+border-color: #d6e9c6;
+}

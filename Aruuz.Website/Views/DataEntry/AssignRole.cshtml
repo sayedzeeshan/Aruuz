@@ -1,0 +1,41 @@
+﻿@model Aruuz.Models.UserRole
+
+@{
+    ViewBag.Title = "شاعری داخلہ";
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+    @Styles.Render("~/Content/css_custom")
+}
+
+
+
+
+
+<ol class="breadcrumb">
+    <li><a href="#">رول</a></li>
+</ol>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <fieldset>
+                    @Html.Label("User");
+                    @Html.TextBoxFor(Model => Model.id, new { @class = "form-control" })
+
+                    <br>
+                    @Html.Label("Role")
+                    @Html.TextBoxFor(Model => Model.role, new { @class = "form-control" })
+                    <br>
+                    <input type="submit" class="btn btn-primary btn-lg" value="داخل کریں" />
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+}
+

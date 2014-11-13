@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Aruuz.Models.Resources>
+           @using System.Globalization
+@{
+    
+    ViewBag.Title = "عروض، شاعری اور ویب سائٹ کے استعمال پر مضامین";
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+
+}
+
+@section meta{
+    <meta name="description" content="Free Articles on Urdu Poetry">
+    <meta name="description" content="اردو شاعری اور علم عروض پر مضامین">
+    <meta name="author" content="Sayed Zeeshan Asghar">
+    <meta property="fb:admins" content="sayedzeeshan.asghar" />
+}
+
+
+
+
+<div id="metersDiv"></div>
+
+<div class="urdu">
+    <div class="container" dir="rtl">
+        <ol class="breadcrumb urdu">
+            <li><a href="/resources">مضامین</a></li>
+        </ol>
+        <div class="row">
+            <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <img src="~/icons/articles.png" width="50" height="50" class="pull-left">
+
+                    <div class="panel-heading">
+                        <p class="urdu-huge">مضامین</p>
+                        <p class="urdu-large">ویب سائٹ کے استعمال، عروض اور شاعری سے متعلق مضامین</p>
+                    </div>
+
+                    <div class="panel-body">
+                        <table class="table urdu table-striped table-bordered">
+                            <tr class="success">
+                                <td>عنوان</td>
+                                <td>مصنف</td>
+                                <td>زمرہ</td>
+                                <td>تاریخ</td>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @if (item.id == 17)
+                                    {
+                                        <td>
+                                            @Html.ActionLink(item.title, "MetersList", "Resources")
+                                        </td>
+                                        <td>
+                                            <a href="@item.website">@Html.DisplayFor(modelItem => item.author)</a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.category)
+                                        </td>
+                                        <td>
+                                            @item.date.ToString("d MMMM، yyy",CultureInfo.CreateSpecificCulture("ur-PK"))
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @Html.ActionLink(item.title, "Article", "Resources", new { id = item.id }, null)
+                                        </td>
+                                        <td>
+                                            <a href="@item.website">@Html.DisplayFor(modelItem => item.author)</a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.category)
+                                        </td>
+                                        <td>
+                                            @item.date.ToString("d MMMM، yyy", CultureInfo.CreateSpecificCulture("ur-PK"))
+
+
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+
+
+                    </div>
+                    <div class="panel-footer">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-46123045-1', 'aruuz.com');
+    ga('send', 'pageview');
+
+</script>

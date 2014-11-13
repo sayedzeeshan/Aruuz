@@ -1,0 +1,64 @@
+﻿@helper ActiveItem(string actionName, string controllerName, string areaName)
+{
+    if (ViewContext.RouteData.Values["action"].ToString().ToLower() == actionName.ToLower() &&
+            ViewContext.RouteData.Values["controller"].ToString().ToLower() == controllerName.ToLower() &&
+            (ViewContext.RouteData.DataTokens["area"] == null || ViewContext.RouteData.DataTokens["area"].ToString() == areaName))
+    {
+        @:active
+    }
+}
+
+<div class="navbar navbar-inverse navbar-fixed-top urdu">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div class="navbar-collapse collapse" id="mainbar">
+
+            <form class="navbar-form navbar-left" role="search" id="mySearchForm">
+                <div class="form-group">
+                    <input type="text" class="form-control search " placeholder="اشعار میں تلاش">
+                </div>
+                <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+
+         
+
+
+            <ul class="nav navbar-nav  navbar-right">
+                <li class="@ActiveItem("Index", "MyPoetry", null) urdu-medium">
+                    @Html.ActionLink("میری شاعری", "Index", "MyPoetry")
+                </li>
+                <li class="@ActiveItem("Index", "Resources", null) urdu-medium">@Html.ActionLink("مضامین", "Index", "Resources")</li>
+                <li class="@ActiveItem("Index", "Examples", null) urdu-medium">@Html.ActionLink("منتخب", "Index", "Examples")</li>
+                <li class="@ActiveItem("Index", "Create", null) urdu-medium">@Html.ActionLink("اصلاح", "Index", "Create")</li>
+                <li class="@ActiveItem("Index", "Taqti", null) urdu-medium">
+                    
+                    @Html.ActionLink("تقطیع", "Index", "Taqti")
+                </li>
+                <li class="@ActiveItem("Index", "Home", null) urdu-medium">
+                    @Html.ActionLink("صفحۂ اول", "Index", "Home")
+                </li>
+            </ul>
+            
+
+
+
+        </div>
+    </div>
+    
+</div>
+@*<div style="border-bottom:1px  ridge lightgray; position:relative">
+</div>*@
+
+
+
+
+<!-- Place this tag after the last +1 button tag. -->

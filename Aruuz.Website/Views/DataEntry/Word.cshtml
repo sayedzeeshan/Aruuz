@@ -1,0 +1,69 @@
+﻿@model Aruuz.Models.WordExeception
+
+@{
+    ViewBag.Title = "الفاظ داخلہ";
+    Layout = "~/Views/Shared/_Layout.BootstrapEditorTemplates.cshtml";
+
+}
+
+
+
+
+
+
+<ol class="breadcrumb urdu">
+    <li><a href="#">شاعری</a></li>
+</ol>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <fieldset>
+                    @Html.Label("لفظ");
+                    @Html.TextBoxFor(Model => Model.word, new { @class = "form-control" })
+
+                    <br>
+                    @Html.Label("تقطیع کوڈ 1")
+                    @Html.TextBoxFor(Model => Model.taqti, new { @class = "form-control" })
+                    <br>
+                    @Html.Label("تقطیع کوڈ 2")
+                    @Html.TextBoxFor(Model => Model.taqti2, new { @class = "form-control" })
+                    <br>
+                    <input type="submit" class="btn btn-primary btn-lg" value="داخل کریں" />
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+}
+
+
+<a href="#" onclick="reportClicked(0,'@User.Identity.Name')"> رپورٹ کریں </a>
+
+<!-- Modal -->
+<div class="modal fade urdu" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header active">
+                <h4 class="modal-title urdu-large" id="modalLabel">معلومات</h4>
+            </div>
+            <div class="modal-body">
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" id="modal-button" onclick="modalButtonClicked()">
+                    <p id="button-label">
+                        بند کریں
+                    </p>
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
