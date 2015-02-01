@@ -1,7 +1,7 @@
 # Aruuz
 
 Description:
-A software that scans Urdu poetry poetry into metres and feet.   
+A software that scans Urdu poetry into metres and feet.   
 
 Deployment: 
 1. Database: The complete database is available at Aruuz.Website/DB folder. It can be setup on mysql server. 
