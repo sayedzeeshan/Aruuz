@@ -3697,7 +3697,8 @@ namespace Aruuz.Models
                                         myConn.Open();
                                         MySqlCommand cmd = new MySqlCommand(connectionString);
                                         cmd = myConn.CreateCommand();
-                                        cmd.CommandText = "select * from unassigned where word like '" + Araab.removeAraab(wd.word) + "';";
+                                        cmd.CommandText = "select * from unassigned where word like @word";
+                                        cmd.Parameters.AddWithValue("@word", Araab.removeAraab(wd.word));
                                         MySqlDataReader dataReader = cmd.ExecuteReader();
 
                                         if (!dataReader.HasRows) // look for existing entry in the unassigned table

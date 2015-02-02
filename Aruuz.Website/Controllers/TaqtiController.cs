@@ -61,7 +61,8 @@ namespace Aruuz.Controllers
             if (id < 0)
             {
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+                cmd.CommandText = "select * from poetry where id = @id;";
+                cmd.Parameters.AddWithValue("@id", id + 65536);
                 dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {
@@ -102,7 +103,8 @@ namespace Aruuz.Controllers
             if (id > 0)
             {
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from InputData where id = \"" + id.ToString() + "\";";
+                cmd.CommandText = "select * from InputData where id = @id;";
+                cmd.Parameters.AddWithValue("@id",id);
                 dataReader = cmd.ExecuteReader();
 
 
@@ -115,7 +117,9 @@ namespace Aruuz.Controllers
             else
             {
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+                cmd.CommandText = "select * from poetry where id = @id;";
+                cmd.Parameters.AddWithValue("@id", id + 65536);
+
                 dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {
@@ -198,7 +202,9 @@ namespace Aruuz.Controllers
                 myConn2.Open();
                 MySqlCommand cmd2 = new MySqlCommand(connectionString);
                 cmd2 = myConn2.CreateCommand();
-                cmd2.CommandText = "update poetry set taqtiObject = @object where id = \"" + (id + 65536).ToString() + "\";";
+                cmd2.CommandText = "update poetry set taqtiObject = @object where id = @id;";
+                cmd2.Parameters.AddWithValue("@id", id + 65536);
+
                 cmd2.Parameters.AddWithValue("@object",(string)textWriter.ToString());
                 cmd2.ExecuteNonQuery();
                 myConn2.Close();
@@ -226,7 +232,9 @@ namespace Aruuz.Controllers
             List<int> met = new List<int>();
 
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+            cmd.CommandText = "select * from poetry where id = @id;";
+            cmd.Parameters.AddWithValue("@id", id + 65536);
+
             dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
@@ -314,8 +322,9 @@ namespace Aruuz.Controllers
                 myConn2.Open();
                 MySqlCommand cmd2 = new MySqlCommand(connectionString);
                 cmd2 = myConn2.CreateCommand();
-                cmd2.CommandText = "update poetry set taqtiObject = @object where id = \"" + (id + 65536).ToString() + "\";";
+                cmd2.CommandText = "update poetry set taqtiObject = @object where id = @id;";
                 cmd2.Parameters.AddWithValue("@object", (string)textWriter.ToString());
+                cmd2.Parameters.AddWithValue("@id", id + 65536);
                 cmd2.ExecuteNonQuery();
                 myConn2.Close();
             }
@@ -344,7 +353,8 @@ namespace Aruuz.Controllers
             List<int> met = new List<int>();
 
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+            cmd.CommandText = "select * from poetry where id = @id;";
+            cmd.Parameters.AddWithValue("@id",id + 65536);
             dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
@@ -432,8 +442,9 @@ namespace Aruuz.Controllers
                 myConn2.Open();
                 MySqlCommand cmd2 = new MySqlCommand(connectionString);
                 cmd2 = myConn2.CreateCommand();
-                cmd2.CommandText = "update poetry set taqtiObject = @object where id = \"" + (id + 65536).ToString() + "\";";
+                cmd2.CommandText = "update poetry set taqtiObject = @object where id = @id;";
                 cmd2.Parameters.AddWithValue("@object", (string)textWriter.ToString());
+                cmd2.Parameters.AddWithValue("@id",id + 65536)
                 cmd2.ExecuteNonQuery();
                 myConn2.Close();
             }
@@ -871,7 +882,8 @@ namespace Aruuz.Controllers
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from likeDislike where id like '" + url + "';";
+            cmd.CommandText = "select * from likeDislike where id like @url";
+            cmd.Parameters.AddWithValue("@url", url);
             dataReader = cmd.ExecuteReader();
             string id3 = "";
             int likes = 0;
@@ -900,10 +912,12 @@ namespace Aruuz.Controllers
             {
                 myConn.Open();
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "update likeDislike set id=@id, likes@likes, dilikes = @dislikes where id like '" + url + "';";
+                cmd.CommandText = "update likeDislike set id=@id, likes@likes, dilikes = @dislikes where id like @url;";
                 cmd.Parameters.AddWithValue("@id", url);
                 cmd.Parameters.AddWithValue("@likes", (int)likes + 1);
                 cmd.Parameters.AddWithValue("@dislikes", (int)dislikes);
+                cmd.Parameters.AddWithValue("@url", url);
+
                 cmd.ExecuteNonQuery();
 
                 myConn.Close();

@@ -28,7 +28,11 @@ namespace Aruuz.Website.Controllers
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select id from iplog where ip like '" + Request.UserHostAddress + "' and date <= '" + DateTime.Now + "' and date >= '" + DateTime.Now.Subtract(new TimeSpan(24, 0, 0)) + "';";
+            cmd.CommandText = "select id from iplog where ip like '@userhost' and date <= @nowdate and date >= @prevdate;";
+            cmd.Parameters.AddWithValue("@userhost", Request.UserHostAddress);
+            cmd.Parameters.AddWithValue("@nowdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@prevdate", DateTime.Now.Subtract(new TimeSpan(24, 0, 0)));
+
             MySqlDataReader dataReader = cmd.ExecuteReader();
             int count = dataReader.FieldCount;
             myConn.Close();
@@ -176,7 +180,8 @@ namespace Aruuz.Website.Controllers
                 myConn.Open();
                 MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from unassigned where word like '" + Araab.removeAraab(data.text) + "';";
+                cmd.CommandText = "select * from unassigned where word like '@wrd';";
+                cmd.Parameters.AddWithValue("@wrd", Araab.removeAraab(data.text));
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
                 if (!dataReader.HasRows) // look for existing entry in the unassigned table
@@ -308,7 +313,8 @@ namespace Aruuz.Website.Controllers
             if (id > 0)
             {
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from InputData where id = \"" + id.ToString() + "\";";
+                cmd.CommandText = "select * from InputData where id = @id;";
+                cmd.Parameters.AddWithValue("@id", id);
                 dataReader = cmd.ExecuteReader();
 
 
@@ -321,7 +327,9 @@ namespace Aruuz.Website.Controllers
             else
             {
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+                cmd.CommandText = "select * from poetry where id = @id;";
+                cmd.Parameters.AddWithValue("@id", id + 65536);
+
                 dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {

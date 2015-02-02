@@ -228,14 +228,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\codeTree.cs" />
+    <Compile Include="Models\CodeTree.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Inputs.cs" />
-    <Compile Include="Models\patternTree.cs" />
-    <Compile Include="Models\scanOutput.cs" />
+    <Compile Include="Models\Meters.cs" />
+    <Compile Include="Models\PatternTree.cs" />
     <Compile Include="Models\Scansion.cs" />
     <Compile Include="Models\StateMachine.cs" />
-    <Compile Include="Models\Words.cs" />
+    <Compile Include="Models\HelperClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\DateTimeExtensions.cs" />

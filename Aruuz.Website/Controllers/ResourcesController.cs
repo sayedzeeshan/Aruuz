@@ -50,7 +50,8 @@ namespace Aruuz.Website.Controllers
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from Resources where id = '" + id + "';";
+            cmd.CommandText = "select * from Resources where id = @id;";
+            cmd.Parameters.AddWithValue("@id",id);
             dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
