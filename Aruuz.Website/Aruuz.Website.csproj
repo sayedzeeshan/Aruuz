@@ -228,14 +228,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\codeTree.cs" />
+    <Compile Include="Models\CodeTree.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Inputs.cs" />
-    <Compile Include="Models\patternTree.cs" />
-    <Compile Include="Models\scanOutput.cs" />
+    <Compile Include="Models\Meters.cs" />
+    <Compile Include="Models\PatternTree.cs" />
     <Compile Include="Models\Scansion.cs" />
     <Compile Include="Models\StateMachine.cs" />
-    <Compile Include="Models\Words.cs" />
+    <Compile Include="Models\HelperClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\DateTimeExtensions.cs" />
@@ -246,9 +245,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="..\..\..\..\..\Desktop\bootstrap.css">
+    <Content Include="Content\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
-      <Link>Content\bootstrap.css</Link>
     </Content>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\create.js" />
@@ -278,10 +276,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\bootstrap.less" />
-    <Content Include="..\..\..\..\..\Desktop\bootstrap.css.map">
-      <DependentUpon>bootstrap.css</DependentUpon>
-      <Link>Content\bootstrap.css.map</Link>
-    </Content>
     <Content Include="Content\less\alerts.less" />
     <Content Include="Content\less\badges.less" />
     <Content Include="Content\less\breadcrumbs.less" />
@@ -373,6 +367,10 @@
     <Content Include="fonts\NotoNastaliqUrduDraft.ttf" />
     <Content Include="fonts\nafees-web-naskh-regular.ttf" />
     <Content Include="fonts\NotoNastaliqUrduDraft.woff" />
+    <Content Include="Content\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\ftphome.pubxml" />
     <None Include="Properties\PublishProfiles\home.pubxml" />
     <None Include="Properties\PublishProfiles\LabProfile.pubxml" />
     <Content Include="icons\1390231936_Streamline-22.png" />
@@ -805,7 +803,9 @@
     <Content Include="Scripts\globalize\globalize.js" />
     <Content Include="Scripts\html5shiv.js" />
     <Content Include="res\faelat_3rd_internet_edition_2014.pdf" />
+    <Content Include="res\M_Y_Aasy_asan_aruz.pdf" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />

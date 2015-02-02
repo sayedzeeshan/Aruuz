@@ -103,7 +103,7 @@ namespace Aruuz.Controllers
                 MySqlCommand cmd2 = new MySqlCommand(TaqtiController.connectionString);
                 cmd2 = myConn2.CreateCommand();
                 cmd2.CommandText = "select * from Poetry order by id DESC limit @init,@count";
-                if (page == maxPages)
+                if (page == maxPages && residue > 0)
                 {
                     cmd2.Parameters.AddWithValue("@init", (page - 1) * 15);
                     cmd2.Parameters.AddWithValue("@count", residue);
@@ -346,7 +346,8 @@ namespace Aruuz.Controllers
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from Poetry where meterID like '%" + meter.Replace("_","/") + "%' order by id DESC";
+            cmd.CommandText = "select * from Poetry where meterID like '%/@met%' order by id DESC";
+            cmd.Parameters.AddWithValue("@met", meter.Replace("_", "/").Trim());
             dataReader = cmd.ExecuteReader();
             int typeId = -1; ;
             while (dataReader.Read())
@@ -408,7 +409,8 @@ namespace Aruuz.Controllers
             int typeId = -1;
 
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+            cmd.CommandText = "select * from poetry where id = @id;";
+            cmd.Parameters.AddWithValue("@id", id + 65536);
             dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
@@ -461,7 +463,8 @@ namespace Aruuz.Controllers
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from Poetry where text like '%" + searchString + "%'  order by id DESC";
+            cmd.CommandText = "select * from Poetry where text like '%@search%'  order by id DESC";
+            cmd.Parameters.AddWithValue("@search",searchString);
             dataReader = cmd.ExecuteReader();
             int typeId = -1; ;
             while (dataReader.Read())

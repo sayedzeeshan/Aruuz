@@ -39,9 +39,6 @@
     });
 </script>
 
-<div class="container">
-    <div class="urdu">
-        <div class="container-fluid" dir="rtl">
             <div class="row">
                 <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="row">
@@ -88,7 +85,7 @@
                                                     </tbody>
 
                                                     <tbody id="section1_@sectionID">
-                                                        <tr>
+                                                        <tr class="urdu">
                                                             @foreach (var m in item.words)
                                                             {
                                                                 if (m.id[0] != -1 && !m.modified)
@@ -161,9 +158,6 @@
                             </div>
                  </div>
             </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

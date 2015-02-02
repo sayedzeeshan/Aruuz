@@ -13,6 +13,8 @@ namespace Aruuz.Models
         codeLocation location;
         List<CodeTree> children;
         public int errorParam = 2;
+		public bool fuzzy = false;
+		public bool freeVerse = false;
         public CodeTree(codeLocation loc)
         {
             location = new codeLocation();
@@ -122,12 +124,12 @@ namespace Aruuz.Models
             scn.location.Add(new codeLocation());
 
 
-            if (TaqtiController.fuzzy)
+            if (fuzzy)
             {
                 mainList = traverseFuzzy(scn);
                 //mainList = traverseFreeVerse(scn);
             }
-            else if(TaqtiController.freeVerse)
+            else if(freeVerse)
             {
                 mainList = traverseFreeVerse(scn);
             }

@@ -43,25 +43,22 @@
 
 <div>
     <div class="container" dir="rtl">
-        <ol class="breadcrumb urdu">
-            <li><a href="/examples">منتخب کلام</a></li>
-        </ol>
         <div class="row" id="contentDiv">
             <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="panel panel-primary">
+                <div class="panel panel-primary" style="border: 0 hidden #cad4d4;">
                     <div class="panel-heading">
                         <img src="~/icons/examples.png" width="50" height="50" class="pull-left">
                         <p class="urdu-huge">منتخب کلام</p>
                         <p class="urdu-large">مشہور شعراء کا منتخب کلام بحر و عروض کی مکمل معلومات سمیت</p>
                         @*<a class="btn btn-lg btn-default" href="/examples/filter"><span class="glyphicon glyphicon-filter"></span><span class="glyphicon glyphicon-plus"></span></a>*@
                         @*<div class="pull-right">
-                                <p>
-                                    مدیران:<a class="white" href="https://www.facebook.com/usamasarsari"> محمد اسامہ سرسریؔ</a> ،<a class="white" href="https://www.facebook.com/syedmohammadmehdinaqvi"> مہدی نقوی حجازؔ  </a> ، <a href="https://www.facebook.com/OurUrduPoetries" class="white">، ابن رضاؔ</a>
-                                </p>
-                            </div>*@
+                    <p>
+                        مدیران:<a class="white" href="https://www.facebook.com/usamasarsari"> محمد اسامہ سرسریؔ</a> ،<a class="white" href="https://www.facebook.com/syedmohammadmehdinaqvi"> مہدی نقوی حجازؔ  </a> ، <a href="https://www.facebook.com/OurUrduPoetries" class="white">، ابن رضاؔ</a>
+                    </p>
+                </div>*@
 
                     </div>
-                    <div class="panel-body" style="background-color:#e8e8e8; border: 0px solid lightgray">
+                    <div class="panel-body" style="background-color: #cad4d4">
                         <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                             @foreach (var m in Model)
@@ -194,18 +191,16 @@
 
 
                     </div>
-                    <div class="panel-footer">
-                        @{
-                            Pagination pg = new Pagination();
-                            pg.currentPage = Model.First().currentPage;
-                            pg.maxPages = Model.First().maxpages;
-                            pg.baseUrl = "/examples/index";
-                            @Html.Partial("_Pagination", pg);
-                        }
-                    </div>
-
+                  
 
                 </div>
+                @{
+                    Pagination pg = new Pagination();
+                    pg.currentPage = Model.First().currentPage;
+                    pg.maxPages = Model.First().maxpages;
+                    pg.baseUrl = "/examples/index";
+                    @Html.Partial("_Pagination", pg);
+                }
             </div>
         </div>
     </div>

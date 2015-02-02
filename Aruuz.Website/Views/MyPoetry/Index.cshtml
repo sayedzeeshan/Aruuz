@@ -31,11 +31,8 @@
 
 <div>
     <div class="container" dir="rtl">
-        <ol class="breadcrumb urdu">
-            <li><a href="/mypoetry">میری شاعری</a></li>
-        </ol>
         <div class="row">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="border: 0 hidden #cad4d4;">
                 <div class="panel-heading">
 
                     <img src="~/icons/mypoetry.png" width="50" height="50" class="pull-left">
@@ -44,21 +41,19 @@
                         میری شاعری
                     </p>
                     <p class="urdu-large">
-                        صارفین کی شائع کردہ شاعری
-                    </p>
+آپ کی شائع شدہ شاعری                    </p>
+
+                        <p class="urdu" style="text-align: left">
+                            <a href="http://aruuz.com/resources/article/18" style="color:white">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                اس سیکشن میں اپنی شاعری کیسے شائع کریں؟
+                            </a>
+                        </p>
+
                 </div>
 
-                <div class="panel-body" style="background-color:#e8e8e8">
+                <div class="panel-body" style="background-color: #cad4d4">
                     <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="alert alert-link">
-
-                            <p class="urdu">
-                                <a href="http://aruuz.com/resources/article/18">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                    اس سیکشن میں اپنی شاعری کیسے شائع کریں؟
-                                </a>
-                            </p>
-                        </div>
                         @foreach (var m in Model)
                         {
                             string id_panel = "";
@@ -91,7 +86,7 @@
                                         {
 
                                             <p style="text-align:right; color:gray" class="urdu-small">
-                                                @m.date.ToString("d ، MMMM",CultureInfo.CreateSpecificCulture("ur-PK"))
+                                                @m.date.ToString("d  MMMM",CultureInfo.CreateSpecificCulture("ur-PK"))
                                                 
                                             </p>
                                         }
@@ -154,16 +149,14 @@
                     </div>
                 </div>
 
-                <div class="panel-footer">
-                    @{
-                        Pagination pg = new Pagination();
-                        pg.currentPage = Model.First().currentPage;
-                        pg.maxPages = Model.First().maxpages;
-                        pg.baseUrl = "/mypoetry/index";
-                        @Html.Partial("_Pagination", pg);
-                    }
-                </div>
             </div>
+            @{
+                Pagination pg = new Pagination();
+                pg.currentPage = Model.First().currentPage;
+                pg.maxPages = Model.First().maxpages;
+                pg.baseUrl = "/mypoetry/index";
+                @Html.Partial("_Pagination", pg);
+            }
         </div>
     </div>
 </div>

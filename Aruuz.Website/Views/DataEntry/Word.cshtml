@@ -20,13 +20,13 @@
     @Html.ValidationSummary(true)
     @Html.AntiForgeryToken()
 
-    <div class="container">
+    <div class="container urdu">
         <div class="row">
             <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                 <fieldset>
                     @Html.Label("لفظ");
-                    @Html.TextBoxFor(Model => Model.word, new { @class = "form-control" })
+                    @Html.TextBoxFor(Model => Model.word, new { @class = "form-control urdu-ed" })
 
                     <br>
                     @Html.Label("تقطیع کوڈ 1")
@@ -45,6 +45,13 @@
 
 
 <a href="#" onclick="reportClicked(0,'@User.Identity.Name')"> رپورٹ کریں </a>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.urdu-ed').UrduEditor();
+    });
+</script>
 
 <!-- Modal -->
 <div class="modal fade urdu" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

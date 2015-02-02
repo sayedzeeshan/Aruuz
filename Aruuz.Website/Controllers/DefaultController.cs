@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web;
 using MySql.Data.MySqlClient;
 
+
 namespace Aruuz.Website.Controllers
 {
     public class DefaultController : ApiController
@@ -22,6 +23,15 @@ namespace Aruuz.Website.Controllers
             //string text1 = "نقش فریادی ہے کس کی شوخی تحریر کا";
            // try
             {
+                string referrer = "*&SDSD&*&*";
+                try
+                {
+                    referrer = HttpContext.Current.Request.UrlReferrer.ToString();
+                }
+                catch
+                {
+
+                }
                 MySqlConnection myConn = new MySqlConnection(TaqtiController.connectionString);
                 myConn.Open();
                 MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
@@ -37,12 +47,13 @@ namespace Aruuz.Website.Controllers
                 myConn.Open();
 
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "INSERT into InputDataAPI(ID,text,isChecked,ip) VALUES (@id,@text,@ischecked,@ip)";
+                cmd.CommandText = "INSERT into InputDataAPI(ID,text,isChecked,ip,referrer) VALUES (@id,@text,@ischecked,@ip,@referrer)";
                 cmd.Parameters.AddWithValue("@id", id3 + 1);
                 cmd.Parameters.AddWithValue("@text", (string)text);
                 cmd.Parameters.AddWithValue("@ischecked", false);
                 cmd.Parameters.AddWithValue("@ip", HttpContext.Current.Request.UserHostAddress);
-                //cmd.Parameters.AddWithValue("@referrer", HttpContext.Current.Request.UrlReferrer);
+                cmd.Parameters.AddWithValue("@referrer", referrer);
+               
                 cmd.ExecuteNonQuery();
 
                 myConn.Close();
@@ -56,15 +67,17 @@ namespace Aruuz.Website.Controllers
                 scn.isChecked = false;
                 scn.errorParam = 2;
                 scn.freeVerse = false;
-                TaqtiController.isChecked = false;
-                TaqtiController.fuzzy = false;
                 scn.meter = met;
 
 
                 foreach (string line in text.Split('\n'))
                 {
                     if (!string.IsNullOrWhiteSpace(line))
+                    {
                         scn.addLine(new Lines(line.Trim()));
+                        break;
+                    }
+                    
                 }
 
                 lst = scn.scanLines();
@@ -77,14 +90,16 @@ namespace Aruuz.Website.Controllers
                 }
                 else
                 {
-                    //return Ok(new JavaScriptSerializer().Serialize(TaqtiController.convert(lst).ToArray()));
-                    // }
+                    List<scanOutputApi> list = TaqtiController.convert(lst);
+                    if (list.Count > 1)
+                    {
+                        return Json(list);
+                    }
+                    else
+                    {
+                        return Json(list.First());
 
-                    //return TaqtiController.convert(lst);
-
-                    //return Json(TaqtiController.convert(lst).Select(d => new { originalLine = d.originalLine, words = d.words, codes = d.codes, meterName = d.meterName, feet = d.feet}));
-                    return Json(TaqtiController.convert(lst).First());
-
+                    }
                 }
 
                // return (new JavaScriptSerializer().Serialize(TaqtiController.convert(lst).ToArray()));

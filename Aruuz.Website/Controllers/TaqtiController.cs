@@ -22,9 +22,9 @@ namespace Aruuz.Controllers
         MySqlDataReader dataReader;
         public static string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["mySqlConnection"].ConnectionString;
 
-        public static bool fuzzy = false;
-        public static bool isChecked = false;
-        public static bool freeVerse = false;
+        //public static bool fuzzy = false;
+        //public static bool isChecked = false;
+        //public static bool freeVerse = false;
         static  public List<scanOutputApi> convert(List<scanOutput> lst2)
         {
             List<scanOutputApi> lst = new List<scanOutputApi>();
@@ -61,7 +61,8 @@ namespace Aruuz.Controllers
             if (id < 0)
             {
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+                cmd.CommandText = "select * from poetry where id = @id;";
+                cmd.Parameters.AddWithValue("@id", id + 65536);
                 dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {
@@ -89,9 +90,9 @@ namespace Aruuz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Output2(int id)
         {
-            fuzzy = false;
             myConn = new MySqlConnection(connectionString);
             myConn.Open();
+            bool isChecked = false;
             MySqlCommand cmd = new MySqlCommand(connectionString);
             string text = "";
             string meters = "";
@@ -102,7 +103,8 @@ namespace Aruuz.Controllers
             if (id > 0)
             {
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from InputData where id = \"" + id.ToString() + "\";";
+                cmd.CommandText = "select * from InputData where id = @id;";
+                cmd.Parameters.AddWithValue("@id",id);
                 dataReader = cmd.ExecuteReader();
 
 
@@ -115,7 +117,9 @@ namespace Aruuz.Controllers
             else
             {
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+                cmd.CommandText = "select * from poetry where id = @id;";
+                cmd.Parameters.AddWithValue("@id", id + 65536);
+
                 dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {
@@ -160,7 +164,6 @@ namespace Aruuz.Controllers
                 scn.isChecked = true;
                 scn.errorParam = 2;
                 scn.meter = met;
-                freeVerse = true;
             }
             else
             {
@@ -169,7 +172,6 @@ namespace Aruuz.Controllers
                 scn.isChecked = false;
                 scn.errorParam = 2;
                 scn.meter = met;
-                freeVerse = isChecked;
             }
             List<scanOutput> lst = new List<scanOutput>();
             if (string.IsNullOrEmpty(taqtiObject))
@@ -200,7 +202,9 @@ namespace Aruuz.Controllers
                 myConn2.Open();
                 MySqlCommand cmd2 = new MySqlCommand(connectionString);
                 cmd2 = myConn2.CreateCommand();
-                cmd2.CommandText = "update poetry set taqtiObject = @object where id = \"" + (id + 65536).ToString() + "\";";
+                cmd2.CommandText = "update poetry set taqtiObject = @object where id = @id;";
+                cmd2.Parameters.AddWithValue("@id", id + 65536);
+
                 cmd2.Parameters.AddWithValue("@object",(string)textWriter.ToString());
                 cmd2.ExecuteNonQuery();
                 myConn2.Close();
@@ -216,7 +220,6 @@ namespace Aruuz.Controllers
         }
         public ActionResult Poetry(int id)
         {
-            fuzzy = false;
             myConn = new MySqlConnection(connectionString);
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(connectionString);
@@ -229,7 +232,9 @@ namespace Aruuz.Controllers
             List<int> met = new List<int>();
 
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+            cmd.CommandText = "select * from poetry where id = @id;";
+            cmd.Parameters.AddWithValue("@id", id + 65536);
+
             dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
@@ -277,16 +282,14 @@ namespace Aruuz.Controllers
                 scn.isChecked = true;
                 scn.errorParam = 2;
                 scn.meter = met;
-                freeVerse = true;
             }
             else
             {
                 scn.fuzzy = false;
-                scn.freeVerse = isChecked;
+                scn.freeVerse = false;
                 scn.isChecked = false;
                 scn.errorParam = 2;
                 scn.meter = met;
-                freeVerse = isChecked;
             }
             List<scanOutput> lst = new List<scanOutput>();
             if (string.IsNullOrEmpty(taqtiObject))
@@ -319,8 +322,9 @@ namespace Aruuz.Controllers
                 myConn2.Open();
                 MySqlCommand cmd2 = new MySqlCommand(connectionString);
                 cmd2 = myConn2.CreateCommand();
-                cmd2.CommandText = "update poetry set taqtiObject = @object where id = \"" + (id + 65536).ToString() + "\";";
+                cmd2.CommandText = "update poetry set taqtiObject = @object where id = @id;";
                 cmd2.Parameters.AddWithValue("@object", (string)textWriter.ToString());
+                cmd2.Parameters.AddWithValue("@id", id + 65536);
                 cmd2.ExecuteNonQuery();
                 myConn2.Close();
             }
@@ -337,7 +341,6 @@ namespace Aruuz.Controllers
         }
         public ActionResult Poetry2(int id)
         {
-            fuzzy = false;
             myConn = new MySqlConnection(connectionString);
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(connectionString);
@@ -350,7 +353,8 @@ namespace Aruuz.Controllers
             List<int> met = new List<int>();
 
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from poetry where id = \"" + (id + 65536).ToString() + "\";";
+            cmd.CommandText = "select * from poetry where id = @id;";
+            cmd.Parameters.AddWithValue("@id",id + 65536);
             dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
@@ -398,16 +402,14 @@ namespace Aruuz.Controllers
                 scn.isChecked = true;
                 scn.errorParam = 2;
                 scn.meter = met;
-                freeVerse = true;
             }
             else
             {
                 scn.fuzzy = false;
-                scn.freeVerse = isChecked;
+                scn.freeVerse = false;
                 scn.isChecked = false;
                 scn.errorParam = 2;
                 scn.meter = met;
-                freeVerse = isChecked;
             }
             List<scanOutput> lst = new List<scanOutput>();
             if (string.IsNullOrEmpty(taqtiObject))
@@ -440,8 +442,9 @@ namespace Aruuz.Controllers
                 myConn2.Open();
                 MySqlCommand cmd2 = new MySqlCommand(connectionString);
                 cmd2 = myConn2.CreateCommand();
-                cmd2.CommandText = "update poetry set taqtiObject = @object where id = \"" + (id + 65536).ToString() + "\";";
+                cmd2.CommandText = "update poetry set taqtiObject = @object where id = @id;";
                 cmd2.Parameters.AddWithValue("@object", (string)textWriter.ToString());
+                cmd2.Parameters.AddWithValue("@id",id + 65536)
                 cmd2.ExecuteNonQuery();
                 myConn2.Close();
             }
@@ -503,7 +506,6 @@ namespace Aruuz.Controllers
             scn.isChecked = false;
             scn.errorParam = 2;
             scn.meter = met;
-            TaqtiController.freeVerse = false;
 
             List<scanOutput> lst = new List<scanOutput>();
             if (string.IsNullOrEmpty(taqtiObject))
@@ -726,7 +728,6 @@ namespace Aruuz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Result2(Input inp)
         {
-            fuzzy = false;
             string poet = "";
             int type = -1;
             List<int> met = new List<int>();
@@ -739,7 +740,6 @@ namespace Aruuz.Controllers
                 scn.isChecked = true;
                 scn.errorParam = 2;
                 scn.meter = met;
-                freeVerse = true;
             }
             else
             {
@@ -748,7 +748,6 @@ namespace Aruuz.Controllers
                 scn.isChecked = false;
                 scn.errorParam = 2;
                 scn.meter = met;
-                freeVerse = inp.isChecked;
             }
 
             foreach (string line in inp.text.Split('\n'))
@@ -762,13 +761,13 @@ namespace Aruuz.Controllers
             if (lst.Count == 0)
             {
                 scanOutput sc = new scanOutput();
-                sc.identifier = -1;
+                sc.identifier = -2;
                 sc.poet = poet;
                 lst.Add(sc);
             }
             else
             {
-                lst[0].identifier = -1;
+                lst[0].identifier = -2;
                 lst[0].poet = poet;
                 lst[0].numLines = scn.numLines;
             }
@@ -857,13 +856,21 @@ namespace Aruuz.Controllers
             myConn.Close();
             myConn.Open();
 
+            string comments = data.comments;
+            Input inp = Session["inp"] as Input;
+            if (inp != null)
+            {
+                comments += "\n ------------- \n" + inp.text;
+            }
+
+
             cmd = myConn.CreateCommand();
             cmd.CommandText = "INSERT into report(id,inputid,name,email,comments) VALUES (@id,@inid,@name,@email,@comments)";
             cmd.Parameters.AddWithValue("@id", id3 + 1);
             cmd.Parameters.AddWithValue("@inid", (string)data.inputID);
             cmd.Parameters.AddWithValue("@name", (string)data.name);
             cmd.Parameters.AddWithValue("@email", (string)data.email);
-            cmd.Parameters.AddWithValue("@comments", (string)data.comments);
+            cmd.Parameters.AddWithValue("@comments", (string)comments);
             cmd.ExecuteNonQuery();
            
             myConn.Close();
@@ -875,7 +882,8 @@ namespace Aruuz.Controllers
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from likeDislike where id like '" + url + "';";
+            cmd.CommandText = "select * from likeDislike where id like @url";
+            cmd.Parameters.AddWithValue("@url", url);
             dataReader = cmd.ExecuteReader();
             string id3 = "";
             int likes = 0;
@@ -904,10 +912,12 @@ namespace Aruuz.Controllers
             {
                 myConn.Open();
                 cmd = myConn.CreateCommand();
-                cmd.CommandText = "update likeDislike set id=@id, likes@likes, dilikes = @dislikes where id like '" + url + "';";
+                cmd.CommandText = "update likeDislike set id=@id, likes@likes, dilikes = @dislikes where id like @url;";
                 cmd.Parameters.AddWithValue("@id", url);
                 cmd.Parameters.AddWithValue("@likes", (int)likes + 1);
                 cmd.Parameters.AddWithValue("@dislikes", (int)dislikes);
+                cmd.Parameters.AddWithValue("@url", url);
+
                 cmd.ExecuteNonQuery();
 
                 myConn.Close();

@@ -9,6 +9,7 @@
     List<Publish> mypt = findMeter.returnMyPoetry();
 
     int percentage = 0;
+    double maxCount = 0.0;
 
     if (!String.IsNullOrEmpty(Model.First().meterName))
     {
@@ -77,7 +78,7 @@
 
         Array.Sort(scoreIdList, itemIdOrder);
 
-        double maxCount = scoreIdList[0];
+        maxCount = scoreIdList[0];
         //average meter score calculation
         double[] scoreList = new double[lst.Count];
         int[] itemOrder = new int[lst.Count];
@@ -246,9 +247,19 @@
                                         {
                                             <tr>
                                                 <td colspan="3" class="warning">
-                                                    <p class="urdu"> کوئی مانوس بحر نہیں مل سکی۔ <a href="/create">اصلاح</a> سیکشن میں جائیں۔ </p>
-                                                    <a href="/resources/article/19">اکثر پوچھے جانے والے سوالات دیکھیں۔
-                                                   </a>
+                                                    <ul>
+                                                        <li>
+                                                    <p class="urdu">
+                                                        کوئی مانوس بحر نہیں مل سکی۔
+                                                        <a class="btn btn-primary" href="/create/result">اصلاح دکھائیں</a> 
+                                                    </p>
+                                                            </li>
+                                                        <li>
+                                                    <a href="/resources/article/19">
+                                                        اکثر پوچھے جانے والے سوالات دیکھیں۔
+                                                    </a>
+                                                            </li>
+                                                        </ul>
                                                 </td>
                                             </tr>
                                         }

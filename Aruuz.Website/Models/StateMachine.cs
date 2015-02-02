@@ -30,9 +30,9 @@ namespace Aruuz.Models
             int nextState = -1;
             try
             {
-                nextState = transition[input][state];
+               return nextState = transition[input][state];
             }
-            finally
+            catch
             {
                 return nextState;
             }
