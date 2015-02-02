@@ -45,33 +45,33 @@ namespace Aruuz.Models
         public static List<Publish> returnMyPoetry()
         {
             List<Publish> pt = new List<Publish>();
-            MySqlConnection myConn;
-            MySqlDataReader dataReader;
-            myConn = new MySqlConnection(TaqtiController.connectionString);
-            myConn.Open();
-            MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
-            cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from mypoetry where publish = '1' and mozun = '1' order by id DESC  limit 0,4;";
-            dataReader = cmd.ExecuteReader();
-            while (dataReader.Read())
-            {
-                Publish p = new Publish();
-                p.id = dataReader.GetInt32(0);
-                p.text = dataReader.GetString(4);
-                p.name = dataReader.GetString(1);
-                p.title = dataReader.GetString(3);
-                try
-                {
-                    p.url = dataReader.GetString(2);
-                }
-                catch
-                {
+            //MySqlConnection myConn;
+            //MySqlDataReader dataReader;
+            //myConn = new MySqlConnection(TaqtiController.connectionString);
+            //myConn.Open();
+            //MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
+            //cmd = myConn.CreateCommand();
+            //cmd.CommandText = "select * from mypoetry where publish = '1' and mozun = '1' order by id DESC  limit 0,4;";
+            //dataReader = cmd.ExecuteReader();
+            //while (dataReader.Read())
+            //{
+            //    Publish p = new Publish();
+            //    p.id = dataReader.GetInt32(0);
+            //    p.text = dataReader.GetString(4);
+            //    p.name = dataReader.GetString(1);
+            //    p.title = dataReader.GetString(3);
+            //    try
+            //    {
+            //        p.url = dataReader.GetString(2);
+            //    }
+            //    catch
+            //    {
 
-                }
-                pt.Add(p);
-                p.mozun = dataReader.GetInt32(8);
-            }
-            myConn.Close();
+            //    }
+            //    pt.Add(p);
+            //    p.mozun = dataReader.GetInt32(8);
+            //}
+            //myConn.Close();
             return pt;
         }
         public static List<Poetry> returnPoetry(string meterName)
@@ -86,7 +86,7 @@ namespace Aruuz.Models
                 MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
                 cmd = myConn.CreateCommand();
                 //cmd.CommandText = "select * from Poetry where meterID like '%" + meterName + "%' order by RAND() limit 4";
-                cmd.CommandText = "SELECT  a.* FROM  poetry a INNER JOIN  (SELECT title,poet,meterID FROM poetry  where meterID like +'" + meterName + "'  GROUP BY poet order by rand()) b ON a.title = b.title and a.meterID = b.meterID limit 0,4";
+                cmd.CommandText = "SELECT  a.* FROM  poetry a INNER JOIN  (SELECT title,poet,meterID FROM poetry  where meterID like '%" + meterName.Trim() + "%'  GROUP BY poet order by rand()) b ON a.title = b.title and a.meterID = b.meterID limit 0,4";
 
                 dataReader = cmd.ExecuteReader();
                 int typeId = -1; ;
@@ -462,16 +462,16 @@ namespace Aruuz.Models
     }
     public class Meters
     {
-        static public int numMeters = 128;
+        static public int numMeters = 129;
         static public int numVariedMeters = 0;
         static public int numRubaiMeters = 12;
-        static public int numSpecialMeters = 10;
+        static public int numSpecialMeters = 11;
 
 #region regular meters
         static public int[] id = 
         {13,14,15,16,17,2,2,4,4,4,4,18,19,3,3,20,21,22,23,5,5,5,24,25,26,27,6,6,6,6,30,31,32,33,34,35,35,35,35,36,40,41,42,43,44,45,46,47,48,49,50
         ,51,52,53,54,55,56,57,58,59,60,61,62,63,7,103,64,65,8,8,8,8,9,9,9,9,10,10,66,67,68,69,70,71,72,73,74,75,76,77,1,1,1,1,11,11,78,79,80,81,12,12,12,12,12
-        ,82,83,84,85,86,87,88,89,90,91,92,93,94,95,36,96,97,98,99,100,101,102,103};
+        ,82,83,84,85,86,87,88,89,90,91,92,93,94,95,36,96,97,98,99,100,101,102,103,104};
 
         static public int[] usage =
         {1,
@@ -579,6 +579,7 @@ namespace Aruuz.Models
 0,
 0,
 0,
+1,
 1,
 1,
 1,
@@ -731,7 +732,8 @@ namespace Aruuz.Models
 "--=-=/--=-=",
 "-==/-===",
 "=-==/=-=",
-"-===/-===/-===/-===/-===/-===/-===/-==="
+"-===/-===/-===/-===/-===/-===/-===/-===",
+"-=-==/-=-=="
                                         };
         static public string[] meterNames = {
             "ہزج مثمن سالم",
@@ -861,7 +863,8 @@ namespace Aruuz.Models
 "کامل مربع سالم",
 "طویل مربع سالم",
 "مدید مربع سالم",
-"ہزج مثمن سالم مضاعف"
+"ہزج مثمن سالم مضاعف",
+"جمیل مربع سالم"
  };
 
 #endregion 
@@ -871,8 +874,28 @@ namespace Aruuz.Models
         static public string[] rubaiMeters = {"==-/-==-/-==-/-=","==-/-==-/-===/=","==-/-=-=/-===/=","==-/-=-=/-==-/-=",
                                 "===/=-=/-==-/-=","===/=-=/-===/=","==-/-===/===/=","==-/-===/==-/-=",
                                 "===/===/==-/-=","===/===/===/=","===/==-/-===/=","===/==-/-==-/-="};
-        static public string[] specialMeters = { "=(=)/=(=)/=(=)/=(=)/=(=)/=(=)/=(=)/=", "=(=)/=(=)/=(=)/=(=)/=(=)/=", "=(=)/=(=)/=(=)/=(=)/=(=)/=(=)/=(=)/==", "=(=)/=(=)/=(=)/=", "=(=)/=(=)/=(=)/==", "=(=)/=(=)/=", "=(=)/=(=)/=(=)/=(=)/=(=)/==", "(=)=/(=)=/(=)=/(=)=/(=)=/(=)=/(=)=/(=)=", "(=)=/(=)=/(=)=/(=)=/(=)=/(=)=", "(=)=/(=)=/(=)=/(=)" };
-        static public string[] specialMetersAfail = { "فعلن فعلن فعلن فعلن فعلن فعلن فعلن فع", "فعلن فعلن فعلن فعلن فعلن فع", "فعلن فعلن فعلن فعلن فعلن فعلن فعلن فعلن", "فعلن فعلن فعلن فع", "فعلن فعلن فعلن فعلن", "فعلن فعلن فعلن فعلن فعلن فعلن", "فعلن فعلن فع", "فعلن فعلن فعلن فعلن فعلن فعلن فعلن فعلن", "فعلن فعلن فعلن فعلن فعلن فعلن", "فعلن فعلن فعلن فعلن" };
+        static public string[] specialMeters = { "=(=)/=(=)/=(=)/=(=)/=(=)/=(=)/=(=)/=",
+                                                   "=(=)/=(=)/=(=)/=(=)/=(=)/=",
+                                                   "=(=)/=(=)/=(=)/=(=)/=(=)/=(=)/=(=)/==",
+                                                   "=(=)/=(=)/=(=)/=",
+                                                   "=(=)/=(=)/=(=)/==",
+                                                   "=(=)/=(=)/=",
+                                                   "=(=)/=(=)/=(=)/=(=)/=(=)/==",
+                                                   "=(=)/=(=)",
+                                                   "(=)=/(=)=/(=)=/(=)=/(=)=/(=)=/(=)=/(=)=",
+                                                   "(=)=/(=)=/(=)=/(=)=/(=)=/(=)=",
+                                                   "(=)=/(=)=/(=)=/(=)" };
+        static public string[] specialMetersAfail = { "فعلن فعلن فعلن فعلن فعلن فعلن فعلن فع",
+                                                        "فعلن فعلن فعلن فعلن فعلن فع",
+                                                        "فعلن فعلن فعلن فعلن فعلن فعلن فعلن فعلن",
+                                                        "فعلن فعلن فعلن فع",
+                                                        "فعلن فعلن فعلن فعلن",
+                                                        "فعلن فعلن فع",                                                        
+                                                        "فعلن فعلن فعلن فعلن فعلن فعلن",
+                                                        "فعلن فعلن",
+                                                        "فعلن فعلن فعلن فعلن فعلن فعلن فعلن فعلن",
+                                                        "فعلن فعلن فعلن فعلن فعلن فعلن",
+                                                        "فعلن فعلن فعلن فعلن" };
         static public string[] feet = {"===",
 "==-=",
 "==-",
@@ -944,7 +967,17 @@ namespace Aruuz.Models
         static public string[] rubaiMeterNames = { "ہزج مثمّن اخرب مکفوف مجبوب", "ہزج مثمّن اخرب مکفوف ابتر", "ہزج مثمّن اخرب مقبوض ابتر", "ہزج مثمّن اخرب مقبوض مکفوف مجبوب",
                                      "ہزج مثمّن اخرم اشتر مکفوف مجبوب", "ہزج مثمّن اخرم اشتر ابتر", "ہزج مثمّن اخرب اخرم ابتر", "ہزج مثمّن اخرب مجبوب","ہزج مثمّن اخرم اخرب مجبوب",
                                      "ہزج مثمّن اخرم ابتر","ہزج مثمّن اخرم اخرب ابتر","ہزج مثمّن اخرم اخرب مکفوف مجبوب"};
-        static public string[] specialMeterNames = { "بحرِ ہندی/ متقارب مثمن مضاعف", "بحرِ ہندی/ متقارب مسدس مضاعف", "بحرِ ہندی/ متقارب اثرم مقبوض محذوف مضاعف", "بحرِ ہندی/ متقارب مربع مضاعف","بحرِ ہندی/ متقارب اثرم مقبوض محذوف","بحرِ ہندی/متقارب مثمن محذوف", "بحرِ ہندی/ متقارب مثمن مضاعف","بحرِ زمزمہ/ متدارک مثمن مضاعف", "بحرِ زمزمہ/ متدارک مسدس مضاعف", "بحرِ زمزمہ/ متدارک مربع مضاعف" };
+        static public string[] specialMeterNames = { "بحرِ ہندی/ متقارب مثمن مضاعف",
+                                                       "بحرِ ہندی/ متقارب مسدس مضاعف",
+                                                       "بحرِ ہندی/ متقارب اثرم مقبوض محذوف مضاعف",
+                                                       "بحرِ ہندی/ متقارب مربع مضاعف",
+                                                       "بحرِ ہندی/ متقارب اثرم مقبوض محذوف",
+                                                       "بحرِ ہندی/ متقارب مثمن محذوف",
+                                                       "بحرِ ہندی/ متقارب مسدس محذوف",
+                                                       "بحرِ ہندی/ متقارب مربع محذوف",
+                                                       "بحرِ زمزمہ/ متدارک مثمن مضاعف",
+                                                       "بحرِ زمزمہ/ متدارک مسدس مضاعف",
+                                                       "بحرِ زمزمہ/ متدارک مربع مضاعف" };
         static public string Afail(string meter)
         {
             string ft = "";
@@ -972,6 +1005,7 @@ namespace Aruuz.Models
                 if (meterName.Equals(specialMeterNames[i]))
                 {
                     ft = specialMetersAfail[i];
+                    break;
                 }
             }
             return ft;
@@ -1234,7 +1268,7 @@ namespace Aruuz.Models
         public string originalLine = "";
         public Lines(string line)
         {
-            line = line.Replace(",", "").Replace("\"", "").Replace("*", "").Replace("'", "").Replace("-", "").Replace("۔", "").Replace("،", "").Replace("?", "").Replace("!", "").Replace("ؔ", "").Replace("؟", "").Replace("‘", "").Replace("(", "").Replace(")", "").Replace("؛", "").Replace(";", "").Replace("\u200B", "").Replace("\u200C", "").Replace("\u200D", "").Replace("\uFEFF", "").Replace(".", "").Replace("ؒ", "").Replace("؎", "").Replace("-", "").Replace("=", "").Replace("ؑ", "").Replace("ؓ", "").Replace("\uFDFD", "").Replace("\uFDFA", "");
+            line = line.Replace(",", "").Replace("\"", "").Replace("*", "").Replace("'", "").Replace("-", "").Replace("۔", "").Replace("،", "").Replace("?", "").Replace("!", "").Replace("ؔ", "").Replace("؟", "").Replace("‘", "").Replace("(", "").Replace(")", "").Replace("؛", "").Replace(";", "").Replace("\u200B", "").Replace("\u200C", "").Replace("\u200D", "").Replace("\uFEFF", "").Replace(".", "").Replace("ؒ", "").Replace("؎", "").Replace("-", "").Replace("=", "").Replace("ؑ", "").Replace("ؓ", "").Replace("\uFDFD", "").Replace("\uFDFA", "").Replace(":", "").Replace("’", "");
             originalLine = line;
             wordsList = new List<Words>();
             char[] delimiters = new[] { ',', ' '};  // List of delimiters

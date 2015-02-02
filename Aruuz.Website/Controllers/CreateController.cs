@@ -251,7 +251,6 @@ namespace Aruuz.Website.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Result2(Input inp)
         {
-            TaqtiController.fuzzy = true;
             string text = "";
             List<int> met = new List<int>();
             bool isChecked = false;
@@ -295,7 +294,7 @@ namespace Aruuz.Website.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Output2(int id)
         {
-            TaqtiController.fuzzy = true;
+       
             MySqlConnection myConn = new MySqlConnection(TaqtiController.connectionString);
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
@@ -396,7 +395,7 @@ namespace Aruuz.Website.Controllers
         }
         public ActionResult PartialOutput(Input inp)
         {
-            TaqtiController.fuzzy = true;
+            
             string text = inp.text;
             bool isChecked = false;
 
@@ -439,8 +438,7 @@ namespace Aruuz.Website.Controllers
         }
         public ActionResult PartialOutputExamples(Input inp)
         {
-            TaqtiController.fuzzy = false;
-            TaqtiController.freeVerse = inp.isChecked;
+            
             string text = inp.text;
             bool isChecked = inp.isChecked;
 

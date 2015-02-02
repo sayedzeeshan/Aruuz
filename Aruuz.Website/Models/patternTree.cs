@@ -131,7 +131,7 @@ namespace Aruuz.Models
                 {
                     if (scn.location[scn.location.Count - 1].code.Equals("="))
                     {
-                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 7);
+                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 8);
                         mainList.Add(scn);
                     }
                 }
@@ -139,7 +139,7 @@ namespace Aruuz.Models
                 {
                     if (scn.location[scn.location.Count - 1].code.Equals("-") && scn.location[scn.location.Count - 2].code.Equals("="))
                     {
-                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 7);
+                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 8);
                         mainList.Add(scn);
                     }
                 }
@@ -147,7 +147,7 @@ namespace Aruuz.Models
                 {
                     if (scn.location[scn.location.Count - 1].code.Equals("="))
                     {
-                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 8);
+                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 9);
                         mainList.Add(scn);
                     }
                 }
@@ -155,7 +155,7 @@ namespace Aruuz.Models
                 {
                     if (scn.location[scn.location.Count - 1].code.Equals("-") && scn.location[scn.location.Count - 2].code.Equals("="))
                     {
-                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 8);
+                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 9);
                         mainList.Add(scn);
                     }
                 }
@@ -163,7 +163,7 @@ namespace Aruuz.Models
                 {
                     if (scn.location[scn.location.Count - 1].code.Equals("="))
                     {
-                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 9);
+                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 10);
                         mainList.Add(scn);
                     }
                 }
@@ -171,7 +171,7 @@ namespace Aruuz.Models
                 {
                     if (scn.location[scn.location.Count - 1].code.Equals("-") && scn.location[scn.location.Count - 2].code.Equals("="))
                     {
-                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 9);
+                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 10);
                         mainList.Add(scn);
                     }
                 }
@@ -429,6 +429,22 @@ namespace Aruuz.Models
                     if (scn.location[scn.location.Count - 1].code.Equals("-") && scn.location[scn.location.Count - 2].code.Equals("="))
                     {
                         scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 6);
+                        mainList.Add(scn);
+                    }
+                }
+                else if (count == 8)
+                {
+                    if (scn.location[scn.location.Count - 1].code.Equals("="))
+                    {
+                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 7);
+                        mainList.Add(scn);
+                    }
+                }
+                else if (count == 9)
+                {
+                    if (scn.location[scn.location.Count - 1].code.Equals("-") && scn.location[scn.location.Count - 2].code.Equals("="))
+                    {
+                        scn.meters.Add(Meters.numMeters + Meters.numVariedMeters + Meters.numRubaiMeters + 7);
                         mainList.Add(scn);
                     }
                 }

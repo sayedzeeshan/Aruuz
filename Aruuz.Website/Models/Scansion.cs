@@ -241,7 +241,7 @@ namespace Aruuz.Models
         }
         public bool isVowelPlusH(char letter)
         {
-            if (letter == 'ا' || letter == 'ی' || letter == 'ے' || letter == 'و' || letter == 'ہ')
+            if (letter == 'ا' || letter == 'ی' || letter == 'ے' || letter == 'و' || letter == 'ہ' || letter == 'ؤ')
             {
                 return true;
             }
@@ -329,6 +329,8 @@ namespace Aruuz.Models
             loc.code = "root";
             CodeTree tree = new CodeTree(loc);
             tree.errorParam = errorParam;
+			tree.fuzzy = fuzzy;
+			tree.freeVerse = freeVerse;
             for (int w = 0; w < line.wordsList.Count; w++)
             {
                 Words wrd = line.wordsList[w];
@@ -470,7 +472,7 @@ namespace Aruuz.Models
                     {
                         if (isVowelPlusH(Araab.removeAraab(word1)[word1.Length - 1]))
                         {
-                            if (Araab.removeAraab(word1)[word1.Length - 1] == 'ا' || Araab.removeAraab(word1)[word1.Length - 1] == 'ی' || Araab.removeAraab(word1)[word1.Length - 1] == 'ے')
+                            if (Araab.removeAraab(word1)[word1.Length - 1] == 'ا' || Araab.removeAraab(word1)[word1.Length - 1] == 'ی')
                             {
                                 if (word.language.Count > 0)
                                 {
@@ -683,7 +685,8 @@ namespace Aruuz.Models
             //// Pritchett says: "...for by treating ALL one-syllable words of the forms given above
             //// as potentially flexible one never makes errors in ascertaining the meter of a poem." $2.1
             //// We are going to treat the two-lettered words ending in ا،ی،ے،و،ہ as flexible 
-            string stripped = Araab.removeAraab(substr);
+            string subString = substr.Replace("\u06BE", "").Replace("\u06BA", ""); /// remove ھ \u06BE and ں \u06BA for scansion purposes
+            string stripped = Araab.removeAraab(subString);
             string code = "=";
             if (substr[0] == '\u0622') // آ
                 code = "=-";
@@ -921,6 +924,11 @@ namespace Aruuz.Models
                                     {
                                         code = "--=";
                                     }
+
+                                }
+                                else if (loc[1].ToString().Equals(Araab.characters[2]))
+                                {
+                                    code = "==";
 
                                 }
                                 else if (loc[2].ToString().Equals(Araab.characters[2]))
@@ -3085,7 +3093,7 @@ namespace Aruuz.Models
                         {
                             if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("="))   // Word-end flexible syllable
                             {
-                                if (Araab.removeAraab(word)[word.Length - 1] == 'ا' || Araab.removeAraab(word)[word.Length - 1] == 'ی' || Araab.removeAraab(word)[word.Length - 1] == 'ے')
+                                if (Araab.removeAraab(word)[word.Length - 1] == 'ا' || Araab.removeAraab(word)[word.Length - 1] == 'ی' )
                                 {
                                     if (wrd.language.Count > 0)
                                     {
@@ -3358,7 +3366,7 @@ namespace Aruuz.Models
             string[] afail = { "==","=-","-==","-=-","-=","=","==-","-==-"};
             string[] names = { "فعلن", "فعْل", "فعولن", "فعول", "فَعَل", "فع", "فعْلان", "فعولان"};
             int numFeet = 0;
-            if(ind == 0 || ind == 1 || ind == 3 || ind == 2 || ind == 4 || ind == 5 || ind == 6)
+            if(ind == 0 || ind == 1 || ind == 3 || ind == 2 || ind == 4 || ind == 5 || ind == 6 || ind == 7)
             {
                 if(code[code.Length-1].Equals('-'))
                 {
@@ -3440,6 +3448,10 @@ namespace Aruuz.Models
                 return feet;
             }
             else if (ind == 6 && numFeet == 6)
+            {
+                return feet;
+            }
+            else if (ind == 7 && numFeet == 2)
             {
                 return feet;
             }
@@ -3621,97 +3633,112 @@ namespace Aruuz.Models
                     string stripped = Araab.removeAraab(wrd.word);
                     int length = stripped.Length;
 
-                  
-                    Words wd = wordCode(wrd);
-                    if (wd.id.Count == 0)
+                    if (wrd.code.Count == 0)
                     {
-                        //////////////// Guesswork /////////////////////////////
-                        #region Guesswork
+                        Words wd = wordCode(wrd);
                         if (wd.id.Count == 0)
                         {
-                            string originalWord = wrd.word;
-                            //wrd.word = Araab.removeAraab(originalWord);
-                            string newWord = removeTashdid(wrd.word.Replace("\u06BE", "").Replace("\u06BA", "")); /// remove ھ \u06BE and ں \u06BA for scansion purposes
-                            wrd.length = Araab.removeAraab(wrd.word).Length;
-                            if (wrd.length == 2)
-                            {
-                                code = lengthTwoScan(newWord);
-                            }
-                            else if (wrd.length == 3)
-                            {
-                                code = lengthThreeScan(newWord);
-                            }
-                            else if (wrd.length == 4)
-                            {
-                                code = lengthFourScan(newWord);
-                            }
-                            else if (wrd.length == 5)
-                            {
-                                code = lengthFiveScan(newWord);
-                            }
-                            
-                            if (!string.IsNullOrEmpty(code))
-                            {
-                                if (code[code.Length - 1].ToString().Equals("="))   // Word-end flexible syllable
-                                {
-                                    if (isVowelPlusH(Araab.removeAraab(wrd.word.Replace("ں", ""))[Araab.removeAraab(wrd.word.Replace("ں", "")).Length - 1]))
-                                    {
-                                        code = code.Remove(code.Length - 1, 1);
-                                        code += "x";
-                                    }
-                                }
-                            }
-                        
-                            //GuessWork
-                            if (stripped.Length > 4 && code.Equals(""))
-                            {
-                                wd = compoundWord(wd);
-                                if (wd.id.Count == 0)
-                                {
-                                    code = "---";
-                                }
-                                else if (code.Equals(""))
-                                {
-                                    code = "---";
-                                }
-                                //if (code.Equals("---"))
-                                //{
-                                //    MySqlConnection myConn = new MySqlConnection(connectionString);
-                                //    myConn.Open();
-                                //    MySqlCommand cmd = new MySqlCommand(connectionString);
-                                //    cmd = myConn.CreateCommand();
-                                //    cmd.CommandText = "select * from unassigned where word like '" + Araab.removeAraab(wd.word) + "';";
-                                //    MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                                //    if (!dataReader.HasRows) // look for existing entry in the unassigned table
-                                //    {
-                                //        myConn.Close();
-                                //        MySqlConnection myConn2 = new MySqlConnection(connectionString);
-                                //        myConn2.Open();
-                                //        MySqlCommand cmd2 = new MySqlCommand(connectionString);
-                                //        cmd2 = myConn2.CreateCommand();
-                                //        cmd2.CommandText = "INSERT into unassigned(word,assigned) VALUES (@word,@assigned);";
-                                //        cmd2.Parameters.AddWithValue("@word", Araab.removeAraab(wd.word));
-                                //        cmd2.Parameters.AddWithValue("@assigned", false);
-
-                                //        cmd2.ExecuteNonQuery();
-                                //        myConn2.Close();
-
-                                //    }
-                                //    myConn.Close();
-                                //}
-                            }
-
+                            //////////////// Guesswork /////////////////////////////
+                            #region Guesswork
                             if (wd.id.Count == 0)
                             {
-                                wd.word = originalWord;
-                                wd.code.Add(code);
-                                wd.id.Add(id);
+                                string originalWord = wrd.word;
+                                //wrd.word = Araab.removeAraab(originalWord);
+                                string newWord = removeTashdid(wrd.word.Replace("\u06BE", "").Replace("\u06BA", "")); /// remove ھ \u06BE and ں \u06BA for scansion purposes
+                                wrd.length = Araab.removeAraab(wrd.word).Length;
+                                if (wrd.length == 1)
+                                {
+                                    if (newWord.Equals("آ"))
+                                    {
+                                        code = "=";
+                                    }
+                                    else
+                                    {
+                                        code = "-";
+                                    }
+                                }
+                                else if (wrd.length == 2)
+                                {
+                                    code = lengthTwoScan(newWord);
+                                }
+                                else if (wrd.length == 3)
+                                {
+                                    code = lengthThreeScan(newWord);
+                                }
+                                else if (wrd.length == 4)
+                                {
+                                    code = lengthFourScan(newWord);
+                                }
+                                else if (wrd.length == 5)
+                                {
+                                    code = lengthFiveScan(newWord);
+                                }
+
+                                if (!string.IsNullOrEmpty(code))
+                                {
+                                    if (code[code.Length - 1].ToString().Equals("="))   // Word-end flexible syllable
+                                    {
+                                        if (isVowelPlusH(Araab.removeAraab(wrd.word.Replace("ں", ""))[Araab.removeAraab(wrd.word.Replace("ں", "")).Length - 1]))
+                                        {
+                                            code = code.Remove(code.Length - 1, 1);
+                                            code += "x";
+                                        }
+                                    }
+                                }
+
+                                //GuessWork
+                                if (stripped.Length > 4 && code.Equals(""))
+                                {
+                                    wd = compoundWord(wd);
+                                    if (wd.id.Count == 0)
+                                    {
+                                        code = "---";
+                                        MySqlConnection myConn = new MySqlConnection(connectionString);
+                                        myConn.Open();
+                                        MySqlCommand cmd = new MySqlCommand(connectionString);
+                                        cmd = myConn.CreateCommand();
+                                        cmd.CommandText = "select * from unassigned where word like '" + Araab.removeAraab(wd.word) + "';";
+                                        MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                                        if (!dataReader.HasRows) // look for existing entry in the unassigned table
+                                        {
+                                            myConn.Close();
+                                            MySqlConnection myConn2 = new MySqlConnection(connectionString);
+                                            myConn2.Open();
+                                            MySqlCommand cmd2 = new MySqlCommand(connectionString);
+                                            cmd2 = myConn2.CreateCommand();
+                                            cmd2.CommandText = "INSERT into unassigned(word,assigned) VALUES (@word,@assigned);";
+                                            cmd2.Parameters.AddWithValue("@word", Araab.removeAraab(wd.word));
+                                            cmd2.Parameters.AddWithValue("@assigned", false);
+
+                                            cmd2.ExecuteNonQuery();
+                                            myConn2.Close();
+
+                                        }
+                                        myConn.Close();
+                                    }
+                                    else if (code.Equals(""))
+                                    {
+                                        code = "---";
+                                    }
+
+                                }
+
+                                if (wd.id.Count == 0)
+                                {
+                                    wd.word = originalWord;
+                                    wd.code.Add(code);
+                                    wd.id.Add(id);
+                                }
                             }
+                            #endregion
                         }
-                        #endregion
+                        list.Add(wd);
                     }
-                    list.Add(wd);
+                    else
+                    {
+                        list.Add(wrd);
+                    }
                 }
                 line.wordsList = list;
                 #endregion
@@ -3794,69 +3821,70 @@ namespace Aruuz.Models
                 #region اضافت
                 foreach (Words wrd in line.wordsList)
                 {
-                    if (isIzafat(wrd.word))
-                    {
-                        if (wrd.id.Count > 0)
+                        if (isIzafat(wrd.word))
                         {
-                            int count = wrd.code.Count;
-                            for (int k = 0; k < count; k++)
+                            if (wrd.id.Count > 0)
                             {
-                                string tWord = Araab.removeAraab(wrd.word);
-                                ///////////////////// Arabic Monosyllabic Words $3.2 ///////////////////////////////////////
-                                if (wrd.length == 2)
+                                int count = wrd.code.Count;
+                                for (int k = 0; k < count; k++)
                                 {
-                                    wrd.code[k] = "xx";
-                                }
-                                ///////////////////// Consonants and other vowels (ی،ے)////////////////////////////////////
-
-                                else if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("=") || wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("x"))
-                                {
-                                    if (tWord[tWord.Length - 1].Equals('ا') || tWord[tWord.Length - 1].Equals('و'))
+                                    string tWord = Araab.removeAraab(wrd.word);
+                                    ///////////////////// Arabic Monosyllabic Words $3.2 ///////////////////////////////////////
+                                    if (wrd.length == 2)
                                     {
-                                        wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
-                                        wrd.code[k] += "=x";
+                                        wrd.code[k] = "xx";
                                     }
-                                    else
+                                    ///////////////////// Consonants and other vowels (ی،ے)////////////////////////////////////
+
+                                    else if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("=") || wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("x"))
                                     {
-                                        if (tWord[tWord.Length - 1].Equals('ی'))
+                                        if (tWord[tWord.Length - 1].Equals('ا') || tWord[tWord.Length - 1].Equals('و'))
                                         {
-                                            wrd.code.Add(wrd.code[k] + "x");
                                             wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
-                                            wrd.code[k] += "-x";
+                                            wrd.code[k] += "=x";
                                         }
                                         else
                                         {
-                                            wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
-                                            wrd.code[k] += "-x";
+                                            if (tWord[tWord.Length - 1].Equals('ی'))
+                                            {
+                                                wrd.code.Add(wrd.code[k] + "x");
+                                                wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
+                                                wrd.code[k] += "-x";
+                                            }
+                                            else
+                                            {
+                                                wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
+                                                wrd.code[k] += "-x";
+                                            }
                                         }
-                                    }
-                                   
-                                }
-                                else if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("-"))
-                                {
-                                    wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
-                                    wrd.code[k] += "x";
-                                }
-                            }
-                        }
-                        else
-                        {
-                            for (int k = 0; k < wrd.code.Count; k++)
-                            {
-                                if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("=") || wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("x"))
-                                {
-                                    wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
-                                    wrd.code[k] += "-x";
-                                }
-                                else if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("-"))
-                                {
-                                    wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
-                                    wrd.code[k] += "x";
-                                }
 
+                                    }
+                                    else if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("-"))
+                                    {
+                                        wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
+                                        wrd.code[k] += "x";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for (int k = 0; k < wrd.code.Count; k++)
+                                {
+                                    if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("=") || wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("x"))
+                                    {
+                                        wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
+                                        wrd.code[k] += "-x";
+                                    }
+                                    else if (wrd.code[k][wrd.code[k].Length - 1].ToString().Equals("-"))
+                                    {
+                                        wrd.code[k] = wrd.code[k].Remove(wrd.code[k].Length - 1);
+                                        wrd.code[k] += "x";
+                                    }
+
+                                }
                             }
                         }
-                    }
+                    
                 }
                 #endregion
 
@@ -4295,7 +4323,7 @@ namespace Aruuz.Models
                                     {
                                         so.meterName = Meters.specialMeterNames[index - Meters.numMeters - Meters.numVariedMeters - Meters.numRubaiMeters];
                                       int ind = index - Meters.numMeters - Meters.numVariedMeters - Meters.numRubaiMeters;
-                                      if (ind >6)
+                                      if (ind > 7)
                                           so.feet = zamzamaFeet(ind, code);
                                       else
                                         so.feet = hindiFeet(ind, code);
@@ -4674,26 +4702,6 @@ namespace Aruuz.Models
                                         */
                                     }
 
-                                    if (numLines > 1 && TaqtiController.isChecked)
-                                    {
-                                        flag = true;
-                                        if (list.Count > 0)
-                                        {
-                                            for (int n = 0; n < list.Count; n++)
-                                            {
-                                                if (list[n].meterName.Equals(so.meterName))
-                                                {
-                                                    flag = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                            list.Add(so);
-                                        if (!flag)
-                                            list.Add(so);
-                                    }
-                                    else
-                                    {
                                         flag = true;
                                         if (list.Count > 0)
                                         {
@@ -4707,7 +4715,7 @@ namespace Aruuz.Models
                                         }
                                         if (flag)
                                             list.Add(so);
-                                    }
+                                    
                                 }
                             }
                         }
@@ -4759,7 +4767,7 @@ namespace Aruuz.Models
                                     {
                                         so.meterName = Meters.specialMeterNames[index - Meters.numMeters - Meters.numVariedMeters - Meters.numRubaiMeters];
                                         int ind = index - Meters.numMeters - Meters.numVariedMeters - Meters.numRubaiMeters;
-                                        if (ind > 6)
+                                        if (ind > 7)
                                             so.feet = zamzamaFeet(ind, code);
                                         else
                                             so.feet = hindiFeet(ind, code);
@@ -4947,7 +4955,6 @@ namespace Aruuz.Models
             List<scanOutputFuzzy> listtemp = crunchFuzzy(list);
             if(listtemp.Count > 0)
             {
-
                 List<int> idList = new List<int>();
                 if (listtemp.First().id > 0)
                 {
@@ -4969,6 +4976,16 @@ namespace Aruuz.Models
                 #region Create Poetry/ Corrections
                 for (int k = 0; k < numLines; k++)
                 {
+                    sp.Clear();
+                   for(int ind=0; ind< lstLines[k].wordsList.Count; ind++)
+                   {
+                       lstLines[k].wordsList[ind].breakup.Clear();
+                       lstLines[k].wordsList[ind].code.Clear();
+                       lstLines[k].wordsList[ind].id.Clear();
+                       lstLines[k].wordsList[ind].language.Clear();
+                       lstLines[k].wordsList[ind].taqti.Clear();
+                       lstLines[k].wordsList[ind].taqtiWordGraft.Clear();
+                   }
                     sp = Scan(k);
                     if (sp.Count > 0)
                     {
@@ -5434,7 +5451,7 @@ namespace Aruuz.Models
                                     {
                                         so.meterName = Meters.specialMeterNames[index - Meters.numMeters - Meters.numVariedMeters - Meters.numRubaiMeters];
                                         int ind = index - Meters.numMeters - Meters.numVariedMeters - Meters.numRubaiMeters;
-                                        if (ind > 6)
+                                        if (ind > 7)
                                             so.feet = zamzamaFeet(ind, code);
                                         else
                                             so.feet = hindiFeet(ind, code);
@@ -5647,7 +5664,7 @@ namespace Aruuz.Models
 
                                     so.id = id;
 
-                                    if (numLines > 1 && TaqtiController.isChecked)
+                                    if (numLines > 1)
                                     {
                                         flag = true;
                                         if (list.Count > 0)
@@ -5742,7 +5759,7 @@ namespace Aruuz.Models
                                     {
                                         so.meterName = Meters.specialMeterNames[index - Meters.numMeters - Meters.numVariedMeters - Meters.numRubaiMeters];
                                         int ind = index - Meters.numMeters - Meters.numVariedMeters - Meters.numRubaiMeters;
-                                        if (ind > 6)
+                                        if (ind > 7)
                                             so.feet = zamzamaFeet(ind, code);
                                         else
                                             so.feet = hindiFeet(ind, code);

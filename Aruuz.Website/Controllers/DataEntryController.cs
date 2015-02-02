@@ -42,7 +42,7 @@ namespace Aruuz.Website.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Poetry(Poetry pt)
         {
-            if (User.Identity.Name.Equals("Usama") || User.Identity.Name.Equals("Mahdi") || User.Identity.Name.Equals("zeesh") || User.Identity.Name.Equals("raza")) 
+            if (User.Identity.Name.Equals("Mahdi") || User.Identity.Name.Equals("zeesh")) 
             {
                 myConn = new MySqlConnection(TaqtiController.connectionString);
                 myConn.Open();
@@ -145,7 +145,7 @@ namespace Aruuz.Website.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Word(WordExeception wd)
         {
-            if (User.Identity.Name.Equals("zeesh"))
+            if (User.Identity.Name.Equals("Mahdi") || User.Identity.Name.Equals("zeesh"))
             {
                 myConn = new MySqlConnection(TaqtiController.connectionString);
                 myConn.Open();

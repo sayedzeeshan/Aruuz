@@ -89,7 +89,7 @@ namespace Aruuz.Website.Controllers
                 MySqlCommand cmd2 = new MySqlCommand(TaqtiController.connectionString);
                 cmd2 = myConn2.CreateCommand();
                 cmd2.CommandText = "select * from mypoetry  where publish = '1' order by id DESC limit @init,@count";
-                if (page == maxPages)
+                if (page == maxPages && residue > 0)
                 {
                     cmd2.Parameters.AddWithValue("@init", (page - 1) * 18);
                     cmd2.Parameters.AddWithValue("@count", residue);
