@@ -27,14 +27,13 @@ namespace Aruuz.Models
 
         static private int NextState(Dictionary<string, int[]> transition, string input, int state)
         {
-            int nextState = -1;
             try
             {
-               return nextState = transition[input][state];
+               return transition[input][state];
             }
             catch
             {
-                return nextState;
+                return -1;
             }
         }
 
