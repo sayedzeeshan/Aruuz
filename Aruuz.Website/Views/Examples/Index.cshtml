@@ -105,14 +105,15 @@
                                             <a href="#"><span class="label @type urdu-naskh pull-left" style="font-size:small">@m.type</span></a>
 
                                             <span class="glyphicon glyphicon-new-window"></span>
-                                            <a href="@url2" class="urdu-sp">  @m.title</a>
+                                            <a href="@url2" class="urdu-large" style="font-weight:bolder">  @m.title</a>
 
 
                                             @{
                                 char[] delimiters = new[] { ',', '،' };  // List of delimiters
                                 var subStrings = m.meters.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
                                 var flag = false;
-                                <p class="urdu-small" style="text-align: right; color:gray">
+                                <br>
+                              <p class="urdu-naskh-small" style="text-align: right; color:gray">
                                     @foreach (var v in subStrings)
                                     {
                                         if (!String.IsNullOrWhiteSpace(v))
@@ -137,21 +138,21 @@
 
                                             <hr style="width: 100%">
 
-                                            <div style="text-align:center">
+                                            <div style="text-align:center" class="urdu">
                                                 @foreach (var v in subStrings)
                                                 {
                                                     if (!String.IsNullOrWhiteSpace(v))
                                                     {
                                                         if (id < 4)
                                                         {
-                                                            @Html.Label(v, new { @class = "urdu-medium" });
+                                                         @v
                                                     <br>
                                                         }
                                                         else
                                                         {
                                                             string s = "۔۔۔۔۔۔۔";
-                                                            <a href="@url2">
-                                                                @s
+                                                            <a href="@url2" class="urdu-naskh-small" style="text-align: center; color:gray">
+                                                            مزید دکھائیں
                                                             </a>
                                                             break;
                                                         }
@@ -168,7 +169,7 @@
                                             <a href="@url2#comments" class="btn btn-sm btn-default">
                                                 <span class="glyphicon glyphicon-comment danger"></span>
                                             </a>
-                                            <a href="/examples/poetry/@m.id#disqus_thread"></a>
+                                            <a href="@url2#disqus_thread"></a>
                                             <a class="urdu" href="/examples/poets?poet=@m.poet" style="float:left; display:inline-block">
                                                 @m.poet
 

@@ -44,17 +44,11 @@ $(window).load(function () {
     //$(".check").removeClass("hidden");
     var h = document.getElementsByTagName("body")[0];
     if ($("#poetrypanel").is(":visible")) {
-        var $span = $(".check2");
+       var $span = $(".check2");
         var max = 0;
         var width = 0;
         for (var i = 0; i < $span.length; i++) {
-            var s = document.createElement("span");
-            s.innerHTML = $span[i].innerHTML;
-            s.setAttribute("class", "urdu-large");
-            h.appendChild(s);
-            width = s.offsetWidth; //width for the default font
-            h.removeChild(s);
-
+            width = $span[i].offsetWidth;
             if (max < width) {
                 max = width;
             }
@@ -74,7 +68,6 @@ $(window).load(function () {
             $(".data").css("content", "");
             $(".data").css("display", "inline-block");
             $(".data").css("width", percentage + "%");
-
         }
     }
     else
@@ -83,12 +76,7 @@ $(window).load(function () {
         var max = 0;
         var width = 0;
         for (var i = 0; i < $span.length; i++) {
-            var s = document.createElement("span");
-            s.innerHTML = $span[i].innerHTML;
-            s.setAttribute("class", "urdu-medium");
-            h.appendChild(s);
-            width = s.offsetWidth; //width for the default font
-            h.removeChild(s);
+            width = $span[i].offsetWidth;
 
             if (max < width) {
                 max = width;
@@ -417,7 +405,7 @@ function publish() {
         <label for='poet-url' class='urdu-naskh-medium'>\
     فیسبک یا ویب سائٹ (شامل کرنا ضروری نہیں) \
     </label>\
-<input class = 'form-control data' placeholder = 'مثال: http://www.facebook.com/xyz'  id='poet-url'>\
+<input class = 'form-control data input-lg' placeholder = 'مثال: http://www.facebook.com/xyz'  id='poet-url' style='font-size:small; font-face:serif'>\
     <br>\
     <label for='title' class='urdu-naskh-medium'>\
     *عنوان \
@@ -491,9 +479,10 @@ function taqtiClicked() {
             var id = mat[1].replace(/[^0-9]/g, '');
             var met = mat[1].replace(/[0-9-]/g, '').replace(/[_]/g, ' ');
             var values = {
+                "id" : parseInt(id,10), // you want to use radix
                 "text": text,
                 "meter": met,
-                "id" : id
+                "isChecked": "false"
             }
             var idText =$(changed[i]).attr('id');
             sectionID = idText.substring(12, idText.length);
@@ -530,7 +519,13 @@ function dictionaryClicked() {
     $('#myModal').modal('toggle');
 }
 function reportClicked(e, name) {
-    var data = "<div class='modal-body urdu-medium'><label for='name-input' class='urdu-naskh-medium'>نام</label><input class = 'form-control data' id='name-input'></input><label for='email-input' class='urdu-naskh-medium'>ای-میل</label><input class = 'form-control data' id='email-input'></input> <label for='comments-input' class='urdu-naskh-medium'>تبصرہ </label><textarea class = 'form-control data' id='comments-input'></textarea></div>";
+    var data = "<div class='modal-body urdu-medium'>\
+        <label for='name-input' class='urdu-naskh-medium'> نام </label>\
+            <input class = 'form-control data input-lg urdu-medium' id='name-input'></input>\
+            <label for='email-input' class='urdu-naskh-medium'>ای-میل</label>\
+            <input class = 'form-control data input-lg' id='email-input' style='font-size:small'></input> \
+            <label for='comments-input' class='urdu-naskh-medium'>تبصرہ </label>\
+                <textarea class = 'form-control data urdu' id='comments-input'></textarea></div>";
 
     if (name != null)
     {
@@ -714,30 +709,71 @@ function modalButtonClicked() {
                 }, 2000);
                 $("#title").focus();
             }
-            else {
+            else
+                {
+                if ($("#poet-url").val() != '') {
+                    if (IsUrl($("#poet-url").val())) {
+                        var values = {
+                            "title": $("#title").val(),
+                            "name": $("#poet-name").val(),
+                            "url": $("#poet-url").val(),
+                            "text": $("#inputTextRes").text(),
+                            "percentage": $("#percentage").text()
+                        };
 
-                var values = {
-                    "title": $("#title").val(),
-                    "name": $("#poet-name").val(),
-                    "url": $("#poet-url").val(),
-                    "text": $("#inputTextRes").text(),
-                    "percentage": $("#percentage").text()
+                        var imgCode = "<div class='modal-body'> <img src='/icons/ajax-loader.gif'></img> </div>";
+                        $("#myModal div.modal-body").replaceWith(imgCode).delay(300);
+
+                        var url = "/mypoetry/publish";
+                        $.post(url, AddAntiForgeryToken(values), function (data) {
+                            $("#myModal div.modal-body").replaceWith(data);
+                            $("#button-label").replaceWith("<p id='button-label' class='urdu'>بند کریں</p>");
+                            $("#button-label").addClass("close-it");
+                            $("#myModal").addClass("opened");
+                            $("#linkbutton").addClass("disabled");
+                            $("#linkbutton2").addClass("disabled");
+
+
+                        });
+
+
+                    }
+                    else {
+
+                        $("#poet-url").after("<div id = 'temp' class = 'urdu-naskh-medium red'><p>ویب سائٹ درست لکھیں </p></div>").delay(2000);
+                        setTimeout(function () {
+                            $('.red').remove();
+                        }, 2000);
+                        $("#poet-url").focus();
+                    }
                 }
+                else
+                {
+                    var values = {
+                        "title": $("#title").val(),
+                        "name": $("#poet-name").val(),
+                        "url": $("#poet-url").val(),
+                        "text": $("#inputTextRes").text(),
+                        "percentage": $("#percentage").text()
+                    };
 
-                var imgCode = "<div class='modal-body'> <img src='/icons/ajax-loader.gif'></img> </div>";
-                $("#myModal div.modal-body").replaceWith(imgCode).delay(300);
+                    var imgCode = "<div class='modal-body'> <img src='/icons/ajax-loader.gif'></img> </div>";
+                    $("#myModal div.modal-body").replaceWith(imgCode).delay(300);
 
-                var url = "/mypoetry/publish";
-                $.post(url, AddAntiForgeryToken(values), function (data) {
-                    $("#myModal div.modal-body").replaceWith(data);
-                    $("#button-label").replaceWith("<p id='button-label' class='urdu'>بند کریں</p>");
-                    $("#button-label").addClass("close-it");
-                    $("#myModal").addClass("opened");
-                    $("#linkbutton").addClass("disabled");
-                    $("#linkbutton2").addClass("disabled");
+                    var url = "/mypoetry/publish";
+                    $.post(url, AddAntiForgeryToken(values), function (data) {
+                        $("#myModal div.modal-body").replaceWith(data);
+                        $("#button-label").replaceWith("<p id='button-label' class='urdu'>بند کریں</p>");
+                        $("#button-label").addClass("close-it");
+                        $("#myModal").addClass("opened");
+                        $("#linkbutton").addClass("disabled");
+                        $("#linkbutton2").addClass("disabled");
 
 
-                });
+                    });
+
+                }
+               
             }
         }
     }
@@ -799,7 +835,6 @@ function IsUrl(url)
     }
 }
 function rowClicked(id) {
-
     var a = "#" + id;
     var OriginalContent = $(a).text().replace(/\s+/g, " ");
     OriginalContent = OriginalContent.substring(7, OriginalContent.length);

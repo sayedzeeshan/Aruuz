@@ -346,10 +346,10 @@ namespace Aruuz.Controllers
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from Poetry where meterID like '%/@met%' order by id DESC";
-            cmd.Parameters.AddWithValue("@met", meter.Replace("_", "/").Trim());
+            cmd.CommandText = "select * from Poetry where meterID like @met order by id DESC";
+            cmd.Parameters.AddWithValue("@met", "%" + meter.Replace("_", "/").Trim() + "%");
             dataReader = cmd.ExecuteReader();
-            int typeId = -1; ;
+            int typeId = -1; 
             while (dataReader.Read())
             {
                 Poetry p = new Poetry();
@@ -463,8 +463,8 @@ namespace Aruuz.Controllers
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from Poetry where text like '%@search%'  order by id DESC";
-            cmd.Parameters.AddWithValue("@search",searchString);
+            cmd.CommandText = "select * from Poetry where text like @search  order by id DESC";
+            cmd.Parameters.AddWithValue("@search","%"+searchString+"%");
             dataReader = cmd.ExecuteReader();
             int typeId = -1; ;
             while (dataReader.Read())

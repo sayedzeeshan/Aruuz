@@ -81,7 +81,7 @@
 
 
                                         <span class="glyphicon glyphicon-new-window"></span>
-                                        <a href="/mypoetry/poetry/@m.id" class="urdu-sp">  @m.title</a>
+                                        <a href="/mypoetry/poetry/@m.id" class="urdu-sp" style="font-weight:bolder">  @m.title</a>
                                         @if (m.date != null)
                                         {
 
@@ -99,7 +99,7 @@
                                         var subStrings = m.text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
                                         int id = 0;
                                         }
-                                        <div style="text-align:center">
+                                        <div style="text-align:center" class="urdu">
 
                                             @foreach (var v in subStrings)
                                             {
@@ -107,16 +107,14 @@
                                                 {
                                                     if (id < 4)
                                                     {
-                                                        @Html.Label(v, new { @class = "urdu-medium" });
+                                                         @v 
                                                 <br>
                                                     }
                                                     else
                                                     {
-                                                        string s = "....";
-                                                        <a href="/mypoetry/poetry/@m.id">
-                                                            @s
+                                                        <a href="/mypoetry/poetry/@m.id" class="urdu-naskh-small" style="text-align: center; color:gray">
+                                                            مزید دکھائیں
                                                         </a>
-                                                        <br>
                                                         break;
                                                     }
                                                     id = id + 1;
@@ -127,12 +125,13 @@
                                     <div class="panel-footer">
 
                                         <span class="glyphicon glyphicon-comment"></span>
-                                        <a href="/mypoetry/poetry/@m.id#disqus_thread"></a>
+                                        <a href="/mypoetry/poetry/@m.id#disqus_thread">
+</a>
 
-                                        <p class="urdu" style="float:left; display:inline-block">
+                                        <div class="urdu-medium" style="float:left; display:table-cell">
                                             @m.name
 
-                                        </p>
+                                        </div>
 
                                     </div>
                                 </div>

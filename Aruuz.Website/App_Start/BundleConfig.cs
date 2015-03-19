@@ -45,7 +45,7 @@ namespace Aruuz.Website
                       "~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/css_custom").Include(
-                     "~/Content/custom.css"));
+                     "~/Content/customnoto.css"));
 
 
             var commonStylesBundle = new CustomStyleBundle(BootstrapPath);

@@ -56,23 +56,23 @@
                                     </a>
                                 </p>
                            
-                            @Html.TextAreaFor(Model => Model.text, 8, 8, new { @class = "form-control input-block-level", @placeholder = " بحر اور تقطیع دیکھنے کے لئے اشعار یہاں داخل کریں", @tabindex = "1" })
+                            @Html.TextAreaFor(Model => Model.text, 8, 8, new { @class = "form-control input-block-level urdu", @placeholder = " بحر اور تقطیع دیکھنے کے لئے اشعار یہاں داخل کریں", @tabindex = "1" })
                         </div>
                         <div class="panel-footer urdu" style="background-color:#dddddd;border-top: 1px solid darkgray;">
                             <div class="row">
                                 <div class="col col-lg-2 col-md-3 col-sm-6 col-xs-12">
                                     <div class="btn-group" data-toggle="buttons" onchange="validate()">
-                                        <label class="btn btn-default btn" data-toggle="popover" data-content="ایسے اشعار جن میں بحر کے ارکان کی تعداد مقرر نہ ہو (آزاد نظموں کے لئے یہ آپشن رکھیں)" data-title="ہدایات">
+                                        <label class="btn btn-default btn" data-toggle="popover" data-content="ایسے اشعار جن میں بحر کے ارکان کی تعداد مقرر نہ ہو (آزاد نظموں کے لیے یہ آپشن رکھیں)" data-title="ہدایات">
                                             آزاد
                                             @Html.RadioButtonFor(model => Model.isChecked, true, new { @type = "radio", @name = "options", @id = "option1", @class = "urdu" })
                                         </label>
-                                        <label class="btn btn-default active" data-toggle="popover" data-content="ایسے اشعار جن میں بحر کے ارکان کی تعداد متعین ہو(غزل اور پابند نظم کے لئے یہ آپشن رکھیں) " data-title="ہدایات">
+                                        <label class="btn btn-default active" data-toggle="popover" data-content="ایسے اشعار جن میں بحر کے ارکان کی تعداد متعین ہو(غزل اور پابند نظم کے لیے یہ آپشن رکھیں) " data-title="ہدایات">
                                             پابند
                                             @Html.RadioButtonFor(model => Model.isChecked, false, new { @type = "radio", @name = "options", @id = "option2", @class = "active urdu" })
                                         </label>
                                     </div>
 
-                                    <div class="btn btn-sm btn-default" onclick="infoClicked(3)" data-toggle="popover" data-content="اردو کی-بورڈ کے بغیر اس سائٹ میں انپٹ دینے کے لئے اس کی-بورڈ لے-آوٹ کا ستعمال کریں" data-title="ہدایات">
+                                    <div class="btn btn-sm btn-default" onclick="infoClicked(3)" data-toggle="popover" data-content="اردو کی-بورڈ کے بغیر اس سایٹ میں انپٹ دینے کے لیے اس کی-بورڈ لے-آوٹ کا ستعمال کریں" data-title="ہدایات">
                                         <img src="~/icons/keyboard.png" alt="کی-بورڈ کا لے-آوٹ" />
                                     </div>
                                 </div>

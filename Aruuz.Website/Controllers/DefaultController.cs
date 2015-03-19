@@ -81,7 +81,7 @@ namespace Aruuz.Website.Controllers
                 }
 
                 lst = scn.scanLines();
-               
+
 
 
                 if (lst.Count == 0)
@@ -90,17 +90,19 @@ namespace Aruuz.Website.Controllers
                 }
                 else
                 {
-                    List<scanOutputApi> list = TaqtiController.convert(lst);
-                    if (list.Count > 1)
-                    {
-                        return Json(list);
-                    }
-                    else
-                    {
-                        return Json(list.First());
+                      List<scanOutputApi> list = TaqtiController.convert(lst);
+                      if (list.Count > 1)
+                      {
+                          return Json(list);
+                      }
+                      else
+                      {
+                          return Json(list.First());
 
-                    }
-                }
+                      }
+                  }
+
+                                    
 
                // return (new JavaScriptSerializer().Serialize(TaqtiController.convert(lst).ToArray()));
             }

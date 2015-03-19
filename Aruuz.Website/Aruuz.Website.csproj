@@ -370,6 +370,8 @@
     <Content Include="Content\bootstrap.css.map">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="fonts\amarnastaleeq-webfont.ttf" />
+    <Content Include="fonts\amarnastaleeq-webfont.woff" />
     <None Include="Properties\PublishProfiles\ftphome.pubxml" />
     <None Include="Properties\PublishProfiles\home.pubxml" />
     <None Include="Properties\PublishProfiles\LabProfile.pubxml" />

@@ -444,7 +444,7 @@ namespace Aruuz.Controllers
                 cmd2 = myConn2.CreateCommand();
                 cmd2.CommandText = "update poetry set taqtiObject = @object where id = @id;";
                 cmd2.Parameters.AddWithValue("@object", (string)textWriter.ToString());
-                cmd2.Parameters.AddWithValue("@id",id + 65536)
+                cmd2.Parameters.AddWithValue("@id", id + 65536);
                 cmd2.ExecuteNonQuery();
                 myConn2.Close();
             }

@@ -5216,7 +5216,7 @@ namespace Aruuz.Models
                                     so.meterName = Meters.meterNames[index];
                                     so.feet = Meters.Afail(Meters.meters[index]);
                                     meter = Meters.meters[index];
-                                    so.id = Meters.id[index];
+                                   // so.id = Meters.id[index];
                                 }
                                 else if (index < Meters.numMeters + Meters.numVariedMeters && index >= Meters.numMeters)
                                 {

@@ -64,7 +64,7 @@
 
                                                     <tbody id="section0_@sectionID">
                                                         <tr>
-                                                            <td colspan="3" class="success urdu-medium">
+                                                            <td colspan="3" class="success urdu-naskh">
                                                                 @if (findMeter.find(item.meterName))
                                                                 {
                                                                     <a class="breathe" target="_blank" href="/examples/meters?meter=@item.meterName">  @Html.DisplayFor(metername => item.meterName)</a>
@@ -76,7 +76,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="3" class="success urdu-sp" align="right">
+                                                            <td colspan="3" class="success urdu-naskh" align="right">
 
                                                                 @Html.DisplayFor(metername => item.feet)
 
@@ -85,7 +85,7 @@
                                                     </tbody>
 
                                                     <tbody id="section1_@sectionID">
-                                                        <tr class="urdu">
+                                                        <tr class="urdu-medium">
                                                             @foreach (var m in item.words)
                                                             {
                                                                 if (m.id[0] != -1 && !m.modified)

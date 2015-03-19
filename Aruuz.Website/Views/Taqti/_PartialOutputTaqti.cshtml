@@ -273,7 +273,7 @@
 
                                                 <tbody id="section0_@sectionID">
                                                     <tr>
-                                                        <td colspan="3" class="success urdu-medium" >
+                                                        <td colspan="3" class="success urdu-naskh" >
                                                             @if (findMeter.find(item.meterName))
                                                             {
                                                                 <a class="breathe" target="_blank" href="/examples/meters?meter=@item.meterName">  @Html.DisplayFor(metername => item.meterName)</a>
@@ -285,7 +285,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="3" class="success urdu-sp" align="right">
+                                                        <td colspan="3" class="success urdu-naskh" align="right">
 
                                                             @Html.DisplayFor(metername => item.feet)
 
@@ -466,14 +466,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <div class="btn-group" data-toggle="buttons" onchange="validate()">
-                        <label class="btn btn-default" data-toggle="popover" data-content="تفصیلات دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                        <label class="btn btn-default" data-toggle="popover" data-content="تفصیلات دیکھنے کے لیے یہاں کلک کریں" data-title="ہدایات">
 
                             <span class="glyphicon glyphicon-plus"></span>
                             <input type="radio" name="options" id="option1">
 
                         </label>
 
-                        <label class="btn btn-default active" data-toggle="popover" data-content="تفصیلات چھپانے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                        <label class="btn btn-default active" data-toggle="popover" data-content="تفصیلات چھپانے کے لیے یہاں کلک کریں" data-title="ہدایات">
                             <span class="glyphicon glyphicon-minus"></span>
                             <input type="radio" name="options" id="option2" checked="checked">
                         </label>
@@ -482,7 +482,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <div class="btn btn-default" id="infoBtn" onclick="infoClicked(4)" data-toggle="popover" data-content="نتیجے میں استعمال ہونے والے نشانات  کی تفصیل دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                    <div class="btn btn-default" id="infoBtn" onclick="infoClicked(4)" data-toggle="popover" data-content="نتیجے میں استعمال ہونے والے نشانات  کی تفصیل دیکھنے کے لیے یہاں کلک کریں" data-title="ہدایات">
                         <span class="glyphicon glyphicon-info-sign"></span>
                     </div>
                 </li>
@@ -492,7 +492,7 @@
 
                     <div class="dropdown" dir="rtl" id="dropdown2">
                         <div class="btn btn-default" data-toggle="dropdown">
-                            <div data-toggle="popover" data-content="بحور کی فہرست دیکھنے کے لئے یہاں کلک کریں" data-title="ہدایات">
+                            <div data-toggle="popover" data-content="بحور کی فہرست دیکھنے کے لیے یہاں کلک کریں" data-title="ہدایات">
                                 <span class="badge">@concatListFinal.Count.ToString()</span>
                                 <span class="caret"></span>
                             </div>

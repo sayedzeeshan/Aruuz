@@ -26,14 +26,14 @@
 
                 <fieldset>
                     @Html.Label("لفظ");
-                    @Html.TextBoxFor(Model => Model.word, new { @class = "form-control urdu-ed" })
+                    @Html.TextBoxFor(Model => Model.word, new { @class = "form-control urdu-ed input-lg urdu-naskh-medium" })
 
                     <br>
                     @Html.Label("تقطیع کوڈ 1")
-                    @Html.TextBoxFor(Model => Model.taqti, new { @class = "form-control" })
+                    @Html.TextBoxFor(Model => Model.taqti, new { @class = "form-control urdu-naskh-medium" })
                     <br>
                     @Html.Label("تقطیع کوڈ 2")
-                    @Html.TextBoxFor(Model => Model.taqti2, new { @class = "form-control" })
+                    @Html.TextBoxFor(Model => Model.taqti2, new { @class = "form-control urdu-naskh-medium" })
                     <br>
                     <input type="submit" class="btn btn-primary btn-lg" value="داخل کریں" />
 

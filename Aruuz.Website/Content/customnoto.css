@@ -1,72 +1,97 @@
-﻿  @font-face {
-  font-family: 'Noto Nastaliq Urdu Draft';
+﻿  /*@font-face {
+  font-family: 'amarnastaleeq-webfont';
   font-style: normal;
   font-weight: normal;
          src: url('../fonts/NotoNastaliqUrduDraft.woff') format('woff');
+}*/
+
+  @font-face {
+	font-family: amarnastaleeq-webfont;
+	src: url('../fonts/amarnastaleeq-webfont.ttf') format('truetype'), url('../fonts/amarnastaleeq-webfont.woff');
 }
   
-    @font-face {
-        font-family: nafees-naskh-regular;
-        src: url('../fonts/nafees-web-naskh-regular.ttf') format('truetype');
-        font-weight: normal;
+  /*
+  @font-face {
+        font-family: Amiri;
+        src:  url('../fonts/amiri-regular.ttf') format('truetype');
         font-style: normal;
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+FB50-FDFF, U+FE80-FEFC;
     }
+    */
+  @font-face {
+  font-family: 'Amiri';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Amiri'), local('Amiri-Regular'), url(http://fonts.gstatic.com/s/amiri/v7/7uGqdnOlOhcFsG_5_cvW9A.woff2) format('woff2');
+  unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+FB50-FDFF, U+FE80-FEFC;
+}
+  
 
     
 .urdu-naskh {
     direction: rtl;
     font-size: larger;
-    font-family: 'nafees-naskh-regular';
+    font-family: 'Amiri';
 }
 
 .urdu-naskh-medium {
     direction: rtl;
     font-size: medium;
-    font-family: 'nafees-naskh-regular';
+    font-family: 'Amiri';
 }
+
+.urdu-naskh-small {
+    line-height: 120%;
+    direction: rtl;
+    font-size: smaller;
+    font-family: 'Amiri';
+}
+
 
 
 .urdu {
-    line-height: 200%;
+    line-height: 160%;
      direction: rtl;
     font-size: large;
-    font-family: 'Noto Nastaliq Urdu Draft','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-sp {
-    line-height: 200%;
+    line-height: 160%;
      direction: rtl;
     font-size: large;
-    font-family: 'Noto Nastaliq Urdu Draft','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 
 .urdu-medium {
     line-height: 150%;
     direction: rtl;
-    font-size: small;
-    font-family: 'Noto Nastaliq Urdu Draft','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-size: medium;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-huge {
-    line-height: 225%;
+    line-height: 160%;
     direction: rtl;
     font-size: x-large;
-    font-family: 'Noto Nastaliq Urdu Draft','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-large {
-    line-height: 225%;
+    line-height: 180%;
     direction: rtl;
     font-size: larger;
-    font-family: 'Noto Nastaliq Urdu Draft','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-small {
     line-height: 70%;
     direction: rtl;
     font-size: smaller;
-    font-family: 'Noto Nastaliq Urdu Draft','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 

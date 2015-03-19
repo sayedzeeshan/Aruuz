@@ -26,13 +26,13 @@
 {
     @Html.ValidationSummary(true)
         @Html.AntiForgeryToken()
-    <div class="container urdu">
+    <div class="container urdu-medium">
         <div class="row">
             <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                 <fieldset>
                     @Html.Label("شاعر")
-                    @Html.TextBoxFor(Model => Model.poet, new { @class = "form-control" })
+                    @Html.TextBoxFor(Model => Model.poet, new { @class = "form-control input-lg urdu-naskh-medium" })
 
                     <br>
 
@@ -51,10 +51,10 @@
 
                     <br>
                     @Html.Label("بحور")
-                    @Html.TextBoxFor(Model => Model.meters, new { @class = "form-control" })
+                    @Html.TextBoxFor(Model => Model.meters, new { @class = "form-control input-lg urdu-naskh-medium" })
                     <br>
                     @Html.Label("عنوان")
-                    @Html.TextBoxFor(Model => Model.title, new { @class = "form-control" })
+                    @Html.TextBoxFor(Model => Model.title, new { @class = "form-control input-lg urdu-naskh-medium" })
                     <br>
                     @Html.Label("کلام")
                     @Html.EditorFor(Model => Model.text, "Multiline")

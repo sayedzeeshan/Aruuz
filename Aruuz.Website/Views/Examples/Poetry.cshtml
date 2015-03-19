@@ -210,7 +210,7 @@
                                             {
                                                 if (Meters.usage[k] == 0)
                                                 {
-                                                    afail.Add(Meters.Afail(Meters.meters[k]) + " (غیر مستعمل وزن)");
+                                                   // afail.Add(Meters.Afail(Meters.meters[k]) + " (غیر مستعمل وزن)");
                                                 }
                                                 else
                                                 {
@@ -224,11 +224,11 @@
                                                 foreach (var t in afail)
                                                 {
                                                     <tr>
-                                                        <td colspan="3">
+                                                        <td colspan="3" class="urdu-naskh">
 
                                                             @Html.ActionLink(m, "Meters", "Examples", new { meter = m.Replace("/", "_") }, null)
                                                             <br>
-                                                            <span class="urdu-large">@t</span>
+                                                            <span class="urdu-naskh">@t</span>
                                                         </td>
                                                     </tr>
 
@@ -237,7 +237,7 @@
                                             else
                                             {
                                                 <tr>
-                                                    <td>
+                                                    <td class="urdu-naskh">
                                                         @m
                                                     </td>
                                                     <td></td>

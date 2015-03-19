@@ -6,6 +6,11 @@
         font-style: normal;
     }
 
+ @font-face {
+	font-family: amarnastaleeq-webfont;
+	src: url('../fonts/amarnastaleeq-webfont.ttf') format('truetype'), url('../fonts/amarnastaleeq-webfont.woff');
+}
+
     
 .urdu-naskh {
     direction: rtl;
@@ -24,7 +29,7 @@
     font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
     direction: rtl;
     font-size: larger;
-    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-sp {
@@ -33,7 +38,7 @@
     font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
     direction: rtl;
     font-size: x-large;
-    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family:'amarnastaleeq-webfont', 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-medium {
@@ -42,7 +47,7 @@
     font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
      direction: rtl;
     font-size: large;
-    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-huge {
@@ -51,7 +56,7 @@
      font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
      direction: rtl;
     font-size: xx-large;
-    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-large {
@@ -60,7 +65,7 @@
     font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
     direction: rtl;
     font-size: x-large;
-    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .urdu-small {
@@ -69,7 +74,7 @@
     font-feature-settings: "ccmp" 0; /* Firefox 4.0 to 14.0 */
     direction: rtl;
     font-size: medium;
-    font-family: 'Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
+    font-family: 'amarnastaleeq-webfont','Jameel Noori Nastaleeq','nafees-naskh-regular', 'Alvi Nastaleeq', 'Alvi Lahori Nastaleeq','AlQalam Taj Nastaleeq', 'Nafees Nastaleeq','Urdu Typesetting', 'Urdu Naskh Asiatype', Tahoma, sans-serif;
 }
 
 .sidebar-nav-fixed {

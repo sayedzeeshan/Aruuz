@@ -161,8 +161,8 @@ namespace Aruuz.Models
                 MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
                 cmd = myConn.CreateCommand();
                 //cmd.CommandText = "select * from Poetry where meterID like '%" + meterName + "%' order by RAND() limit 4";
-                cmd.CommandText = "SELECT  a.* FROM  poetry a INNER JOIN  (SELECT title,poet,meterID FROM poetry  where meterID like '%@meterName%'  GROUP BY poet order by rand()) b ON a.title = b.title and a.meterID = b.meterID limit 0,4";
-                cmd.Parameters.AddWithValue("@meterName", meterName.Trim());
+                cmd.CommandText = "SELECT  a.* FROM  poetry a INNER JOIN  (SELECT title,poet,meterID FROM poetry  where meterID like @meterName  GROUP BY poet order by rand()) b ON a.title = b.title and a.meterID = b.meterID limit 0,4";
+                cmd.Parameters.AddWithValue("@meterName", "%" + meterName.Trim() + "%");
                 dataReader = cmd.ExecuteReader();
                 int typeId = -1; ;
                 while (dataReader.Read())
@@ -213,8 +213,8 @@ namespace Aruuz.Models
             myConn.Open();
             MySqlCommand cmd = new MySqlCommand(TaqtiController.connectionString);
             cmd = myConn.CreateCommand();
-            cmd.CommandText = "select * from Poetry where meterID like '%@meterName%' order by id DESC";
-            cmd.Parameters.AddWithValue("@ meterName", meterName); 
+            cmd.CommandText = "select * from Poetry where meterID like @meterName order by id DESC";
+            cmd.Parameters.AddWithValue("@meterName", "%"+ meterName + "%"); 
             dataReader = cmd.ExecuteReader();
             int typeId = -1; ;
             while (dataReader.Read())
@@ -427,7 +427,7 @@ namespace Aruuz.Models
         public string text { get; set; }
         public bool isChecked { get; set; }
         public string meter { get; set; }
-        public int id;
+        public int id { get; set; }
     }
     public class Words
     {

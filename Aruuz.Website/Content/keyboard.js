@@ -218,13 +218,13 @@
         //el.style.fontFamily = "Jameel Noori Nastaliq";
         //el.style.fontSize = pt;
         //el.style.backgroundColor = "Inherit";
-        if ($(el).is("textarea")) {
+       /* if ($(el).is("textarea")) {
             el.addClass("urdu-large");
         }
         else if ($(el).is("input"))
         {
             el.addClass("urdu-small");
-        }
+        }*/
     }
     AddText = function (text) {
         if (!currEdit) return;
